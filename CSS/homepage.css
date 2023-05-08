@@ -1,0 +1,146 @@
+:root {
+    --navBar-bg-color: #8f8f8f;
+    --menu-hover-color: #dbdbdb;
+    --menu-font-size: calc(20px + 0.2vh);
+    --menu-border-color: #4d4d4d;
+ }
+
+ * {
+    box-sizing: border-box;
+ }
+
+ html,
+ body {
+    width: 100%;
+    height: 100%;
+ }
+
+ body {
+    margin: 0px;
+    padding: 0px;
+    /* overflow: hidden; */
+    /* background-color: pink; */
+ }
+
+ #container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    /* background-color: blue; */
+    padding: 0px;
+ }
+
+ #biggerContainer {
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0px;
+    margin-top: calc(70px);
+    padding: 0px;
+    /* background-color: red; */
+ }
+
+ #bodyContainer {
+    /* overflow-x: scroll; */
+    /* margin-top: 70px; */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+ }
+
+ #bodyContainer img {
+    max-width: 100%;
+ }
+
+ #bodyContainer .mySlides,
+ #bodyContainer .containerXX {
+    min-width: 500px;
+ }
+
+ #bodyContainer .containerXX {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+ }
+
+ #bodyContainer .containerx {
+    width: 100%;
+    padding-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 800px;
+ }
+
+ #bodyContainer .containerx img {
+    width: 100%;
+    display: block;
+    flex-basis: 700px;
+ }
+
+ .containerx:nth-child(1) img {
+    padding-right: 10px;
+ }
+
+ .containerx:nth-child(2) img {
+    padding-left: 10px;
+ }
+
+ #bodyContainer .containerx:hover img {
+    opacity: 0.7;
+ }
+
+ .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+ }
+
+ .containerx:hover .overlay {
+    height: 100%;
+ }
+
+ .text {
+    color: white;
+    font-size: calc(20 * 0.3vw);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+ }
+ .text a{
+   text-decoration: none;
+   color: white;
+}
+
+ @media screen and (max-width: 600px) {
+    header {
+       font-size: calc(12px);
+       padding: calc(0.4vh);
+    }
+
+    #biggerContainer {
+       margin-top: 16vw;
+    }
+
+    #bodyContainer .mySlides,
+    #bodyContainer .containerXX {
+       min-width: unset;
+    }
+
+    #bodyContainer {
+       padding: 15px;
+    }
+
+    #bodyContainer .containerXX {
+       flex-direction: column;
+    }
+ }

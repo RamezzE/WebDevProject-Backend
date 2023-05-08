@@ -1,0 +1,142 @@
+:root {
+    --navBar-bg-color: #8f8f8f;
+    --menu-hover-color: #dbdbdb;
+    --menu-font-size: calc(20px + 0.2vh);
+    --menu-border-color: #4d4d4d;
+}
+
+#topNav {
+    background-color: var(--navBar-bg-color);
+    z-index: 2;
+    width: 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    margin-bottom: 0px;
+}
+
+#topNav header {
+    background-color: #fbfcfd;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    font-size: 16px;
+}
+
+#topNav div.row1,
+#topNav div.row2 {
+    display: flex;
+}
+
+#topNav div.row2 {
+    background-color: rgb(255, 254, 255);
+    flex-direction: row;
+    font-size: var(--menu-font-size);
+    text-decoration-style: solid;
+    justify-content: center;
+    align-items: center;
+}
+
+#topNav .navImg {
+    height: calc(20px + 0.6vh);
+}
+
+#topNav img,
+input[type="image"] {
+    min-height: 20px;
+}
+
+#topNav .menuIcon,
+#topNav .searchSpan {
+    padding: 10px 15px;
+}
+
+
+#topNav .menuIcon:hover,
+#topNav .searchSpan:hover {
+    background-color: var(--menu-hover-color);
+    transition: 0.3s;
+}
+
+#topNav .searchSpan {
+    display: none;
+    max-width: 400px;
+    padding: 8px;
+}
+
+#topNav .searchSpan .searchBox {
+    height: 100%;
+    border-radius: 5px;
+}
+
+#topNav #searchImg {
+    margin-left: auto;
+}
+
+#topNav .menuItem {
+    padding: calc(10px + 0.5vh);
+    text-decoration: none;
+    color: black;
+    display: none;
+}
+
+#topNav .menuItem:hover {
+    color: var(--menu-hover-color);
+    transition: 0.3s;
+    border-bottom: 5px var(--menu-border-color) inset;
+    padding-bottom: 5px;
+}
+
+
+/* Smaller screens configurations: */
+
+
+@media screen and (max-width: 600px) {
+
+    #topNav {
+        font-size: calc(var(--menu-font-size) * 1.5vw);
+    }
+
+    #topNav header {
+        font-size: calc(12px);
+        padding: calc(0.4vh);
+     }
+
+    #topNav div.row1 {
+        justify-content: space-between;
+        background-color: var(--navBar-bg-color);
+        overflow: hidden;
+    }
+
+    #topNav .navImg {
+        height: 2.7vh;
+    }
+
+    #topNav #searchImg {
+        margin-left: auto;
+    }
+
+
+    #topNav div.row2 {
+        flex-direction: column;
+        align-items: unset;
+        justify-content: unset;
+        font-size: inherit;
+    }
+
+    #topNav .menuItem {
+        display: none;
+        border-bottom: 1px solid var(--menu-border-color);
+        font-size: inherit;
+    }
+
+    #topNav .menuItem:hover {
+        background-color: var(--menu-hover-color);
+        color: black;
+    }
+
+}
