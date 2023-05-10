@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    background: #d5cfc9;
+    width: 100vw;
+    height: 100vh;
+    font-family: poppins, sans-serif;
+    font-size: 0.88rem;
+    user-select: none;
+    overflow-x: hidden;
+    color: #363949;
+}
+
+.expenses,.income,.sales {
+    min-width:fit-content;
+}
+
+/* #container {
+    margin-top: 2%;
+} */
+
+/* .insights-container {
+    display: grid;
+    width: 96%;
+    margin: 0, auto;
+    gap: 1.8rem;
+    grid-template-columns: 14rem auto 23rem;
+} */
+
+.right {
+    float: right;
+}
+
+a {
+    color: #363949;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h3 {
+    font-size: 0.87rem;
+}
+
+h4 {
+    font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.77rem;
+}
+
+small {
+    font-size: 0.75rem;
+}
+
+.text-muted {
+    color: #7d8da1;
+}
+
+p {
+    color: #677483
+}
+
+b {
+    color: #363949;
+}
+
+.primary {
+    color: #7380ec;
+}
+
+.danger {
+    color: #ff7782
+}
+
+.success {
+    color: #41f1b6;
+}
+
+.warning {
+    color: #ffbb55;
+}
+
+.date {
+    display: inline-block;
+    color: #dce1eb;
+    border-radius: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+}
+
+.date input[type='date'] {
+    background: transparent;
+    color: #363949;
+}
+
+.my-insights {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    /* grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem; */
+}
+
+.my-insights > div {
+    background: #fff;
+    padding: 1.8rem;
+    width: 20vw;
+    border-radius: 2rem;
+    margin: 1rem;
+    box-shadow: 0 2rem 3rem rgba(48, 49, 53, 0.3);
+    transition: all ease 300ms;
+}
+
+@media screen and (max-width: 1000px) {
+    .my-insights > div {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .my-insights > div {
+        width: 50vw;
+    }
+    .right {
+        float: left;
+    }
+}
+
+.my-insights > div:hover {
+    box-shadow: none;
+}
+
+.my-insights > div span {
+    padding: 0.5rem;
+    border-radius: 50%;
+    color: black;
+    font-size: 2rem;
+}
+
+.my-insights > div .middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my-insights h3 {
+    margin: 1rem 0 0 0.6rem;
+    font-size: 1rem;
+}
+
+.my-insights .progress {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+.my-insights svg {
+    width: 7rem;
+    height: 7rem;
+}
+
+.my-insights svg circle {
+    fill: none;
+    stroke: #363949;
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 110;
+    stroke-dashoffset: 92;
+}
+
+.my-insights .sales svg circle {
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+}
+
+.my-insights .expenses svg circle {
+    stroke-dashoffset: 20;
+    stroke-dasharray: 83;
+}
+
+.my-insights .income svg circle {
+    stroke-dashoffset: 35;
+    stroke-dasharray: 110;
+}
+
+.my-insights .progress .number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-insights small {
+    margin-top: 1.6rem;
+    display: block;
+}
+
+.recent-orders {
+    margin-top: 2rem;
+}
+
+.recent-orders h2 {
+    margin-bottom: 0.8rem;
+}
+
+.recent-orders a {
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+}
+
+.right {
+    margin-top: 1.4rem;
+}
+
+.right .recent-updates {
+    margin-top: 1rem;
+}
+
+.right .recent-updates h2 {
+    margin-bottom: 0.8rem;
+}
+
+.right .recent-updates .updates {
+    background: #fff;
+    padding: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2rem 3rem rgba(48, 49, 53, 0.3);
+    transition: all 300ms ease;
+}
+
+.right .recent-updates .updates:hover {
+    box-shadow: none;
+}
+
+.right .recent-updates .updates .update {
+    display: grid;
+    grid-template-columns: 2.6rem auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}

@@ -30,4 +30,19 @@ app.get('/register', function (req, res) {
 app.get('/account', function (req, res) {
     res.render('account', { title: 'Home' });
 });
+app.get('/dashboard', function (req, res) {
+    res.render('dashboard', { title: 'Home' });
+});
+app.get('/men', function (req, res) {
+    res.render('men_products', { title: 'Home' });
+});
+app.get('/women', function (req, res) {
+    res.render('women_products', { title: 'Home' });
+});
+app.get('/shoes', function (req, res) {
+    res.render('shoes_products', { title: 'Home' });
+});
+app.get('/ProductDetails', function (req, res) {
+    res.render('ProductDetails', { title: 'Home' });
+});
 app.listen(port)

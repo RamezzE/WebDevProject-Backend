@@ -1,0 +1,22 @@
+:root {
+    --body-font-color: #232527;
+    --navBar-hover-color: rgb(51, 55, 57);
+    --bg-color:#d5cfc9;
+    /* #bab4ad */
+}
+
+#home #suggested ul li{
+    list-style-type: none;
+    font-weight: bold;
+    margin-top:20px;
+    padding:10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    transition: ease all 300ms;
+}
+
+#home #suggested ul li:hover {
+    background-color: var(--body-font-color);
+    color:var(--bg-color);
+    /* cursor: pointer; */
+}

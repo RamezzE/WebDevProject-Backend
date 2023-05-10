@@ -1,0 +1,382 @@
+:root {
+    --body-font-color: #232527;
+    --navBar-hover-color: rgb(51, 55, 57);
+    /* --bg-color:#d5cfc9; */
+    --bg-color: #f2f2f6;
+    /* #bab4ad */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,body {
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html,body,#topNav,#bodyContainer {
+    width:100vw;
+}
+
+body {
+  overflow: hidden;
+}
+
+#bodyContainer {
+    margin: 0px;
+    display: flex;
+    overflow: hidden;
+}
+
+#container {
+    height:100%;
+    width:100%;
+    /* background-color: var(--bg-color); */
+    color: var(--body-font-color);
+    /* padding-top:60px; */
+    overflow-y:auto;
+}
+
+.only-one {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f6;
+    padding:100px;
+    padding-top:0px;
+    border: 1px solid black;
+    height:100%;
+    overflow-y: scroll;
+}
+
+.smallContainer {
+    /* background-color: rgb(51, 55, 57,0.5); */
+    /* background: #fff; */
+    border-radius: 10px;
+    padding:15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:30px;
+    min-width: fit-content;
+}
+
+body {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ---------------- UPLOAD IMAGE THING ---------------- */
+.upload-image {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px;
+    gap: 5px;
+    background-color: white;
+  }
+  
+  .upload-image .header {
+    flex: 1;
+    width: 100%;
+    border: 2px dashed royalblue;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .upload-image .header svg {
+    height: 20px;
+  }
+  
+  .upload-image .header p {
+    text-align: center;
+    color: black;
+  }
+  
+  .upload-image .footer {
+    background-color: rgba(0, 110, 255, 0.075);
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: black;
+    border: none;
+  }
+  
+  .upload-image .footer svg {
+    height: 130%;
+    fill: royalblue;
+    background-color: rgba(70, 66, 66, 0.103);
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+  }
+  
+  .upload-image .footer p {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .upload-image #file {
+    display: none;
+  }
+  /* ---------------- END OF UPLOAD IMAGE THING ---------------- */
+
+  .overlay-div {
+    display: none;
+  }
+
+/* ------------------------ PRODUCT FORM ------------------------ */
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    margin: 20px auto;
+    transform: translate(-50%, -55%);
+    background: rgba(0,0,0,.9);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+  
+  .login-box p:first-child {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .login-box .user-box {
+    position: relative;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  
+  .login-box .user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .login-box .user-box input:focus ~ label,
+  .login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #fff;
+    font-size: 12px;
+  }
+  
+  .login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 3px
+  }
+  
+  .login-box a:hover {
+    background: #fff;
+    color: #272727;
+    border-radius: 5px;
+  }
+  
+  .login-box a span {
+    position: absolute;
+    display: block;
+  }
+  
+  .login-box a span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff);
+    animation: btn-anim1 1.5s linear infinite;
+  }
+  
+  @keyframes btn-anim1 {
+    0% {
+      left: -100%;
+    }
+  
+    50%,100% {
+      left: 100%;
+    }
+  }
+  
+  .login-box a span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #fff);
+    animation: btn-anim2 1.5s linear infinite;
+    animation-delay: .375s
+  }
+  
+  @keyframes btn-anim2 {
+    0% {
+      top: -100%;
+    }
+  
+    50%,100% {
+      top: 100%;
+    }
+  }
+  
+  .login-box a span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #fff);
+    animation: btn-anim3 1.5s linear infinite;
+    animation-delay: .75s
+  }
+  
+  @keyframes btn-anim3 {
+    0% {
+      right: -100%;
+    }
+  
+    50%,100% {
+      right: 100%;
+    }
+  }
+  
+  .login-box a span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #fff);
+    animation: btn-anim4 1.5s linear infinite;
+    animation-delay: 1.125s
+  }
+  
+  @keyframes btn-anim4 {
+    0% {
+      bottom: -100%;
+    }
+  
+    50%,100% {
+      bottom: 100%;
+    }
+  }
+  
+  .login-box p:last-child {
+    color: #aaa;
+    font-size: 14px;
+  }
+  
+  .login-box a.a2 {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .login-box a.a2:hover {
+    background: transparent;
+    color: #aaa;
+    border-radius: 5px;
+  }
+  /* ------------------------ END OF PRODUCT FORM ------------------------ */
+
+table {
+    background: #fff;
+    width: 100%;
+    border-radius: 2rem;
+    padding: 1.8rem;
+    text-align: center;
+    box-shadow: 0 2rem 3rem rgba(48, 49, 53, 0.3);
+    transition: all 300ms ease;
+}
+
+table:hover {
+    box-shadow: none;
+}
+
+table tbody td {
+    border: none;
+    height: 2.8rem;
+    border-bottom: 1px solid #7d8da1;
+    color: #677483;
+}
+
+table tbody tr:last-child td{
+    border: none;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height:15px;
+  }
+  
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+  @media screen and (max-width:600px) {
+      .only-one {
+        padding:20px;
+        padding-bottom:100px;
+      }
+  }

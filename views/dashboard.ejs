@@ -1,0 +1,517 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard_header.css">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard_sidebar.css">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard.css">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard_home.css">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard_products.css">
+    <link rel="stylesheet" type=text/css href="CSS/dashboard_users.css">
+    <link rel="stylesheet" href="CSS/dashboard_insights.css">
+    <link rel="stylesheet" href="CSS/dashboard_account.css">
+    <!-- <link rel="stylesheet" href="CSS/account.css"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div id="bodyContainer">
+
+        <div id="sidebar">
+            <a><img src="Images/Dashboard/menu.png" onclick="toggleSidebar()"></a>
+            <a onclick="setTimeout(OneAtATime, 50, 'home'); makeActive(this);" href="#" class="active"><img
+                    src="Images/Dashboard/home.png"><span>Dashboard</span></a>
+            <a onclick="setTimeout(OneAtATime, 50, 'insights'); makeActive(this);" href="#"><img
+                    src="Images/Dashboard/analysis.png"><span>Insights</span></a>
+            <a onclick="setTimeout(OneAtATime, 50, 'users'); makeActive(this);" href="#"><img
+                    src="Images/Dashboard/users.png"><span>Users</span></a>
+            <a onclick="setTimeout(OneAtATime, 50, 'products'); makeActive(this);" href="#"><img
+                    src="Images/Dashboard/cart.png"><span>Products</span></a>
+            <!-- <a href=""><img src="Images/Dashboard/coins.png"><span>Finance</span></a> -->
+            <a onclick="setTimeout(OneAtATime, 50, 'account'); makeActive(this);" href="#"><img src="Images/Dashboard/account.png"><span>Account</span></a>
+        </div>
+
+        <div id="container">
+
+            <!-- <div id="topNav">
+                <span class = "logo">Logo and Name</span>
+                <img class = "searchImg" src = "Images/Dashboard/search.png">
+                <img src = "Images/Dashboard/msg.png">
+
+            </div> -->
+
+            <div id="home" class="only-one">
+                <h1>Welcome Back, Admin</h1>
+                <div id="suggested" class="smallContainer">
+                    <h4>Suggested for you</h4>
+                    <ul>
+                        <a href="#">
+                            <li>Update your products</li>
+                        </a>
+                        <a onclick="setTimeout(OneAtATime, 50, 'users'); makeActive(this);" href="#" class="active">
+                            <li>Check Users</li>
+                        </a>
+                        <a onclick="setTimeout(OneAtATime, 50, 'insights'); makeActive(this);" href="#" class="active">
+                            <li>Review Insights</li>
+                        </a>
+                        <a href="#">
+                            <li>Review profits</li>
+                        </a>
+                        <a href="#">
+                            <li>Update your products</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="insights-container">
+                <div id="insights" class="only-one">
+                    <h1>Insights</h1>
+
+                    <div class="date">
+                        <input type="date">
+                    </div>
+
+                    <div class="my-insights">
+                        <div class="sales">
+                            <span class="material-icons-outlined">analytics</span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Total Sales</h3>
+                                    <h1>$21,092</h1>
+                                </div>
+                                <div class="progress">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>81%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+
+                        <!---------------- END OF SALES ----------------->
+                        <div class="expenses">
+                            <span class="material-icons-outlined">bar_chart</span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Total Expenses</h3>
+                                    <h1>$16,730</h1>
+                                </div>
+                                <div class="progress">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>62%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+
+                        <!---------------- END OF EXPENSES ----------------->
+                        <div class="income">
+                            <span class="material-icons-outlined">stacked_line_chart</span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Total Income</h3>
+                                    <h1>$4,362</h1>
+                                </div>
+                                <div class="progress">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>44%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <small class="text-muted">Last 24 Hours</small>
+                        </div>
+
+                        <!---------------- END OF INCOME ----------------->
+                    </div>
+                    <!---------------------- END OF INSIGHTS PT. 1 --------------------->
+
+                    <div class="recent-orders">
+                        <h2>Recent Orders</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Product Number</th>
+                                    <th>Payment</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Gazma 1000 LED</td>
+                                    <td>8374</td>
+                                    <td>Due</td>
+                                    <td class="warning">Pending</td>
+                                    <td class="primary">Details</td>
+                                </tr>
+                                <tr>
+                                    <td>Gazma 1000 LED</td>
+                                    <td>8374</td>
+                                    <td>Due</td>
+                                    <td class="warning">Pending</td>
+                                    <td class="primary">Details</td>
+                                </tr>
+                                <tr>
+                                    <td>Gazma 1000 LED</td>
+                                    <td>8374</td>
+                                    <td>Due</td>
+                                    <td class="warning">Pending</td>
+                                    <td class="primary">Details</td>
+                                </tr>
+                                <tr>
+                                    <td>Gazma 1000 LED</td>
+                                    <td>8374</td>
+                                    <td>Due</td>
+                                    <td class="warning">Pending</td>
+                                    <td class="primary">Details</td>
+                                </tr>
+                                <tr>
+                                    <td>Gazma 1000 LED</td>
+                                    <td>8374</td>
+                                    <td>Due</td>
+                                    <td class="warning">Pending</td>
+                                    <td class="primary">Details</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#">Show All</a>
+                    </div>
+                    <!------------ END OF RECENT ORDERS -------------->
+
+                    <div class="right">
+                        <div class="recent-updates">
+                            <h2>Recent Updates</h2>
+                            <div class="updates">
+                                <div class="update">
+                                    <div class="profile-photo">
+                                        <img src="Images/Personal Images/Nader Amir.jpg" alt="">
+                                    </div>
+                                    <div class="message">
+                                        <p><b>Nader Amir</b> received his order of gazma 1000 LED.</p>
+                                        <small class="text-muted">2 Minutes Ago</small>
+                                    </div>
+                                </div>
+                                <div class="update">
+                                    <div class="profile-photo">
+                                        <img src="Images/Personal Images/aya.jpg" alt="">
+                                    </div>
+                                    <div class="message">
+                                        <p><b>Aya Ehab</b> received her order of gazma 2000 OLED.</p>
+                                        <small class="text-muted">10 Minutes Ago</small>
+                                    </div>
+                                </div>
+                                <div class="update">
+                                    <div class="profile-photo">
+                                        <img src="Images/Personal Images/Ramez Ehab.jpg" alt="">
+                                    </div>
+                                    <div class="message">
+                                        <p><b>Ramez Ehab</b> received his order of backpack 200 7abl.</p>
+                                        <small class="text-muted">1 Hour Ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="products" class="only-one">
+                <h1>Products</h1>
+
+                <div class="smallContainer" style="width:fit-content">
+                    <button onclick="ShowOverlay('product-overlay')">
+                        <h4>Add Product</h4>
+                    </button>
+                </div>
+
+                <div id="myProducts" class="smallContainer">
+                    <h3>Your products</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="imgHeader"></th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Inventory</th>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                            <tr>
+                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
+                                <td>Skechers 2021</td>
+                                <td>Shoes</td>
+                                <td>1500</td>
+                                <td>57</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="users" class="only-one">
+                <h1>Users</h1>
+                <div class="smallContainer" style="width:fit-content">
+                    <button>
+                        <h4>Add User</h4>
+                    </button>
+                </div>
+                <div class="smallContainer">
+                    <h4>All Users</h4>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>DOB</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                        </tr>
+                        <tr>
+                            <td class="options"><button>Remove User</button></td>
+                            <td>User Name</td>
+                            <td>1/1/2000</td>
+                            <td>user@gmail.com</td>
+                            <td>0123456789</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="account" class="only-one">
+                <h1>Account</h1>
+                <div class="accountFlex">
+                    <div id="left-col" class="col">
+                        <div id="person" class="nav-item">
+                            <span id="initials">JD</span>
+                            <div id="intro">
+                                <span id="hi">Hi, </span>
+                                <br>
+                                <span id="name">John Doe</span>
+                            </div>
+                        </div>
+
+                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'details');">
+                            <!-- <span><img src="" alt=""></span> -->
+                            <span>My details</span>
+                        </div>
+                        <!-- <div class="nav-item" onclick="OneAtATime('payment-methods')">
+                            <span><img src="" alt=""></span>
+                            <span>Payment methods</span>
+                        </div> -->
+                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'chat');">
+                            <!-- <span><img src="" alt=""></span> -->
+                            <span>Chat</span>
+                        </div>
+                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'sign-out');">
+                            <!-- <span><img src="" alt=""></span> -->
+                            <span>Sign out</span>
+                        </div>
+                    </div>
+
+                    <div id="right-col" class="col">
+
+                        <div class="account-only-one account-active" id="details">
+                            <h3>My details</h3>
+                            <h5>Personal Information</h5>
+                            <hr>
+                            <div id="display-names" class = "section">
+                                <label class="display-label">FIRST NAME</label>
+                                <input disabled class="display-input" id="display-firstname" type="text"
+                                    placeholder="John">
+
+                                <label class="display-label">LAST NAME</label>
+                                <input disabled class="display-input" id="display-lastname" type="text"
+                                    placeholder="Doe">
+                            </div>
+
+                            <h5>E-mail address</h5>
+                            <hr>
+
+                            <div class = "section">
+                                    <label class="display-label">E-MAIL ADDRESS</label>
+                                    <input disabled class="display-input" type="text"
+                                        placeholder="johndoe123@gmail.com">
+                            </div>
+                        </div>
+
+                        
+                        
+                        <div class="account-only-one" id="chat">
+                            <div class="test">
+                                <div class="card">
+                                    <div class="chat-header">Chat</div>
+                                    <div class="chat-window">
+                                        <ul class="message-list"></ul>
+                                    </div>
+                                    <div class="chat-input">
+                                        <input type="text" class="message-input" placeholder="Type your message here">
+                                        <button class="send-button">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="account-only-one overlay-div" id="sign-out">
+        <div>
+            <h4 class="center">Are you sure you want to sign out?</h4>
+        </div>
+
+        <div class="center">
+            <a href="/"><button class="signout-button">Sign Out</button></a>
+        </div>
+    </div>
+
+    <div id="product-overlay" class="overlay-div">
+
+        <div class="login-box">
+            <p>Add Product</p>
+            <form>
+                <div class="user-box">
+                    <input required="" name="product-name" type="text">
+                    <label>Product Name</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="" type="text">
+                    <label>Product ID</label>
+                </div>
+
+                <div class="upload-image">
+                    <div class="header">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15"
+                                    stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                </path>
+                            </g>
+                        </svg>
+                        <p>Browse File to upload!</p>
+                    </div>
+                    <label for="file" class="footer">
+                        <svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M15.331 6H8.5v20h15V14.154h-8.169z"></path>
+                                <path d="M18.153 6h-.009v5.342H23.5v-.002z"></path>
+                            </g>
+                        </svg>
+                        <p>Not selected file</p>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path
+                                    d="M5.16565 10.1534C5.07629 8.99181 5.99473 8 7.15975 8H16.8402C18.0053 8 18.9237 8.9918 18.8344 10.1534L18.142 19.1534C18.0619 20.1954 17.193 21 16.1479 21H7.85206C6.80699 21 5.93811 20.1954 5.85795 19.1534L5.16565 10.1534Z"
+                                    stroke="#000000" stroke-width="2"></path>
+                                <path d="M19.5 5H4.5" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M10 3C10 2.44772 10.4477 2 11 2H13C13.5523 2 14 2.44772 14 3V5H10V3Z"
+                                    stroke="#000000" stroke-width="2"></path>
+                            </g>
+                        </svg>
+                    </label>
+                    <input id="file" type="file">
+                </div>
+
+                <a href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Add
+                </a>
+            </form>
+            <p>Changed your mind? <a onclick="HideOverlay('product-overlay')" href="#products" class="a2">Cancel</a></p>
+        </div>
+
+        <script src="../JS/account.js"></script>
+        <script type="text/javascript" src="../JS/admin.js"></script>
+        <script src="../JS/overlay.js"></script>
+</body>
+
+</html>

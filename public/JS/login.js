@@ -28,7 +28,7 @@ class FormClass {
             return;
         }
         else if (fields[0].value == "admin" && fields[1].value == "admin") {
-            location.href = "dashboard.html";
+            location.href = "/dashboard";
             return;
         }
 

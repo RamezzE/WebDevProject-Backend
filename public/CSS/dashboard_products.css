@@ -1,0 +1,54 @@
+/* #products table {
+    background-color: rgb(182, 187, 191);
+    border-radius:10px;
+    padding:10px;
+    text-align: left;
+    border-collapse: collapse;
+    border:0px;
+    border-style: hidden;
+} */
+
+/* #products table tr:nth-child(even) {
+    background-color: rgb(51, 55, 57);
+    color:rgb(182, 187, 191);
+} */
+
+#products th,td {
+    padding:5px;
+    width: 15vw;
+}
+
+/* #products th,td {
+    border: 1px solid black;
+} */
+
+#products img {
+    height:50px;
+    width: 50px;
+    border-radius: 10px;
+}
+
+#products button {
+    font:inherit;
+    border:0px;
+    border-radius:10px;
+    background-color:rgb(182, 187, 191) ;
+    padding:10px;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+
+    transition: ease all 300ms;
+}
+
+#products button:hover {
+    cursor: pointer;
+    box-shadow: none;
+}
+
+/* #products table .imgHeader, #products table .imgCell {
+    width:unset;
+    border-radius: 0px;
+    border:0px;
+    border-bottom: 1px solid rgb(51, 55, 57) ;
+} */
+
+

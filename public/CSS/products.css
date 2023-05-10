@@ -1,0 +1,109 @@
+:root {
+    --navBar-bg-color: #8f8f8f;
+    --menu-hover-color: #dbdbdb;
+    --menu-font-size: calc(20px + 0.2vh);
+    --menu-border-color: #4d4d4d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    /* overflow: hidden; */
+    /* background-color: pink; */
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    /* background-color: blue; */
+    padding: 0px;
+}
+
+#biggerContainer {
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0px;
+    margin-top: calc(70px);
+    padding: 0px;
+    /* background-color: red; */
+}
+
+#bodyContainer {
+    /* overflow-x: scroll; */
+    /* margin-top: 70px; */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+}
+
+#bodyContainer img {
+    max-width: 100%;
+}
+
+.productsGrid {
+    margin-top:10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    flex-grow: 0;
+}
+
+.productsGrid .column {
+    display: flex;
+    flex-direction: column;
+    width:25%;
+}
+
+.productsGrid .product {
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+    height: fit-content;
+    margin-bottom:5px;
+    margin-top:5px;
+}
+
+.productsGrid .product .price {
+    font-weight: bold;
+}
+
+.productsGrid .product:hover {
+    box-shadow:5px -3px 5px 3px rgba(128, 128, 128, 0.447);
+}
+
+@media screen and (max-width: 1000px) {
+    .productsGrid .column {
+        width:50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #biggerContainer {
+        margin-top: 16vw;
+    }
+
+    #bodyContainer {
+        padding: 15px;
+    }
+
+    .productsGrid .column {
+        width:100%;
+    }
+}
+
+
+

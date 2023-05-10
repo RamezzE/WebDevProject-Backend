@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product</title>
+    <link rel="stylesheet" type="text/css" href="CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="CSS/ProductDetails.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="topNav">
+            <%- include('./partials/header.ejs') %>
+        </div>
+
+        <!-- need attribution (credits) for account icon in footer -->
+        <!-- <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a> -->
+        <!-- changed photo and got it from logomakr.com -->
+
+        <div id="biggerContainer">
+            <div id="bodyContainer">
+                <div class="row">
+                    <div class="left section">
+                        <div class="big-img">
+                            <img src="Images/Icons/boat2.webp">
+                        </div>
+                        <div class="images">
+                            <div class="small-images">
+                                <img src="Images/Icons/boat2.webp" onclick="showImg(this.src)">
+                            </div>
+                            <div class="small-images">
+                                <img src="Images/Icons/boat3.webp" onclick="showImg(this.src)">
+                            </div>
+                            <div class="small-images">
+                                <img src="Images/Icons/boat4.webp" onclick="showImg(this.src)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right column">
+                        <div class="section">
+                            <div class="pname">GPS-DVTH-026</div>
+                            <div class="price"><del>750 EGP</del> 600 EGP</div>
+                            <div class="size">
+                                <p style = "display:inline;">Size:</p>
+                                <button class="btn">36</button>
+                                <button class="btn active">37</button>
+                                <button class="btn">38</button>
+                                <button class="btn">39</button>
+                                <button class="btn">40</button>
+                            </div>
+                            <div class="quantity">
+                                <p>Quantity :</p>
+                                <input type="number" min="1" max="5" value="1">
+                            </div>
+                            <div class="btns">
+                                <button class="cart-btn"><a href="/Cart">Add to cart</a> </button>
+                            </div>
+                        </div>
+                        <div class="section" id = "description">
+                            <div class="pname">Description:</div>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the 
+                                printing and typesetting industry. Lorem 
+                                Ipsum has been the industry's standard dummy 
+                                text ever since the 1500s, when an unknown printer 
+                                took a galley of type and scrambled it to make a 
+                                type specimen book. It has survived not only five 
+                                centuries, but also the leap into electronic 
+                                typesetting, remaining essentially unchanged. 
+                                It was popularised in the 1960s with the release 
+                                of Letraset sheets containing Lorem Ipsum passages, 
+                                and more recently with desktop publishing software 
+                                like Aldus PageMaker including versions of Lorem Ipsum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            <footer class="footer">
+                <%- include('./partials/footer.ejs') %>
+            </footer>
+        </div>
+
+</body>
+<script src="../JS/header.js"></script>
+<script src="../JS/productsDetails.js"></script>
+<script>
+    let bigImg = document.querySelector('.big-img img')
+    function showImg(pic) {
+        bigImg.src = pic;
+    }
+</script>
+
+</html>
