@@ -18,4 +18,7 @@ app.get('/wishlist', function (req, res) {
 app.get('/cart', function (req, res) {
     res.render('cart', { title: 'Home' });
 });
+app.get('/checkout', function (req, res) {
+    res.render('checkout', { title: 'Home' });
+});
 app.listen(port)

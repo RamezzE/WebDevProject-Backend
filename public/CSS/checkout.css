@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    /* background-color: pink; */
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#biggerContainer {
+    overflow-y: scroll;
+    height: 100%;
+    margin: 0px;
+    margin-top: calc(48px);
+    padding: 0px;
+    /* background-color: red; */
+}
+
+#bodyContainer {
+    /* overflow-x: scroll; */
+    /* margin-top: 70px; */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+    /* background-color: aqua; */
+}
+
+.rowcart {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap;
+    /* IE10 */
+    flex-wrap: wrap;
+    margin: 20 -16px;
+    padding: 20px;
+}
+
+.title {
+    font: bold;
+    font-size: larger;
+    margin: 50px;
+}
+
+.col-25cart {
+    -ms-flex: 25%;
+    /* IE10 */
+    flex: 25%;
+}
+
+.col-50cart {
+    -ms-flex: 50%;
+    /* IE10 */
+    flex: 50%;
+}
+
+.col-75cart {
+    -ms-flex: 75%;
+    /* IE10 */
+    flex: 75%;
+}
+
+.col-25cart,
+.col-50cart,
+.col-75cart {
+    padding: 0 16px;
+}
+
+.containercart {
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input[type=text] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-containercart {
+    margin-bottom: 20px;
+    padding: 7px 0;
+    font-size: 24px;
+}
+
+.icon-containercart img {
+    height: 25px;
+    width: 35px;
+}
+
+.btncart {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btncart:hover {
+    background-color: #45a049;
+}
+
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+    .rowcart {
+        flex-direction: column-reverse;
+    }
+
+    .col-25cart {
+        margin-bottom: 20px;
+    }
+}
