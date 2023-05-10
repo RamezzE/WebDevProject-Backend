@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+    <link rel="stylesheet" type="text/css" href="CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="CSS/wishlist.css">
+</head>
+<body>
+    <div id="container">
+        <div id="topNav">
+            <%- include('./partials/header.ejs') %>
+        </div>
+        <div id="biggerContainer">
+            <div id="bodyContainer">
+                <div class="shopping-cart">
+                    <!-- Title -->
+                    <h1 class="title">Wishlist</h1>
+                    
+                    <!-- Product #1 -->
+                    <div class="item">
+                        <div class="buttons">
+                            <button class="delete-btn" type="button" name="button">
+                                <img src="Images/Icons/delete.png" alt="">
+                            </button>
+                        </div>
+
+
+                        <img src="Images/Icons/Product-1.jpg" alt="" />
+
+
+                        <div class="description">
+                            <span>Shoes</span>
+                            <span>Running</span>
+                            <span>colours</span>
+                        </div>
+
+                        <div class="total-price">$549</div>
+
+
+                    </div>
+
+                    <!-- Product #2 -->
+                    <div class="item">
+                        <div class="buttons">
+                            <button class="delete-btn" type="button" name="button">
+                                <img src="Images/Icons/delete.png" alt="">
+                            </button>
+                        </div>
+
+
+                        <img src="Images/Icons/Product-2.jpg" alt="" />
+
+
+                        <div class="description">
+                            <span>Bag</span>
+                            <span>Camping</span>
+                            <span>Grey</span>
+                        </div>
+
+                        <div class="total-price">$870</div>
+
+
+                    </div>
+
+                    <!-- Product #3 -->
+                    <div class="item">
+                        <div class="buttons">
+                            <button class="delete-btn" type="button" name="button">
+                                <img src="Images/Icons/delete.png" alt="">
+                            </button>
+                        </div>
+                        <img src="Images/Icons/Product-3.jpg" alt="" />
+
+                        <div class="description">
+                            <span>Bag</span>
+                            <span>Women</span>
+                            <span>Black</span>
+                        </div>
+
+                        <div class="total-price">$349</div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <footer class="footer">
+                <%- include('./partials/footer.ejs') %>
+            </footer>
+        </div>
+
+
+    </div>
+</body>
+<script src="../JS/header.js"></script>
+</html>

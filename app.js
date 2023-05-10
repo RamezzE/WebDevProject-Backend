@@ -12,5 +12,8 @@ app.use(express.static('./public'));
 app.get('/', function (req, res) {
     res.render('index', { title: 'Home' });
 });
+app.get('/wishlist', function (req, res) {
+    res.render('wishlist', { title: 'Home' });
+});
 
 app.listen(port)
