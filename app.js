@@ -15,5 +15,7 @@ app.get('/', function (req, res) {
 app.get('/wishlist', function (req, res) {
     res.render('wishlist', { title: 'Home' });
 });
-
+app.get('/cart', function (req, res) {
+    res.render('cart', { title: 'Home' });
+});
 app.listen(port)
