@@ -45,4 +45,7 @@ app.get('/shoes', function (req, res) {
 app.get('/ProductDetails', function (req, res) {
     res.render('ProductDetails', { title: 'Home' });
 });
+app.use(function (req, res) {
+    res.status(404).render('404', { title: 'Home' });
+});
 app.listen(port)
