@@ -1,51 +1,71 @@
-var path = require('path')
+import HttpError from "http-errors";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import { fileURLToPath } from "url";
 
-const express = require('express')
-const app = express()
+import index_router from "./routes/index.js";
+import account_router from "./routes/account.js";
+import login_router from "./routes/login.js";
+import cart_router from "./routes/cart.js";
+import wishlist_router from "./routes/wishlist.js";
+import dashboard_router from "./routes/dashboard.js";
+import register_router from "./routes/register.js";
+import men_router from "./routes/men_products.js";
+import women_router from "./routes/women_products.js";
+import details_router from "./routes/ProductDetails.js";
+import shoes_router from "./routes/shoes_products.js";
+import check_router from "./routes/checkout.js";
+//Read the current directory name
+export const __filename = fileURLToPath(import.meta.url);
+export const __dirname = path.dirname(__filename);
+console.log(`Project Root dir : ${__dirname}`);
 
-app.set('view engine', 'ejs');
+let app = express();
 
-const port = 8080;
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
-app.use(express.static('./public'));
+app.use(logger("dev"));
+app.use(express.json());
 
-app.get('/', function (req, res) {
-    res.render('index', { title: 'Home' });
-});
-app.get('/wishlist', function (req, res) {
-    res.render('wishlist', { title: 'Home' });
-});
-app.get('/cart', function (req, res) {
-    res.render('cart', { title: 'Home' });
-});
-app.get('/checkout', function (req, res) {
-    res.render('checkout', { title: 'Home' });
-});
-app.get('/login', function (req, res) {
-    res.render('login', { title: 'Home' });
-});
-app.get('/register', function (req, res) {
-    res.render('register', { title: 'Home' });
-});
-app.get('/account', function (req, res) {
-    res.render('account', { title: 'Home' });
-});
-app.get('/dashboard', function (req, res) {
-    res.render('dashboard', { title: 'Home' });
-});
-app.get('/men', function (req, res) {
-    res.render('men_products', { title: 'Home' });
-});
-app.get('/women', function (req, res) {
-    res.render('women_products', { title: 'Home' });
-});
-app.get('/shoes', function (req, res) {
-    res.render('shoes_products', { title: 'Home' });
-});
-app.get('/ProductDetails', function (req, res) {
-    res.render('ProductDetails', { title: 'Home' });
-});
-app.use(function (req, res) {
-    res.status(404).render('404', { title: 'Home' });
-});
-app.listen(port)
+//When extended property is set to true, the URL-encoded data will be parsed with the qs library.
+//qs library allows you to create a nested object from your query string.
+
+// When extended property is set to false, the URL-encoded data will instead be parsed with the query-string library.
+// query-string library does not support creating a nested object from your query string.
+
+app.use(express.urlencoded({ extended: true }));
+//setup cookie parser middleware
+app.use(cookieParser());
+//setup static folder for serving static files in Express
+app.use(express.static(path.join(__dirname, 'public')));
+
+//setup routes
+app.use('/', index_router);
+app.use('/account', account_router);
+app.use('/wishlist', wishlist_router);
+app.use('/cart', cart_router);
+app.use('/login', login_router);
+app.use('/dashboard', dashboard_router);
+app.use('/register', register_router);
+app.use('/men',men_router);
+app.use('/women', women_router);
+app.use('/ProductDetails', details_router);
+app.use('/shoes', shoes_router);
+app.use('/checkout', check_router);
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    
+    // render the error page
+    res.status(err.status || 500);
+    res.render('404');
+  });
+
+//console.log("ENV: ", app.get('env'));
+export default app;
