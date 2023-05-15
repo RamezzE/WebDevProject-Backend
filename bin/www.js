@@ -10,14 +10,14 @@ import app from '../app.js';
 import { createServer } from 'http';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
-dotenv.config()
+dotenv.config({path:'../.env'})
 
 /**
  * Get port from environment and store in Express.
  */
 
-const PORT = (process.env.PORT||8080);
-const HOST = (process.env.HOST||"localhost");
+const PORT = (process.env.PORT);
+const HOST = (process.env.HOST);
 app.set('port', PORT);
 app.set('host', HOST);
 app.set('env', process.env.ENV);
@@ -32,7 +32,7 @@ const server = createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-mongoose.connect(process.env.MONGO_URI||"mongodb+srv://nadermaged0:webdevproject0@cluster0.mzze7tr.mongodb.net/")
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     server.listen(PORT);
 server.on('error', onError);
