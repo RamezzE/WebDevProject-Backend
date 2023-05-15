@@ -9,14 +9,15 @@ import app from '../app.js';
 
 import { createServer } from 'http';
 import dotenv from 'dotenv'
+import mongoose from "mongoose";
 dotenv.config()
 
 /**
  * Get port from environment and store in Express.
  */
 
-const PORT = (process.env.PORT || '8080');
-const HOST = (process.env.HOST || 'localhost');
+const PORT = (process.env.PORT||8080);
+const HOST = (process.env.HOST||"localhost");
 app.set('port', PORT);
 app.set('host', HOST);
 app.set('env', process.env.ENV);
@@ -31,11 +32,16 @@ const server = createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-server.listen(PORT);
+mongoose.connect(process.env.MONGO_URI||"mongodb+srv://nadermaged0:webdevproject0@cluster0.mzze7tr.mongodb.net/")
+.then(()=>{
+    server.listen(PORT);
 server.on('error', onError);
 server.on('listening', onListening);
 console.log(`Server running at http://${HOST}:${PORT}/`); 
+})
+.catch((error)=>{
+    console.log(error)
+})
 
 /**
  * Event listener for HTTP server "error" event.
