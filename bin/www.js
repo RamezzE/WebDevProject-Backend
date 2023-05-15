@@ -8,7 +8,7 @@
 import app from '../app.js';
 
 import { createServer } from 'http';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import mongoose from "mongoose";
 dotenv.config()
 
