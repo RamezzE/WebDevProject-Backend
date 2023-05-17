@@ -22,7 +22,7 @@ export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 console.log(`Project Root dir : ${__dirname}`);
 
-let app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -57,14 +57,15 @@ app.use('/ProductDetails', details_router);
 app.use('/shoes', shoes_router);
 app.use('/checkout', check_router);
 // error handler
-app.use(function(err, req, res, next) {
+app.use((req, res, err) => {
     // set locals, only providing error in development
+    console.log("KDJFKDJFKJDJFKD");
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     
     // render the error page
-    res.status(err.status || 500);
-    res.render('404');
+    // res.status(err.status || 500);
+    res.status('404').render('404');
   });
 //console.log("ENV: ", app.get('env'));
 export default app;
