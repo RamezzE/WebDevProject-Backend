@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import User from '../models/user.js';
 var router = Router();
 
 /* GET home page. */
@@ -9,7 +10,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', async (req, res) => {
   console.log('Logging in user');
-  
+
   //get data from form
   const { email, password } = req.body;
 
@@ -21,10 +22,28 @@ router.post('/', async (req, res) => {
     errorMsg.email = 'Email is required';
   else if (!email.match(emailFormat))
     errorMsg.email = 'Invalid email';
+  else {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      errorMsg.email = "Email not found!";
+      return res.render('login', { errorMsg });
+    }
+  }
+
   if (password.trim() == '')
     errorMsg.password = 'Password is required';
-  else if (password.trim().length < 8)
-    errorMsg.password = 'Password must be at least 8 characters';
+  else {
+    const user = await User.findOne({ email: email })
+      .then(user => {
+        console.log(user);
+        if (user.password !== password)
+        errorMsg.password = 'Incorrect password';
+      })
+      .catch(err => {
+        console.error(err);
+      })
+
+  }
 
   if (Object.keys(errorMsg).length > 0) {
     for (let key in errorMsg) {

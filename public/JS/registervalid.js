@@ -5,7 +5,7 @@ class FormClass {
     }
     initialize() {
         document.addEventListener('submit', event => {
-            event.preventDefault();
+            // event.preventDefault();
             this.validateFields();
 
             if (!this.noErr) {
@@ -17,13 +17,6 @@ class FormClass {
                     }
                 }
             }
-
-            // if (this.noErr) {
-            //     $(this).unbind('submit').submit();
-            // }
-            // else {
-            //     // document.querySelector("#form > span").style.visibility = "hidden";
-            // }
 
         })
     }

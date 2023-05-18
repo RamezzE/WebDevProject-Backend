@@ -29,12 +29,18 @@ router.post('/', async (req, res) => {
     errorMsg.email = 'Email is required';
   else if (!email.match(emailFormat))
     errorMsg.email = 'Invalid email';
+  else {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      errorMsg.email = "Email already exists!";
+    }
+  }
 
   if (password.trim() == '')
     errorMsg.password = 'Password is required';
   else if (password.trim().length < 8)
     errorMsg.password = 'Password must be at least 8 characters';
-  
+
   if (password.trim() !== confirmPass.trim())
     errorMsg.confirmPass = 'Passwords do not match';
 
@@ -46,11 +52,20 @@ router.post('/', async (req, res) => {
   }
 
 
+  //save user to db
+  const user = new User({
+    firstName,
+    lastName,
+    email,
+    password,
+    userType: 'user'
+  });
+
+  await user.save();
+    console.log("User saved:", user);
+  
   //data ok
-  res.redirect('/');
-
-  console.log("Tamam for now");
-
+  res.redirect('account');
 });
 
 export default router;

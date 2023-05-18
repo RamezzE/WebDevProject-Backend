@@ -7,7 +7,6 @@ class FormClass {
         document.addEventListener('submit', event => {
             event.preventDefault();
             this.validateFields();
-            
             if (!this.noErr) {
                 let errorArr = document.querySelectorAll("#form .errorMsg");
                 for (let i = 0; i < errorArr.length; i++) {
@@ -17,6 +16,8 @@ class FormClass {
                     }
                 }
             }
+            else
+                event.target.submit();
         })
     }
     resetErrors() {
