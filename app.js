@@ -4,6 +4,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
+import session from 'express-session';
 
 import index_router from "./routes/index.js";
 import account_router from "./routes/account.js";
@@ -23,6 +24,7 @@ export const __dirname = path.dirname(__filename);
 console.log(`Project Root dir : ${__dirname}`);
 
 const app = express();
+app.use(session({ secret: 'Your_Secret_Key'}));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
