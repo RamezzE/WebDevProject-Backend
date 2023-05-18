@@ -4,7 +4,8 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
-import session from 'express-session';
+import dotenv from "dotenv";
+// import session from 'express-session';
 
 import index_router from "./routes/index.js";
 import account_router from "./routes/account.js";
@@ -24,7 +25,7 @@ export const __dirname = path.dirname(__filename);
 console.log(`Project Root dir : ${__dirname}`);
 
 const app = express();
-app.use(session({ secret: 'Your_Secret_Key'}));
+// app.use(session({ secret: 'Your_Secret_Key'}));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -58,6 +59,7 @@ app.use('/women', women_router);
 app.use('/ProductDetails', details_router);
 app.use('/shoes', shoes_router);
 app.use('/checkout', check_router);
+
 // error handler
 app.use((req, res, err) => {
     // set locals, only providing error in development
@@ -69,5 +71,5 @@ app.use((req, res, err) => {
     // res.status(err.status || 500);
     res.status('404').render('404');
   });
-//console.log("ENV: ", app.get('env'));
+console.log("ENV: ", app.get('env'));
 export default app;

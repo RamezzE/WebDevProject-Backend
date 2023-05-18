@@ -10,7 +10,7 @@ import app from '../app.js';
 import { createServer } from 'http';
 
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env'})
+dotenv.config({ path: './.env' })
 
 import mongoose from "mongoose";
 
@@ -35,15 +35,15 @@ const server = createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-.then(()=>{
+  .then(() => {
     server.listen(PORT);
-server.on('error', onError);
-server.on('listening', onListening);
-console.log(`Server running at http://${HOST}:${PORT}/`); 
-})
-.catch((error)=>{
+    server.on('error', onError);
+    server.on('listening', onListening);
+    console.log(`Server running at http://${HOST}:${PORT}/`);
+  })
+  .catch((error) => {
     console.log(error)
-})
+  })
 
 /**
  * Event listener for HTTP server "error" event.
@@ -76,5 +76,5 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = 'Port ' + addr.port;
-    console.log('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }

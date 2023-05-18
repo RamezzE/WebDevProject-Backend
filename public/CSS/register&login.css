@@ -326,7 +326,7 @@ label {
 .errorMsg {
     display: block;
     color: red;
-    visibility: hidden;
+    /* visibility: hidden; */
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 11px;
 }

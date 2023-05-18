@@ -24,28 +24,28 @@
             <div class="bodyContainer">
                 <h1>Register</h1>
                 <div class="register">
-                    <form method="get" id="form">
+                    <form action = "/register" method="post" id="form">
                         <div class="group">
-                            <input  type="text" name="firstname" id="First name" class="input">
+                            <input  type="text" name="firstName" id="First name" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Name</span>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.firstName? errorMsg.firstName : '' %></span>
                             <label>First Name</label>
                         </div>
 
                         <div class="group">
-                            <input  type="text" id="Last name" name="lastname" class="input">
+                            <input  type="text" id="Last name" name="lastName" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Name</span>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.lastName? errorMsg.lastName : '' %></span>
                             <label>Last Name</label>
                         </div>
 
                         <div class="group">
-                            <input  type="email" id = "Email" name="register_email" class="input">
+                            <input  type="email" id = "Email" name="email" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Email</span>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
                             <label>Email</label>
                         </div>
 
@@ -53,15 +53,15 @@
                             <input  type="password" id="Password" name="password" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Password</span>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.password? errorMsg.password : '' %></span>
                             <label>Password</label>
                         </div>
 
                         <div class="group">
-                            <input  type="password" id = "ConfirmPass" name="confirm_password" class="input" >
+                            <input  type="password" id = "ConfirmPass" name="confirmPass" class="input" >
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Confirm</span>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.confirmPass? errorMsg.confirmPass : '' %></span>
                             <label>Confirm Password</label>
                         </div>
 
@@ -69,7 +69,6 @@
                         <span>Success</span>
                     </form>
                     <a href="/login"><button class="button">LOG IN</button></a>
-
 
                 </div>
             </div>

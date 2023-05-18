@@ -8,10 +8,10 @@ class FormClass {
             event.preventDefault();
             this.validateFields();
             if (this.noErr) {
-                document.querySelector("#form > span").style.visibility = "visible";
+                $(this).unbind('submit').submit();
             }
             else {
-                document.querySelector("#form > span").style.visibility = "hidden";
+                // document.querySelector("#form > span").style.visibility = "hidden";
             }
             
         })
