@@ -29,6 +29,9 @@
                             <input  type="text" name="firstName" id="First name" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
+                            <% if (!errorMsg.firstName) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
                             <span class = "errorMsg"><%= errorMsg && errorMsg.firstName? errorMsg.firstName : '' %></span>
                             <label>First Name</label>
                         </div>
@@ -37,6 +40,9 @@
                             <input  type="text" id="Last name" name="lastName" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
+                            <% if (!errorMsg.lastName) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
                             <span class = "errorMsg"><%= errorMsg && errorMsg.lastName? errorMsg.lastName : '' %></span>
                             <label>Last Name</label>
                         </div>
@@ -45,6 +51,9 @@
                             <input  type="email" id = "Email" name="email" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
+                            <% if (!errorMsg.email) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
                             <span class = "errorMsg"><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
                             <label>Email</label>
                         </div>
@@ -53,6 +62,9 @@
                             <input  type="password" id="Password" name="password" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
+                            <% if (!errorMsg.password) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
                             <span class = "errorMsg"><%= errorMsg && errorMsg.password? errorMsg.password : '' %></span>
                             <label>Password</label>
                         </div>
@@ -61,6 +73,9 @@
                             <input  type="password" id = "ConfirmPass" name="confirmPass" class="input" >
                             <span class="highlight"></span>
                             <span class="bar"></span>
+                            <% if (!errorMsg.confirmPass) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
                             <span class = "errorMsg"><%= errorMsg && errorMsg.confirmPass? errorMsg.confirmPass : '' %></span>
                             <label>Confirm Password</label>
                         </div>

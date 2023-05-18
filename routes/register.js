@@ -27,14 +27,14 @@ router.post('/', async (req, res) => {
   let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (email.trim() == '')
     errorMsg.email = 'Email is required';
-  // else if (!email.match(emailFormat))
-  //   errorMsg.email = 'Invalid email';
+  else if (!email.match(emailFormat))
+    errorMsg.email = 'Invalid email';
 
   if (password.trim() == '')
     errorMsg.password = 'Password is required';
   else if (password.trim().length < 8)
     errorMsg.password = 'Password must be at least 8 characters';
-
+  
   if (password.trim() !== confirmPass.trim())
     errorMsg.confirmPass = 'Passwords do not match';
 

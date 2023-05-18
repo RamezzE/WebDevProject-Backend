@@ -7,13 +7,24 @@ class FormClass {
         document.addEventListener('submit', event => {
             event.preventDefault();
             this.validateFields();
-            if (this.noErr) {
-                $(this).unbind('submit').submit();
+
+            if (!this.noErr) {
+                let errorArr = document.querySelectorAll("#form .errorMsg");
+                for (let i = 0; i < errorArr.length; i++) {
+                    if (errorArr[i].innerHTML != "") {
+                        let lineBreak = errorArr[i].parentElement.getElementsByClassName("lineBreak")[0];
+                        errorArr[i].parentElement.removeChild(lineBreak);
+                    }
+                }
             }
-            else {
-                // document.querySelector("#form > span").style.visibility = "hidden";
-            }
-            
+
+            // if (this.noErr) {
+            //     $(this).unbind('submit').submit();
+            // }
+            // else {
+            //     // document.querySelector("#form > span").style.visibility = "hidden";
+            // }
+
         })
     }
     resetErrors() {
