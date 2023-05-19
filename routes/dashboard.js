@@ -11,6 +11,8 @@ const database = client.db('web11');
 const collection = database.collection('users');
 
 router.get('/', async (req, res, next) => {
+  if (req.session.userType != 'admin')
+    res.redirect('/');
   const users = await collection.find().toArray();
   res.render('dashboard', { users });
 });

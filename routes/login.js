@@ -4,6 +4,9 @@ var router = Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  if (req.session.userType)
+    return res.redirect('/');
+
   let errorMsg = {};
   res.render('login', { errorMsg });
 });
@@ -13,7 +16,7 @@ router.post('/', async (req, res) => {
 
   //get data from form
   const { email, password } = req.body;
-  
+
   let errorMsg = {};
 
   //validate data
@@ -55,6 +58,11 @@ router.post('/', async (req, res) => {
   //data ok
   const user = await User.findOne({ email: email })
     .then(user => {
+      req.session.userType = user.userType;
+      req.session.email = user.email;
+      req.session.firstName = user.firstName;
+      req.session.lastName = user.lastName;
+
       if (user.userType == "user")
         res.redirect('/account');
       else if (user.userType == "admin")

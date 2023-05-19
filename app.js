@@ -4,8 +4,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
-import dotenv from "dotenv";
-// import session from 'express-session';
+import session from 'express-session';
 
 import index_router from "./routes/index.js";
 import account_router from "./routes/account.js";
@@ -19,6 +18,7 @@ import women_router from "./routes/women_products.js";
 import details_router from "./routes/ProductDetails.js";
 import shoes_router from "./routes/shoes_products.js";
 import check_router from "./routes/checkout.js";
+import signOut_router from "./routes/signOut.js";
 
 //Read the current directory name
 export const __filename = fileURLToPath(import.meta.url);
@@ -26,7 +26,11 @@ export const __dirname = path.dirname(__filename);
 console.log(`Project Root dir : ${__dirname}`);
 
 const app = express();
-// app.use(session({ secret: 'Your_Secret_Key'}));
+app.use(session({
+  secret: 'secret-key',
+  resave: true,
+  saveUninitialized: true
+}));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -60,6 +64,7 @@ app.use('/women', women_router);
 app.use('/ProductDetails', details_router);
 app.use('/shoes', shoes_router);
 app.use('/checkout', check_router);
+app.use('/signOut', signOut_router);
 
 // error handler
 app.use((req, res, err) => {

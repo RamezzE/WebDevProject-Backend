@@ -22,11 +22,11 @@
                 <div class="accountFlex">
                     <div id="left-col" class="col">
                         <div id="person" class="nav-item">
-                            <span id="initials">JD</span>
+                            <span id="initials"><%= userData.firstName.charAt(0) + userData.lastName.charAt(0) %></span>
                             <div id="intro">
                                 <span id="hi">Hi, </span>
                                 <br>
-                                <span id="name">John Doe</span>
+                                <span id="name"><%= userData.firstName + " " + userData.lastName%> </span>
                             </div>
                         </div>
 
@@ -57,11 +57,11 @@
                             <div id="display-names" class = "section">
                                 <label class="display-label">FIRST NAME</label>
                                 <input disabled class="display-input" id="display-firstname" type="text"
-                                    placeholder="John">
+                                    placeholder= "<%= userData.firstName %>">
 
                                 <label class="display-label">LAST NAME</label>
                                 <input disabled class="display-input" id="display-lastname" type="text"
-                                    placeholder="Doe">
+                                    placeholder="<%= userData.lastName %>">
                             </div>
 
                             <h5>E-mail address</h5>
@@ -70,7 +70,7 @@
                             <div class = "section">
                                     <label class="display-label">E-MAIL ADDRESS</label>
                                     <input disabled class="display-input" type="text"
-                                        placeholder="johndoe123@gmail.com">
+                                        placeholder="<%= userData.email %>">
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@
         </div>
 
         <div class="center">
-            <a href="/"><button class="signout-button">Sign Out</button></a>
+            <button class="signout-button" onclick = "signOut()">Sign Out</button>
         </div>
     </div>
 

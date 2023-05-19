@@ -5,6 +5,9 @@ var router = Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  if (req.session.userType)
+    return res.redirect('/');
+  
   const errorMsg = {};
   res.render('register', { errorMsg })
 });

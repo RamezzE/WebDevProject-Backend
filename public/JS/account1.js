@@ -8,3 +8,13 @@ function AccountOneAtATime(one_to_show) {
         document.getElementById(one_to_show).style.display = 'flex';
     }
 }
+
+function signOut() {
+    var form = document.createElement('form');
+    form.method = 'GET';
+    form.action = 'signOut';
+
+    document.body.appendChild(form);
+    
+    form.submit();
+}
