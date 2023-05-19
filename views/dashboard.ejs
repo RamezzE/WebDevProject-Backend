@@ -283,7 +283,8 @@
                         </tr>
                         <% users.forEach(user=> { %>
                             <tr>
-                                <td class="options"><button>Remove User</button></td>
+                                <td class="options"> <button onclick="deleteUser('<%= user._id %>')">Remove User</button>
+                                </td>
                                 <td>
                                     <%= user.firstName %>
                                 </td>
@@ -298,7 +299,7 @@
                                 </td>
                             </tr>
                             <% }) %>
-                            <!-- <tr>
+                                <!-- <tr>
                                 <td class="options"><button>Remove User</button></td>
                                 <td>User Name</td>
                                 <td>1/1/2000</td>
@@ -478,6 +479,7 @@
         <script src="../JS/account1.js"></script>
         <script type="text/javascript" src="../JS/adminbar.js"></script>
         <script src="../JS/overlay.js"></script>
+        <script src="../JS/adminFunctions.js"></script>
 </body>
 
 </html>
