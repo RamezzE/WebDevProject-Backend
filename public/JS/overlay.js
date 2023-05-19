@@ -8,7 +8,7 @@ function ShowOverlay(overlay) {
 
 function HideOverlay(overlay) {
     setTimeout(() => {
-        document.getElementById(overlay).style.display = 'none';
+        document.getElementsByClassName(overlay).style.display = 'none';
     }, timeout);
 }
 
