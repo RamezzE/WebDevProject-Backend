@@ -246,11 +246,7 @@
       /* background-color: red; */
     }
   }
-
-  .overlay-div {
-    display: none;
-  }
-
+  
   .overlay-div {
     display: none;
     position: absolute;

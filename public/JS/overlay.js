@@ -2,7 +2,7 @@ let timeout = 150;
 
 function ShowOverlay(overlay) {
     setTimeout(() => {
-        document.getElementById(overlay).style.display = 'block';
+        document.getElementsByClassName(overlay).style.display = 'block';
     }, timeout);
 }
 
