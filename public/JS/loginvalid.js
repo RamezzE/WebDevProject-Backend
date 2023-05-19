@@ -5,9 +5,9 @@ class FormClass {
     }
     initialize() {
         document.addEventListener('submit', event => {
-            event.preventDefault();
             this.validateFields();
             if (!this.noErr) {
+                event.preventDefault();
                 let errorArr = document.querySelectorAll("#form .errorMsg");
                 for (let i = 0; i < errorArr.length; i++) {
                     if (errorArr[i].innerHTML != "") {
@@ -16,8 +16,6 @@ class FormClass {
                     }
                 }
             }
-            else
-                event.target.submit();
         })
     }
     resetErrors() {
@@ -30,11 +28,7 @@ class FormClass {
     validateFields() {
         this.resetErrors();
         let fields = document.querySelectorAll("#form div input");
-        if (fields[0].value == "user" && fields[1].value == "user") {
-            location.href = "/account";
-            return;
-        }
-        else if (fields[0].value == "admin" && fields[1].value == "admin") {
+        if (fields[0].value == "admin" && fields[1].value == "admin") {
             location.href = "/dashboard";
             return;
         }
@@ -45,7 +39,6 @@ class FormClass {
                 let error = fields[i].parentElement.getElementsByClassName("errorMsg")[0];
                 // error.innerHTML = fields[i].id.concat(" cannot be empty");
                 error.innerHTML = "Field cannot be empty";
-                error.style.visibility = "visible";
                 this.noErr = false;
             }
             else {

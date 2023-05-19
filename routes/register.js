@@ -44,6 +44,10 @@ router.post('/', async (req, res) => {
   if (password.trim() !== confirmPass.trim())
     errorMsg.confirmPass = 'Passwords do not match';
 
+  for (let key in errorMsg) {
+    console.log(errorMsg[key]);
+  }
+
   if (Object.keys(errorMsg).length > 0) {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
@@ -62,8 +66,8 @@ router.post('/', async (req, res) => {
   });
 
   await user.save();
-    console.log("User saved:", user);
-  
+  console.log("User saved:", user);
+
   //data ok
   res.redirect('account');
 });

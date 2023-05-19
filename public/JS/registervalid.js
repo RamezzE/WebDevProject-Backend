@@ -5,10 +5,9 @@ class FormClass {
     }
     initialize() {
         document.addEventListener('submit', event => {
-            // event.preventDefault();
             this.validateFields();
-
             if (!this.noErr) {
+                event.preventDefault();
                 let errorArr = document.querySelectorAll("#form .errorMsg");
                 for (let i = 0; i < errorArr.length; i++) {
                     if (errorArr[i].innerHTML != "") {
@@ -17,14 +16,12 @@ class FormClass {
                     }
                 }
             }
-
         })
     }
     resetErrors() {
         let errors = document.getElementById("form").getElementsByClassName("errorMsg");
         for (let i = 0; i < errors.length; i++) {
-            errors[i].innerHTML = "E55";
-            errors[i].style.visibility = "hidden";
+            errors[i].innerHTML = "<br>";
         }
         this.noErr = true;
     }
