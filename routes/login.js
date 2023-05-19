@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
 
   //get data from form
   const { email, password } = req.body;
-
+  
   let errorMsg = {};
 
   //validate data
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
       .then(user => {
         console.log(user);
         if (user.password !== password)
-        errorMsg.password = 'Incorrect password';
+          errorMsg.password = 'Incorrect password';
       })
       .catch(err => {
         console.error(err);
@@ -53,7 +53,16 @@ router.post('/', async (req, res) => {
   }
 
   //data ok
-  res.redirect('account');
+  const user = await User.findOne({ email: email })
+    .then(user => {
+      if (user.userType == "user")
+        res.redirect('/account');
+      else if (user.userType == "admin")
+        res.redirect('/dashboard');
+    })
+    .catch(err => {
+      console.error(err);
+    })
 });
 
 export default router;

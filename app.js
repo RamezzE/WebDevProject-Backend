@@ -19,6 +19,7 @@ import women_router from "./routes/women_products.js";
 import details_router from "./routes/ProductDetails.js";
 import shoes_router from "./routes/shoes_products.js";
 import check_router from "./routes/checkout.js";
+
 //Read the current directory name
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);

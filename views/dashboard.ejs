@@ -32,7 +32,8 @@
             <a onclick="setTimeout(OneAtATime, 50, 'products'); makeActive(this);" href="#"><img
                     src="Images/Dashboard/cart.png"><span>Products</span></a>
             <!-- <a href=""><img src="Images/Dashboard/coins.png"><span>Finance</span></a> -->
-            <a onclick="setTimeout(OneAtATime, 50, 'account'); makeActive(this);" href="#"><img src="Images/Dashboard/account.png"><span>Account</span></a>
+            <a onclick="setTimeout(OneAtATime, 50, 'account'); makeActive(this);" href="#"><img
+                    src="Images/Dashboard/account.png"><span>Account</span></a>
         </div>
 
         <div id="container">
@@ -258,69 +259,6 @@
                                 <td>1500</td>
                                 <td>57</td>
                             </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
-                            <tr>
-                                <td class="imgCell"><img src="Images/Icons/Product-1.jpg"></td>
-                                <td>Skechers 2021</td>
-                                <td>Shoes</td>
-                                <td>1500</td>
-                                <td>57</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -339,17 +277,34 @@
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>DOB</th>
+                            <th>Last Name</th>
                             <th>Email</th>
-                            <th>Phone Number</th>
+                            <th>Type</th>
                         </tr>
-                        <tr>
-                            <td class="options"><button>Remove User</button></td>
-                            <td>User Name</td>
-                            <td>1/1/2000</td>
-                            <td>user@gmail.com</td>
-                            <td>0123456789</td>
-                        </tr>
+                        <% users.forEach(user=> { %>
+                            <tr>
+                                <td class="options"><button>Remove User</button></td>
+                                <td>
+                                    <%= user.firstName %>
+                                </td>
+                                <td>
+                                    <%= user.lastName %>
+                                </td>
+                                <td>
+                                    <%= user.email %>
+                                </td>
+                                <td>
+                                    <%= user.userType %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <!-- <tr>
+                                <td class="options"><button>Remove User</button></td>
+                                <td>User Name</td>
+                                <td>1/1/2000</td>
+                                <td>user@gmail.com</td>
+                                <td>0123456789</td>
+                            </tr> -->
                     </table>
                 </div>
             </div>
@@ -391,7 +346,7 @@
                             <h3>My details</h3>
                             <h5>Personal Information</h5>
                             <hr>
-                            <div id="display-names" class = "section">
+                            <div id="display-names" class="section">
                                 <label class="display-label">FIRST NAME</label>
                                 <input disabled class="display-input" id="display-firstname" type="text"
                                     placeholder="John">
@@ -404,15 +359,14 @@
                             <h5>E-mail address</h5>
                             <hr>
 
-                            <div class = "section">
-                                    <label class="display-label">E-MAIL ADDRESS</label>
-                                    <input disabled class="display-input" type="text"
-                                        placeholder="johndoe123@gmail.com">
+                            <div class="section">
+                                <label class="display-label">E-MAIL ADDRESS</label>
+                                <input disabled class="display-input" type="text" placeholder="johndoe123@gmail.com">
                             </div>
                         </div>
 
-                        
-                        
+
+
                         <div class="account-only-one" id="chat">
                             <div class="test">
                                 <div class="card">
@@ -455,7 +409,19 @@
                 </div>
                 <div class="user-box">
                     <input required="" name="" type="text">
-                    <label>Product ID</label>
+                    <label>Product Price</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="" type="text">
+                    <label>Product Type</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="" type="text">
+                    <label>Product Description</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="" type="text">
+                    <label>Stock</label>
                 </div>
 
                 <div class="upload-image">
