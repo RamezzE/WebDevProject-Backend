@@ -74,7 +74,8 @@
 /* ------------------------ PRODUCT FORM ------------------------ */
 #product-overlay {
   height: 70vh;
-display: none;
+  z-index: 1;
+  display: none;
 }
 
 #product-overlay p:first-child {
@@ -244,9 +245,15 @@ display: none;
 }
 
 @media screen and (max-width: 600px) {
-#product-overlay {
-  overflow-y: scroll;
-}	
+  #product-overlay {
+    overflow-y: scroll;
+  }	
+}
+
+@media screen and (max-height: 1000px) {
+  #product-overlay {
+    overflow-y: scroll;
+  }	
 }
 
 /* ------------------------ END OF PRODUCT FORM ------------------------ */
