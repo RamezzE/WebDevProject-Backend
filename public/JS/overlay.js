@@ -2,13 +2,13 @@ let timeout = 150;
 
 function ShowOverlay(overlay) {
     setTimeout(() => {
-        document.getElementById(overlay).style.display = 'block';
+        document.getElementsByClassName(overlay).style.display = 'block';
     }, timeout);
 }
 
 function HideOverlay(overlay) {
     setTimeout(() => {
-        document.getElementById(overlay).style.display = 'none';
+        document.getElementsByClassName(overlay).style.display = 'none';
     }, timeout);
 }
 
