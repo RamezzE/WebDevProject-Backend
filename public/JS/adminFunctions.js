@@ -3,7 +3,7 @@ function deleteUser(userID) {
     
     var deleteForm = document.createElement('form');
     deleteForm.method = 'POST';
-    deleteForm.action = 'dashboard/users/delete';
+    deleteForm.action = '/dashboard/users/delete';
 
     var userIdInput = document.createElement('input');
     userIdInput.type = 'hidden';

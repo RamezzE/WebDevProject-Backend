@@ -1,0 +1,45 @@
+<div id="users" class="only-one">
+    <h1>Users</h1>
+    <div class="smallContainer" style="width:fit-content">
+        <button>
+            <h4>Add User</h4>
+        </button>
+    </div>
+    <div class="smallContainer">
+        <h4>All Users</h4>
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Type</th>
+            </tr>
+            <% users.forEach(user=> { %>
+            <tr>
+                <td class="options"> <button onclick="deleteUser('<%= user._id %>')">Remove User</button>
+                </td>
+                <td>
+                    <%= user.firstName %>
+                </td>
+                <td>
+                    <%= user.lastName %>
+                </td>
+                <td>
+                    <%= user.email %>
+                </td>
+                <td>
+                    <%= user.userType %>
+                </td>
+            </tr>
+            <% }) %>
+                <!-- <tr>
+                <td class="options"><button>Remove User</button></td>
+                <td>User Name</td>
+                <td>1/1/2000</td>
+                <td>user@gmail.com</td>
+                <td>0123456789</td>
+            </tr> -->
+        </table>
+    </div>
+</div>

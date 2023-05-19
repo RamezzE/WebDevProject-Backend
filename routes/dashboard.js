@@ -12,9 +12,20 @@ const collection = database.collection('users');
 
 router.get('/', async (req, res, next) => {
   if (req.session.userType != 'admin')
-    res.redirect('/');
+    return res.redirect('/');
+
+  let currentTab = 'home';
   const users = await collection.find().toArray();
-  res.render('dashboard', { users });
+  return res.render('dashboard', { currentTab: currentTab });
+});
+
+router.get('/users', async (req, res, next) => {
+  if (req.session.userType != 'admin')
+    return res.redirect('/');
+
+  let currentTab = 'users';
+  const users = await collection.find().toArray();
+  return res.render('dashboard', { users: users, currentTab: currentTab });
 });
 
 router.post('/users/delete', async (req, res) => {
@@ -28,7 +39,23 @@ router.post('/users/delete', async (req, res) => {
     console.log('User not found')
 
   const users = await collection.find().toArray();
-  return res.redirect('/dashboard');
+  return res.redirect('/dashboard/users');
+});
+
+router.get('/insights', async (req, res, next) => {
+  if (req.session.userType != 'admin')
+    return res.redirect('/');
+
+  let currentTab = 'insights';
+  return res.render('dashboard', { currentTab: currentTab });
+});
+
+router.get('/products', async (req, res, next) => {
+  if (req.session.userType != 'admin')
+    return res.redirect('/');
+
+  let currentTab = 'products';
+  return res.render('dashboard', { currentTab: currentTab });
 });
 
 export default router;
