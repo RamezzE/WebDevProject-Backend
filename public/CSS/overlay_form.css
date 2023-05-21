@@ -71,14 +71,14 @@
 
 /* ---------------- END OF UPLOAD IMAGE THING ---------------- */
 
-/* ------------------------ PRODUCT FORM ------------------------ */
-#product-overlay {
+/* ------------------------ FORM ------------------------ */
+.overlay-div {
   height: 70vh;
   z-index: 1;
   display: none;
 }
 
-#product-overlay p:first-child {
+.overlay-div p:first-child {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
@@ -88,11 +88,11 @@
   letter-spacing: 1px;
 }
 
-#product-overlay .product-form-item-div {
+.overlay-div .form-item-div {
   position: relative;
 }
 
-#product-overlay .product-form-item-div input {
+.overlay-div .form-item-div input {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -104,7 +104,7 @@
   background: transparent;
 }
 
-#product-overlay .product-form-item-div label {
+.overlay-div .form-item-div label {
   position: absolute;
   top: 0;
   left: 0;
@@ -115,15 +115,15 @@
   transition: .5s;
 }
 
-#product-overlay .product-form-item-div input:focus ~ label,
-#product-overlay .product-form-item-div input:valid ~ label {
+.overlay-div .form-item-div input:focus ~ label,
+.overlay-div .form-item-div input:valid ~ label {
   top: -20px;
   left: 0;
   color: #fff;
   font-size: 12px;
 }
 
-#product-overlay form a {
+.overlay-div form a {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -138,18 +138,18 @@
   letter-spacing: 3px
 }
 
-#product-overlay a:hover {
+.overlay-div a:hover {
   background: #fff;
   color: #272727;
   border-radius: 5px;
 }
 
-#product-overlay form a span {
+.overlay-div form a span {
   position: absolute;
   display: block;
 }
 
-#product-overlay form a span:nth-child(1) {
+.overlay-div form a span:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
@@ -168,7 +168,7 @@
   }
 }
 
-#product-overlay form a span:nth-child(2) {
+.overlay-div form a span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -188,7 +188,7 @@
   }
 }
 
-#product-overlay form a span:nth-child(3) {
+.overlay-div form a span:nth-child(3) {
   bottom: 0;
   right: -100%;
   width: 100%;
@@ -208,7 +208,7 @@
   }
 }
 
-#product-overlay form a span:nth-child(4) {
+.overlay-div form a span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -228,32 +228,32 @@
   }
 }
 
-#product-overlay p:last-child {
+.overlay-div p:last-child {
   color: #aaa;
   font-size: 14px;
 }
 
-#product-overlay a.cancel-add-product {
+.overlay-div a.cancel-form {
   color: #fff;
   text-decoration: none;
 }
 
-#product-overlay a.cancel-add-product:hover {
+.overlay-div a.cancel-form:hover {
   background: transparent;
   color: #aaa;
   border-radius: 5px;
 }
 
 @media screen and (max-width: 600px) {
-  #product-overlay {
+  .overlay-div {
     overflow-y: scroll;
   }	
 }
 
 @media screen and (max-height: 1000px) {
-  #product-overlay {
+  .overlay-div {
     overflow-y: scroll;
   }	
 }
 
-/* ------------------------ END OF PRODUCT FORM ------------------------ */
+/* ------------------------ END OF FORM ------------------------ */

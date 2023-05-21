@@ -1,23 +1,24 @@
 <div id="users" class="only-one">
     <h1>Users</h1>
     <div class="smallContainer" style="width:fit-content">
-        <button>
-            <h4>Add User</h4>
+        <button onclick = "HideOverlay();ShowForm('admin-form-overlay')">
+            <h4>Add Admin</h4>
+        </button>
+        <button onclick = "HideOverlay();ShowForm('user-form-overlay')">
+            <h4>Delete User</h4>
         </button>
     </div>
     <div class="smallContainer">
         <h4>All Users</h4>
         <table>
             <tr>
-                <th></th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Type</th>
+                <th>ID</th>
             </tr>
             <% users.forEach(user=> { %>
             <tr>
-                <td class="options"> <button onclick="deleteUser('<%= user._id %>')">Remove User</button>
-                </td>
                 <td>
                     <%= user.firstName + " " + user.lastName %>
                 </td>
@@ -26,6 +27,12 @@
                 </td>
                 <td>
                     <%= user.userType %>
+                </td>
+                <td class = "valueToCopy">
+                    <%= user._id %>
+                </td>
+                <td>
+                    <button onclick = "copyToClipboard(this,'valueToCopy')"><img src="../Images/Dashboard/copy.png" style = "width:20px;height:20px;"></button>
                 </td>
             </tr>
             <% }) %>
