@@ -61,8 +61,8 @@ router.get('/insights', async (req, res, next) => {
 });
 
 router.get('/products', async (req, res, next) => {
-  if (req.session.userType != 'admin')
-    return res.redirect('/');
+  // if (req.session.userType != 'admin')
+  //   return res.redirect('/');
 
   let currentTab = 'products';
   return res.render('dashboard', { currentTab: currentTab });

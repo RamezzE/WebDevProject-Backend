@@ -1,11 +1,20 @@
 var uploadField = document.getElementById("product-upload-input");
+var files = [];
+var filesToDatabase = [];
 
-var files = document.getElementById("product-upload-input").files;
+uploadField.onchange = function () {
+	for (let i = 0; i < this.files.length; i++) {
+		if (filesToDatabase.length > 3)
+			return;
 
-uploadField.onchange = function() {
-	console.log(files);
-    if(this.files[0].size > 3000000){
-       alert("File is too big!");
-       this.value = "";
-    };
+		if (this.files[i].size > 1000000) {
+			alert("File is too big!");
+			this.value = "";
+			continue;
+		};
+
+		filesToDatabase += document.getElementById("product-upload-input").files;
+		console.log(i + " " + filesToDatabase[i]);
+		
+	}
 };
