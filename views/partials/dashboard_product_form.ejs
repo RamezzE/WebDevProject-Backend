@@ -1,25 +1,70 @@
 <!----------------------------- add product form ----------------------------->
 <div id="product-form-overlay" class="overlay-div">
     <p>Add Product</p>
-    <form>
+    <form method="post" action="products/addProduct">
         <div class="form-item-div">
-            <input required="" type="text">
+            <input class="product-line-input" required name="productName" type="text">
             <label>Product Name</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
+            <input class="product-line-input" required name="productPrice" type="text">
             <label>Product Price</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
-            <label>Product Description</label>
+            <textarea class="product-line-input" name="productDescription" id="product-form-textarea" cols="40" rows="2" required></textarea>
+            <label id="product-description-label">Product Description</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
+            <input class="product-line-input" required name="productStock" type="text">
             <label>Stock</label>
         </div>
+        <div class="product-form-checkbox-div">
+            <div>
+                <label for="product-men-checkbox">
+                    <input id="product-men-checkbox" class="product-form-checkbox" required name="productMen" type="checkbox">
+                    <span></span>
+                    Men
+                </label>
+            </div>
+            <div>
+                <label for="product-women-checkbox">
+                    <input id="product-women-checkbox" class="product-form-checkbox" required name="productWomen" type="checkbox">
+                    <span></span>
+                    Women
+                </label>
+            </div>
+            <div>
+                <label for="product-kids-checkbox">
+                    <input id="product-kids-checkbox" class="product-form-checkbox" required name="productKids" type="checkbox">
+                    <span></span>
+                    Kids
+                </label>
+            </div>
+        </div>
 
-        <a href="#" onclick = "submitForm(this)">
+        <div class="product-form-checkbox-div">
+            <div>
+                <label for="product-shoes-checkbox">
+                    <input id="product-shoes-checkbox" class="product-form-checkbox" required name="shoes" type="checkbox">
+                    <span></span>
+                    Shoes
+                </label>
+            </div>
+            <div>
+                <label for="product-bags-checkbox">
+                    <input id="product-bags-checkbox" class="product-form-checkbox" required name="bags" type="checkbox">
+                    <span></span>
+                    Bag
+                </label>
+            </div>
+        </div>
+
+        <div class="form-item-div">
+            <input id="product-upload-input" type="file" accept=".png, .jpeg, .jpg" name="images" multiple required>
+        </div>
+        
+
+        <a onclick = "submitForm(this)">
             <span></span>
             <span></span>
             <span></span>

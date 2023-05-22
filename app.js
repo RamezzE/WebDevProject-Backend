@@ -69,7 +69,6 @@ app.use('/signOut', signOut_router);
 // error handler
 app.use((req, res, err) => {
     // set locals, only providing error in development
-    console.log("KDJFKDJFKJDJFKD");
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     

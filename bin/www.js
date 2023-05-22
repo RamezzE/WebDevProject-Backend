@@ -37,6 +37,7 @@ const server = createServer(app);
  */
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
+    console.log("Connected to the database")
     server.listen(PORT);
     server.on('error', onError);
     server.on('listening', onListening);

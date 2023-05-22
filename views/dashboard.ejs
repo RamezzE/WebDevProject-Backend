@@ -69,14 +69,16 @@
 
     <% if (currentTab=="products" ) { %>
         <%- include("./partials/dashboard_product_form.ejs"); %>
-            <% } else if (currentTab=="users" ) { %>
-                <%- include("./partials/dashboard_users_form.ejs"); %>
-                    <%- include("./partials/dashboard_admins_form.ejs"); %>
-                        <% } %>
+            <%- include("./partials/delete_product_overlay.ejs"); %>
+    <% } else if (currentTab=="users" ) { %>
+            <%- include("./partials/dashboard_users_form.ejs"); %>
+            <%- include("./partials/dashboard_admins_form.ejs"); %>
+        <% } %>
                             <script src="../JS/account1.js"></script>
                             <script type="text/javascript" src="../JS/adminbar.js"></script>
                             <script src="../JS/overlay.js"></script>
                             <script src="../JS/adminFunctions.js"></script>
+                            <script src="../JS/fileUploadLimit.js"></script>
 </body>
 
 </html>
