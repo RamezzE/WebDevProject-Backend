@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
   const { firstName, lastName, email, password, confirmPass } = req.body;
 
   let errorMsg = {};
-
+  
   //validate data
   if (firstName.trim() == '')
     errorMsg.firstName = 'First name is required';
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
   req.session.firstName = user.firstName;
   req.session.lastName = user.lastName;
   req.session.email = user.email;
-  
+
   res.redirect('account');
 });
 
