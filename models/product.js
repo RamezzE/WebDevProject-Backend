@@ -3,19 +3,23 @@ import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     price: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     stock: {
         type: Number,
-        required: true
+        required: true,
+        trim: true
     },
     category: [
         {
@@ -32,7 +36,7 @@ const productSchema = new mongoose.Schema({
         {
             type: String,
             length: 3,
-            required: true
+            // required: true
         }
     ],
     createdAt: {

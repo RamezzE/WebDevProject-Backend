@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 import { Router } from 'express';
 import User from '../models/user.js';
+import Product from '../models/product.js';
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' })
 
@@ -66,6 +67,85 @@ router.get('/products', async (req, res, next) => {
 
   let currentTab = 'products';
   return res.render('dashboard', { currentTab: currentTab });
+});
+
+router.post('/products/addProduct', async (req, res) => {
+	console.log('Adding product');
+
+	//get data from form
+	const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags, images } = req.body;
+
+  console.log(req.body);
+
+	let errorMsg = {};
+
+	//validate data
+	if (productName.trim() == '')
+		errorMsg.productName = 'Product name is required';
+	else {
+		const existingProduct = await Product.findOne({ productName });
+		if (existingProduct) {
+			errorMsg.productName = "Product already exists!";
+		}
+	}
+
+	if (productPrice.trim() == '')
+		errorMsg.productPrice = 'Product price is required';
+
+	if (productDescription.trim() == '')
+		errorMsg.productDescription = 'Product description is required';
+
+	if (productStock.trim() == '')
+		errorMsg.productStock = 'Product stock is required';
+	
+	if (images.length > 3) {
+		errorMsg.images = 'Only 3 images allowed';
+	}
+
+	if (errorMsg.length > 0) {
+		for (let key in errorMsg) {
+			console.log(errorMsg[key]);
+		}
+		return res.render('products', { errorMsg });
+	}
+
+  let men, women, kids;
+  men = women = kids = false;
+  let type = "";
+
+  console.log(productMen + "\n" + productWomen + "\n" + productKids)
+
+  if (productMen == 'on') 
+    men = true; 
+  
+  if (productWomen == 'on')
+    women = true;
+
+  if (productKids == 'on')
+    kids = true;
+
+  if (shoes == 'on')
+    type = 'shoes';
+  
+  else if (bags == 'on')
+    type = 'bags';
+
+	//save user to db
+	const product = new Product({
+		name: productName,
+		price: productPrice,
+		description: productDescription,
+		stock: productStock,
+		category: [men, women, kids],
+		type : type,
+		// images
+	});
+
+	await product.save();
+	console.log("Product saved:", product);
+
+	//data ok
+  return res.redirect('/dashboard/products');
 });
 
 export default router;
