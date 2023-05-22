@@ -10,25 +10,49 @@
         </button>
     </div>
 
-    <div id="myProducts" class="smallContainer">
-        <h3>Your products</h3>
+    <div class="smallContainer">
+        <h4>All Products</h4>
         <table>
-            <tbody>
-                <tr>
-                    <th class="imgHeader"></th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Price</th>
-                    <th>Inventory</th>
-                </tr>
-                <tr>
-                    <td class="imgCell"><img src="../Images/Icons/Product-1.jpg"></td>
-                    <td>Skechers 2021</td>
-                    <td>Shoes</td>
-                    <td>1500</td>
-                    <td>57</td>
-                </tr>
-            </tbody>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Images</th>
+            </tr>
+            <% products.forEach(product => { %>
+            <tr>
+                <td>
+                    <%= product.name %>
+                </td>
+                <td>
+                    <%= product.price %>
+                </td>
+                <td>
+                    <%= product.description %>
+                </td>
+                <td>
+                    <%= product.stock %>
+                </td>
+                <td>
+                    <%= product.category %>
+                </td>
+                <td>
+                    <%= product.type %>
+                </td>
+                <td>
+                    <%= product.iamges %>
+                </td>
+                <td class = "valueToCopy">
+                    <%= product._id %>
+                </td>
+                <td>
+                    <button onclick = "copyToClipboard(this,'valueToCopy')"><img src="../Images/Dashboard/copy.png" style = "width:20px;height:20px;"></button>
+                </td>
+            </tr>
+            <% }) %>
         </table>
     </div>
 </div>

@@ -9,14 +9,15 @@ var router = Router();
 
 const client = new MongoClient("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
-const collection = database.collection('users');
+const usersCollection = database.collection('users');
+const productsCollection = database.collection('products');
 
 router.get('/', async (req, res, next) => {
   if (req.session.userType != 'admin')
     return res.redirect('/');
 
   let currentTab = 'home';
-  const users = await collection.find().toArray();
+  const users = await usersCollection.find().toArray();
   return res.render('dashboard', { currentTab: currentTab });
 });
 
@@ -25,7 +26,7 @@ router.get('/users', async (req, res, next) => {
   //   return res.redirect('/');
 
   let currentTab = 'users';
-  const users = await collection.find().toArray();
+  const users = await usersCollection.find().toArray();
   return res.render('dashboard', { users: users, currentTab: currentTab });
 });
 
@@ -38,7 +39,6 @@ router.post('/users/delete', async (req, res) => {
   else
     console.log('User not found')
 
-  const users = await collection.find().toArray();
   return res.redirect('/dashboard/users');
 });
 
@@ -66,7 +66,8 @@ router.get('/products', async (req, res, next) => {
   //   return res.redirect('/');
 
   let currentTab = 'products';
-  return res.render('dashboard', { currentTab: currentTab });
+  const products = await productsCollection.find().toArray();
+  return res.render('dashboard', { products: products, currentTab: currentTab });
 });
 
 router.post('/products/addProduct', async (req, res) => {
@@ -146,6 +147,18 @@ router.post('/products/addProduct', async (req, res) => {
 
 	//data ok
   return res.redirect('/dashboard/products');
+});
+
+router.post('/products/delete', async (req, res) => {
+  const { productID } = req.body;
+  const deletedProduct = await Product.findOneAndDelete({ _id: productID });
+
+  if (deletedProduct)
+    console.log('Product deleted')
+  else
+    console.log('Product not found')
+
+    return res.redirect('/dashboard/products');
 });
 
 export default router;
