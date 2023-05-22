@@ -58,23 +58,17 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width:100%;
-    flex-grow: 0;
-}
-
-.productsGrid .column {
-    display: flex;
-    flex-direction: column;
-    width:25%;
+    justify-content: left;
 }
 
 .productsGrid .product {
     display: flex;
     flex-direction: column;
     padding:10px;
-    height: fit-content;
     margin-bottom:5px;
     margin-top:5px;
+    width: 20%;
+    min-height: 10vh;
 }
 
 .productsGrid .product .price {
@@ -91,6 +85,12 @@ body {
     }
 }
 
+@media screen and (max-width: 700px) {
+    .productsGrid .product {
+        width: 50%;
+    }
+}
+
 @media screen and (max-width: 600px) {
     #biggerContainer {
         margin-top: 16vw;
@@ -100,10 +100,7 @@ body {
         padding: 15px;
     }
 
-    .productsGrid .column {
-        width:100%;
+    .productsGrid .product {
+        width: 100%;
     }
 }
-
-
-
