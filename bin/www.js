@@ -17,12 +17,13 @@ import mongoose from "mongoose";
 /**
  * Get port from environment and store in Express.
  */
-
-const PORT = (process.env.PORT);
-const HOST = (process.env.HOST);
-app.set('port', PORT);
-app.set('host', HOST);
 app.set('env', process.env.ENV);
+
+const PORT = (8080);
+const HOST = ("127.0.0.1");
+app.set('port');
+app.set('host');
+
 
 
 /**
@@ -34,7 +35,7 @@ const server = createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     server.listen(PORT);
     server.on('error', onError);

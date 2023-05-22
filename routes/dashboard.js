@@ -6,7 +6,7 @@ dotenv.config({ path: './.env' })
 
 var router = Router();
 
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
 const collection = database.collection('users');
 
