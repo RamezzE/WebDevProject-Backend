@@ -21,8 +21,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/users', async (req, res, next) => {
-  if (req.session.userType != 'admin')
-    return res.redirect('/');
+  // if (req.session.userType != 'admin')
+  //   return res.redirect('/');
 
   let currentTab = 'users';
   const users = await collection.find().toArray();
