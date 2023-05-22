@@ -36,7 +36,7 @@ router.get('/users', async (req, res, next) => {
 router.post('/users/delete', async (req, res) => {
   const { userID } = req.body;
   const deletedUser = await User.findOneAndDelete({ _id: userID });
-  
+
   if (deletedUser)
     console.log('User deleted')
   else
@@ -74,69 +74,69 @@ router.get('/products', async (req, res, next) => {
 });
 
 router.post('/products/addProduct', async (req, res) => {
-	console.log('Adding product');
+  console.log('Adding product');
 
-	//get data from form
-	const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags } = req.body;
+  //get data from form
+  const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags } = req.body;
 
   console.log(req.body);
 
-	let errorMsg = {};
+  let errorMsg = {};
 
-	//validate data
-	if (productName.trim() == '')
-		errorMsg.productName = 'Product name is required';
-	else {
-		const existingProduct = await Product.findOne({ productName });
-		if (existingProduct) {
-			errorMsg.productName = "Product already exists!";
-		}
-	}
+  //validate data
+  if (productName.trim() == '')
+    errorMsg.productName = 'Product name is required';
+  else {
+    const existingProduct = await Product.findOne({ productName });
+    if (existingProduct) {
+      errorMsg.productName = "Product already exists!";
+    }
+  }
 
-	if (productPrice.trim() == '')
-		errorMsg.productPrice = 'Product price is required';
+  if (productPrice.trim() == '')
+    errorMsg.productPrice = 'Product price is required';
 
-	if (productDescription.trim() == '')
-		errorMsg.productDescription = 'Product description is required';
+  if (productDescription.trim() == '')
+    errorMsg.productDescription = 'Product description is required';
 
-	if (productStock.trim() == '')
-		errorMsg.productStock = 'Product stock is required';
+  if (productStock.trim() == '')
+    errorMsg.productStock = 'Product stock is required';
 
-	if (errorMsg.length > 0) {
-		for (let key in errorMsg) {
-			console.log(errorMsg[key]);
-		}
-		return res.render('products', { errorMsg });
-	}
+  if (errorMsg.length > 0) {
+    for (let key in errorMsg) {
+      console.log(errorMsg[key]);
+    }
+    return res.render('products', { errorMsg });
+  }
 
-  let imagePaths = [];
   let imgFile = req.files.images;
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-  let uploadPath = __dirname + '/../public/Products/' + productName + '.png';
+  // if (req.files) {
+  //   const limit = 3;
 
-  imgFile.mv(uploadPath, (err) => {
+  //   if (req.files.length  > limit) {
+  //     errorMsg.image = 'You can only upload a maximum of ' + limit + ' images';
+  //     return res.render('products', { errorMsg });
+  //   }
+
+  //   imagePaths = req.files.map(file => file.path);
+
+  //   for (let i = 0; i < imagePaths.length; i++) {
+  //     console.log(imagePaths[i])
+  //     imagePaths[i] = imagePaths[i].replace('public\\', '');
+  //   }
+  // }
+
+  let uploadPath = __dirname + '/../public/Images/Products/' + productName + '.png';
+  imgFile.mv(uploadPath, function (err) {
     if (err)
       return res.status(500).send(err);
+
+
   });
-
-  if (req.files) {
-    const limit = 3;
-
-    if (req.files.length  > limit) {
-      errorMsg.image = 'You can only upload a maximum of ' + limit + ' images';
-      return res.render('products', { errorMsg });
-    }
-
-    imagePaths = req.files.map(file => file.path);
-
-    for (let i = 0; i < imagePaths.length; i++) {
-      console.log(imagePaths[i])
-      imagePaths[i] = imagePaths[i].replace('public\\', '');
-    }
-  }
 
   let men, women, kids;
   men = women = kids = false;
@@ -144,9 +144,9 @@ router.post('/products/addProduct', async (req, res) => {
 
   console.log(productMen + "\n" + productWomen + "\n" + productKids)
 
-  if (productMen == 'on') 
-    men = true; 
-  
+  if (productMen == 'on')
+    men = true;
+
   if (productWomen == 'on')
     women = true;
 
@@ -155,26 +155,26 @@ router.post('/products/addProduct', async (req, res) => {
 
   if (shoes == 'on')
     type = 'shoes';
-  
+
   else if (bags == 'on')
     type = 'bags';
 
-	//save user to db
-	const product = new Product({
-		name: productName,
-		price: productPrice,
-		description: productDescription,
-		stock: productStock,
-		category: [men, women, kids],
-		type: type,
-		images: imgFile
-    
-	});
+  //save user to db
+  const product = new Product({
+    name: productName,
+    price: productPrice,
+    description: productDescription,
+    stock: productStock,
+    category: [men, women, kids],
+    type: type,
+    images: productName + '.png'
 
-	await product.save();
-	console.log("Product saved:", product);
+  });
 
-	//data ok
+  await product.save();
+  console.log("Product saved:", product);
+
+  //data ok
   return res.redirect('/dashboard/products');
 });
 
@@ -187,7 +187,7 @@ router.post('/products/delete', async (req, res) => {
   else
     console.log('Product not found')
 
-    return res.redirect('/dashboard/products');
+  return res.redirect('/dashboard/products');
 });
 
 export default router;

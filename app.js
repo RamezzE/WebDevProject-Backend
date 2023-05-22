@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import session from 'express-session';
+import fileUpload from 'express-fileupload';
 
 import index_router from "./routes/index.js";
 import account_router from "./routes/account.js";
@@ -45,6 +46,7 @@ app.use(express.json());
 // When extended property is set to false, the URL-encoded data will instead be parsed with the query-string library.
 // query-string library does not support creating a nested object from your query string.
 
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
 //setup cookie parser middleware
 app.use(cookieParser());
