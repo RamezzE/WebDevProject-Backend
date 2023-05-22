@@ -13,10 +13,8 @@ import cart_router from "./routes/cart.js";
 import wishlist_router from "./routes/wishlist.js";
 import dashboard_router from "./routes/dashboard.js";
 import register_router from "./routes/register.js";
-import men_router from "./routes/men_products.js";
-import women_router from "./routes/women_products.js";
+import product_router from "./routes/products.js";
 import details_router from "./routes/ProductDetails.js";
-import shoes_router from "./routes/shoes_products.js";
 import check_router from "./routes/checkout.js";
 import signOut_router from "./routes/signOut.js";
 
@@ -59,10 +57,8 @@ app.use('/cart', cart_router);
 app.use('/login', login_router);
 app.use('/dashboard', dashboard_router);
 app.use('/register', register_router);
-app.use('/men',men_router);
-app.use('/women', women_router);
+app.use('/products',product_router);
 app.use('/ProductDetails', details_router);
-app.use('/shoes', shoes_router);
 app.use('/checkout', check_router);
 app.use('/signOut', signOut_router);
 
