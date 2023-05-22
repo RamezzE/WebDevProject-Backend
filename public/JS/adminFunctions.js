@@ -1,5 +1,9 @@
 function submitForm(field) {
     let form = field.parentNode;
+    let input = form.querySelector('div input');
+    if (input.value == '')
+        return;
+    
     form.submit();
 }
 
@@ -7,7 +11,7 @@ function copyToClipboard(button, className) {
     console.log(className);
     let parent = button.parentNode.parentNode; // Use parentNode instead of parent
     let copyText = parent.querySelector('.' + className); // Use querySelector instead of getElementsByClassName and specify class with a dot prefix
-  
+    
     // Create a temporary textarea element
     let tempTextarea = document.createElement('textarea');
     tempTextarea.value = copyText.textContent.trim();
