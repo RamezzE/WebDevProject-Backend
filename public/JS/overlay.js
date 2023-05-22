@@ -1,29 +1,38 @@
 let timeout = 150;
 
-function ShowOverlay(overlay) {
-    setTimeout(() => {
-        document.getElementsByClassName(overlay).style.display = 'block';
-    }, timeout);
+// function ShowOverlay(overlay) {
+//   setTimeout(() => {
+//     let overlays = document.getElementsByClassName('overlay-div');
+//     for (let i = 0; i < overlays.length; i++)
+//       overlays[i].style.display = 'block';
+//   }, timeout);
+// }
+
+function HideOverlay() {
+  setTimeout(() => {
+    let overlays = document.getElementsByClassName('overlay-div');
+    for (let i = 0; i < overlays.length; i++)
+      overlays[i].style.display = 'none';
+  }, timeout);
 }
 
-function HideOverlay(overlay) {
-    setTimeout(() => {
-        document.getElementsByClassName(overlay).style.display = 'none';
-    }, timeout);
+function ShowForm(id) {
+  setTimeout(() => {
+    document.getElementById(id).style.display = 'flex';
+    document.getElementById(id).style.flexDirection = 'column';
+  }, timeout);
 }
 
-document.addEventListener('click', function handleClickOutsideBox(event) {
-    const box = document.getElementById('product-overlay');
-  
-    if (!box.contains(event.target)) {
-      box.style.display = 'none';
-    }
-  });
+// function HideForm(id) {
+//   document.getElementById(id).style.display = 'none';
+// }
 
 document.addEventListener('click', function handleClickOutsideBox(event) {
-    const box = document.getElementById('sign-out');
-  
-    if (!box.contains(event.target)) {
-      box.style.display = 'none';
+  const box = document.getElementsByClassName('overlay-div');
+  //for each loop 
+  for (let i = 0; i < box.length; i++)
+    if (!box[i].contains(event.target)) {
+      box[i].style.display = 'none';
     }
-  });
+});
+

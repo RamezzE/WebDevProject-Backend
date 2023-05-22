@@ -30,9 +30,8 @@ router.get('/users', async (req, res, next) => {
 
 router.post('/users/delete', async (req, res) => {
   const { userID } = req.body;
-  console.log(userID);
   const deletedUser = await User.findOneAndDelete({ _id: userID });
-
+  
   if (deletedUser)
     console.log('User deleted')
   else
@@ -40,6 +39,17 @@ router.post('/users/delete', async (req, res) => {
 
   const users = await collection.find().toArray();
   return res.redirect('/dashboard/users');
+});
+
+router.post('/users/makeAdmin', async (req, res) => {
+  const { userID } = req.body;
+  const user = await User.findOne({ _id: userID });
+
+  user.userType = 'admin';
+  await user.save();
+
+  return res.redirect('/dashboard/users');
+
 });
 
 router.get('/insights', async (req, res, next) => {
