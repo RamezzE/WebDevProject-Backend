@@ -25,16 +25,18 @@
                 <h1>Pixi</h1>
                 <p>Your Favourite Brand</p>
                 <div class="productsGrid">
-					<% for (let i = 0; i < products.length; i++) { %>					
-						<div class="product">
+                    <% for (let i=0; i < products.length; i++) { %>
+                        <div class="product">
                             <img src="../Images/Products/<%= products[i].images[0]%>">
-                            <span><%= products[i].name %></span>
-                            <span class="price"><%= products[i].price %> EGP</span>
+                            <span>
+                                <%= products[i].name %>
+                            </span>
+                            <span class="price">
+                                <%= products[i].price %> EGP
+                            </span>
                         </div>
-					<% } %>
+                        <% } %>
                 </div>
-
-
 
             </div>
 

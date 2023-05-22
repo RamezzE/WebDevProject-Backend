@@ -59,6 +59,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: left;
+    width:100%;
 }
 
 .productsGrid .product {
@@ -80,8 +81,8 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
-    .productsGrid .column {
-        width:50%;
+    .productsGrid .product {
+        width:33%;
     }
 }
 

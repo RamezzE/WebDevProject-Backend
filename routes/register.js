@@ -58,7 +58,6 @@ router.post('/', async (req, res) => {
     return res.render('register', { errorMsg });
   }
 
-
   //save user to db
   const user = new User({
     firstName,
