@@ -3,21 +3,45 @@
     <p>Add Product</p>
     <form>
         <div class="form-item-div">
-            <input required="" type="text">
+            <input class="product-line-input" required="" type="text">
             <label>Product Name</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
+            <input class="product-line-input" required="" name="" type="text">
             <label>Product Price</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
+            <textarea name="" id="product-form-textarea" cols="40" rows="6" placeholder="Description" required></textarea>
             <label>Product Description</label>
         </div>
         <div class="form-item-div">
-            <input required="" name="" type="text">
+            <input class="product-line-input" required="" name="" type="text">
             <label>Stock</label>
         </div>
+        <div id="product-form-checkbox-div">
+            <div>
+                <label for="product-men-checkbox">
+                    <input id="product-men-checkbox" class="product-form-checkbox" required="" name="" type="checkbox">
+                    <span></span>
+                    Men
+                </label>
+            </div>
+            <div>
+                <label for="product-women-checkbox">
+                    <input id="product-women-checkbox" class="product-form-checkbox" required="" name="" type="checkbox">
+                    <span></span>
+                    Women
+                </label>
+            </div>
+            <div>
+                <label for="product-kids-checkbox">
+                    <input id="product-kids-checkbox" class="product-form-checkbox" required="" name="" type="checkbox">
+                    <span></span>
+                    Kids
+                </label>
+            </div>
+        </div>
+        
 
         <a href="#" onclick = "submitForm(this)">
             <span></span>

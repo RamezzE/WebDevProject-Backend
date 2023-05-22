@@ -37,6 +37,7 @@ const server = createServer(app);
  */
 mongoose.connect("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
+    console.log("Connected to the database")
     server.listen(PORT);
     server.on('error', onError);
     server.on('listening', onListening);
