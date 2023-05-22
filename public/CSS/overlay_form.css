@@ -281,7 +281,7 @@
   margin-bottom: 50px;
 }
 
-.product-form-checkbox {
+.product-form-checkbox, .filter-form-checkbox {
   visibility: hidden;
   display: block;
   height: 0;
@@ -313,6 +313,10 @@
 }
 
 .product-form-checkbox:checked + span {/* <-- Style its checked state */
+  background: white;
+}
+
+.filter-form-checkbox:checked + span {/* <-- Style its checked state */
   background: white;
 }
 

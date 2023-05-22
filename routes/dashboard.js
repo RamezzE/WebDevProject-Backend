@@ -21,6 +21,9 @@ const __dirname = path.dirname(__filename);
 const imageFolderPath = path.join(__dirname, '../public/Images/Products/');
 const IMAGE_LIMIT = 3;
 
+var productsToDisplay;
+var redirected = false;
+
 router.get('/', async (req, res, next) => {
   if (req.session.userType != 'admin')
     return res.redirect('/');
@@ -75,7 +78,16 @@ router.get('/products', async (req, res, next) => {
   //   return res.redirect('/');
 
   let currentTab = 'products';
-  const products = await productsCollection.find().toArray();
+
+  let products;
+  if (!redirected) {
+    products = await productsCollection.find().toArray();
+  }
+  else {
+    redirected = false;
+    products = productsToDisplay;
+  }
+
   return res.render('dashboard', { products: products, currentTab: currentTab });
 });
 
@@ -182,6 +194,37 @@ router.post('/products/addProduct', async (req, res) => {
   return res.redirect('/dashboard/products');
 });
 
+router.post('/products/filter', async (req, res) => {
+  const { productMen, productWomen, productKids, shoes, bags } = req.body;
+
+  console.log(req.body);
+
+  let men, women, kids;
+  men = women = kids = false;
+  if (productMen == 'on')
+    men = true;
+  if (productWomen)
+    women = true;
+  if (productKids)
+    kids = true;
+
+  let type = [];
+  if (shoes)
+    type.push('Shoe');
+  if (bags)
+    type.push('Bag');
+
+  const query = {
+    category: [men, women, kids],
+    type: { $in: type },
+  };
+
+  productsToDisplay = await productsCollection.find(query).toArray();
+  redirected = true;
+
+  return res.redirect('/dashboard/products');
+});
+
 router.post('/products/delete', async (req, res) => {
   const { productID } = req.body;
 
@@ -206,9 +249,9 @@ router.post('/products/delete', async (req, res) => {
   }
 
   console.log("Deleted product images")
-  
+
   const deletedProduct = await Product.findOneAndDelete({ _id: productID });
-  
+
   if (deletedProduct)
     console.log('Product deleted')
   else

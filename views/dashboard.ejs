@@ -70,6 +70,7 @@
     <% if (currentTab=="products" ) { %>
         <%- include("./partials/dashboard_product_form.ejs"); %>
             <%- include("./partials/delete_product_overlay.ejs"); %>
+            <%- include("./partials/dashboard_product_filter_form.ejs"); %>
     <% } else if (currentTab=="users" ) { %>
             <%- include("./partials/dashboard_users_form.ejs"); %>
             <%- include("./partials/dashboard_admins_form.ejs"); %>
