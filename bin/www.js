@@ -10,7 +10,7 @@ import app from '../app.js';
 import { createServer } from 'http';
 
 import dotenv from 'dotenv';
-dotenv.config({ path: './.env' })
+dotenv.config({ path: '../.env' })
 
 import mongoose from "mongoose";
 
@@ -19,8 +19,8 @@ import mongoose from "mongoose";
  */
 app.set('env', process.env.ENV);
 
-const PORT = (8080);
-const HOST = ("127.0.0.1");
+const PORT = (process.env.PORT);
+const HOST = (process.env.HOST);
 app.set('port');
 app.set('host');
 
@@ -35,7 +35,7 @@ const server = createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-mongoose.connect("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     server.listen(PORT);
     server.on('error', onError);

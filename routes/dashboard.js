@@ -2,11 +2,11 @@ import { MongoClient } from 'mongodb';
 import { Router } from 'express';
 import User from '../models/user.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: './.env' })
+dotenv.config({ path: '../.env' })
 
 var router = Router();
 
-const client = new MongoClient("mongodb+srv://donia:donia@customers.qna42wj.mongodb.net/web11?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
 const collection = database.collection('users');
 
