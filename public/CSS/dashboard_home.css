@@ -15,6 +15,11 @@
     transition: ease all 300ms;
 }
 
+#suggested {
+    display: flex;
+    flex-direction: column;
+}
+
 #home #suggested ul li:hover {
     background-color: var(--body-font-color);
     color:var(--bg-color);
