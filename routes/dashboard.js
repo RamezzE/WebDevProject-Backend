@@ -5,6 +5,7 @@ import Product from '../models/product.js';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 import fileUpload from 'express-fileupload';
 dotenv.config({ path: './.env' })
 
@@ -14,6 +15,11 @@ const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, u
 const database = client.db('web11');
 const usersCollection = database.collection('users');
 const productsCollection = database.collection('products');
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const imageFolderPath = path.join(__dirname, '../public/Images/Products/');
+const IMAGE_LIMIT = 3;
 
 router.get('/', async (req, res, next) => {
   if (req.session.userType != 'admin')
@@ -78,8 +84,8 @@ router.post('/products/addProduct', async (req, res) => {
 
   //get data from form
   const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags } = req.body;
-
-  console.log(req.body);
+  const images = req.files.images;
+  let imagesNo = req.files.images.length
 
   let errorMsg = {};
 
@@ -102,47 +108,44 @@ router.post('/products/addProduct', async (req, res) => {
   if (productStock.trim() == '')
     errorMsg.productStock = 'Product stock is required';
 
-  if (errorMsg.length > 0) {
+  if (req.files.images.length == 0)
+    errorMsg.image = 'Product image is required';
+
+  else if (req.files.images.length > IMAGE_LIMIT)
+    errorMsg.image = 'You can only upload a maximum of ' + IMAGE_LIMIT + ' images';
+
+  if (Object.keys(errorMsg).length > 0) {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render('products', { errorMsg });
+    //need to add errorMsg later
+    return res.redirect('/dashboard/products');
   }
 
-  let imgFile = req.files.images;
+  //alternative to above
+  if (imagesNo > IMAGE_LIMIT)
+    imagesNo = IMAGE_LIMIT;
 
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
+  console.log(images);
 
-  // if (req.files) {
-  //   const limit = 3;
+  let imgNames = [];
 
-  //   if (req.files.length  > limit) {
-  //     errorMsg.image = 'You can only upload a maximum of ' + limit + ' images';
-  //     return res.render('products', { errorMsg });
-  //   }
+  for (let i = 0; i < imagesNo; i++) {
 
-  //   imagePaths = req.files.map(file => file.path);
+    imgNames[i] = productName + i + '.png';
+    console.log(imgNames[i]);
+    let uploadPath = __dirname + '/../public/Images/Products/' + imgNames[i];
 
-  //   for (let i = 0; i < imagePaths.length; i++) {
-  //     console.log(imagePaths[i])
-  //     imagePaths[i] = imagePaths[i].replace('public\\', '');
-  //   }
-  // }
+    images[i].mv(uploadPath, function (err) {
+      if (err)
+        return res.status(500).send(err);
 
-  let uploadPath = __dirname + '/../public/Images/Products/' + productName + '.png';
-  imgFile.mv(uploadPath, function (err) {
-    if (err)
-      return res.status(500).send(err);
-
-
-  });
+    });
+  }
 
   let men, women, kids;
   men = women = kids = false;
   let type = "";
-
-  console.log(productMen + "\n" + productWomen + "\n" + productKids)
 
   if (productMen == 'on')
     men = true;
@@ -154,12 +157,13 @@ router.post('/products/addProduct', async (req, res) => {
     kids = true;
 
   if (shoes == 'on')
-    type = 'shoes';
+    type = 'Shoe';
 
   else if (bags == 'on')
-    type = 'bags';
+    type = 'Bag';
 
-  //save user to db
+  //save user to database
+
   const product = new Product({
     name: productName,
     price: productPrice,
@@ -167,12 +171,12 @@ router.post('/products/addProduct', async (req, res) => {
     stock: productStock,
     category: [men, women, kids],
     type: type,
-    images: productName + '.png'
+    images: imgNames
 
   });
 
   await product.save();
-  console.log("Product saved:", product);
+  console.log("Product saved:\n", product);
 
   //data ok
   return res.redirect('/dashboard/products');
@@ -180,12 +184,35 @@ router.post('/products/addProduct', async (req, res) => {
 
 router.post('/products/delete', async (req, res) => {
   const { productID } = req.body;
-  const deletedProduct = await Product.findOneAndDelete({ _id: productID });
 
+  const product = await Product.findOne({ _id: productID });
+
+  if (!product) {
+    console.log('Product ID not found');
+    return res.redirect('/dashboard/products');
+  }
+
+  const images = product.images;
+  for (let i = 0; i < images.length; i++) {
+    let imagePath = imageFolderPath + images[i];
+
+    // Delete the image file from the file system
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        console.error('Error deleting image:', err);
+        return;
+      }
+    });
+  }
+
+  console.log("Deleted product images")
+  
+  const deletedProduct = await Product.findOneAndDelete({ _id: productID });
+  
   if (deletedProduct)
     console.log('Product deleted')
   else
-    console.log('Product not found')
+    console.log('Error deleting product')
 
   return res.redirect('/dashboard/products');
 });

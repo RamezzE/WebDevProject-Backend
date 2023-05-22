@@ -26,7 +26,7 @@
             <% products.forEach(product=> { %>
                 <tr>
                     <td>
-                        <img src="../Images/Products/<%=product.images%>">
+                        <img src="../Images/Products/<%=product.images[0]%>">
                     </td>
 
                     <td>
@@ -42,7 +42,7 @@
                         <% if (product.category[0]==true) {%>
                             Men
                             <% } if (product.category[1]==true) {%>
-                                Women
+                                Women 
                                 <% } if (product.category[2]==true) {%>
                                     Kids
                                     <% } %>
