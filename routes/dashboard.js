@@ -3,7 +3,10 @@ import { Router } from 'express';
 import User from '../models/user.js';
 import Product from '../models/product.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' })
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fileUpload from 'express-fileupload';
+dotenv.config({ path: './.env' })
 
 var router = Router();
 
@@ -74,7 +77,7 @@ router.post('/products/addProduct', async (req, res) => {
 	console.log('Adding product');
 
 	//get data from form
-	const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags, images } = req.body;
+	const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags } = req.body;
 
   console.log(req.body);
 
@@ -98,10 +101,6 @@ router.post('/products/addProduct', async (req, res) => {
 
 	if (productStock.trim() == '')
 		errorMsg.productStock = 'Product stock is required';
-	
-	if (images.length > 3) {
-		errorMsg.images = 'Only 3 images allowed';
-	}
 
 	if (errorMsg.length > 0) {
 		for (let key in errorMsg) {
@@ -109,6 +108,35 @@ router.post('/products/addProduct', async (req, res) => {
 		}
 		return res.render('products', { errorMsg });
 	}
+
+  let imagePaths = [];
+  let imgFile = req.files.images;
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  let uploadPath = __dirname + '/../public/Products/' + productName + '.png';
+
+  imgFile.mv(uploadPath, (err) => {
+    if (err)
+      return res.status(500).send(err);
+  });
+
+  if (req.files) {
+    const limit = 3;
+
+    if (req.files.length  > limit) {
+      errorMsg.image = 'You can only upload a maximum of ' + limit + ' images';
+      return res.render('products', { errorMsg });
+    }
+
+    imagePaths = req.files.map(file => file.path);
+
+    for (let i = 0; i < imagePaths.length; i++) {
+      console.log(imagePaths[i])
+      imagePaths[i] = imagePaths[i].replace('public\\', '');
+    }
+  }
 
   let men, women, kids;
   men = women = kids = false;
@@ -138,8 +166,9 @@ router.post('/products/addProduct', async (req, res) => {
 		description: productDescription,
 		stock: productStock,
 		category: [men, women, kids],
-		type : type,
-		// images
+		type: type,
+		images: imgFile
+    
 	});
 
 	await product.save();
