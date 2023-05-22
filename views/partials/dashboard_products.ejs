@@ -5,7 +5,7 @@
         <button onclick="HideOverlay();ShowForm('product-form-overlay')">
             <h4>Add Product</h4>
         </button>
-        <button onclick = "HideOverlay();ShowForm('delete-product-overlay')">
+        <button onclick="HideOverlay();ShowForm('delete-product-overlay')">
             <h4>Delete Product</h4>
         </button>
     </div>
@@ -14,46 +14,54 @@
         <h4>All Products</h4>
         <table>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
-                <th>Stock</th>
                 <th>Category</th>
                 <th>Type</th>
-                <th>Images</th>
+                <th>Stock</th>
                 <th>ID</th>
             </tr>
-            <% products.forEach(product => { %>
-            <tr>
-                <td>
-                    <%= product.name %>
-                </td>
-                <td>
-                    <%= product.price %>
-                </td>
-                <td>
-                    <%= product.description %>
-                </td>
-                <td>
-                    <%= product.stock %>
-                </td>
-                <td>
-                    <%= product.category %>
-                </td>
-                <td>
-                    <%= product.type %>
-                </td>
-                <td>
-                    <%= product.iamges %>
-                </td>
-                <td class = "valueToCopy">
-                    <%= product._id %>
-                </td>
-                <td>
-                    <button onclick = "copyToClipboard(this,'valueToCopy')"><img src="../Images/Dashboard/copy.png" style = "width:20px;height:20px;"></button>
-                </td>
-            </tr>
-            <% }) %>
+            <% products.forEach(product=> { %>
+                <tr>
+                    <td>
+                        <img src="../Images/Products/<%=product.images[0]%>">
+                    </td>
+
+                    <td>
+                        <%= product.name %>
+                    </td>
+                    <td>
+                        <%= product.price %>
+                    </td>
+                    <td>
+                        <%= product.description %>
+                    </td>
+                    <td>
+                        <% if (product.category[0]==true) {%>
+                            Men
+                            <% } if (product.category[1]==true) {%>
+                                Women 
+                                <% } if (product.category[2]==true) {%>
+                                    Kids
+                                    <% } %>
+                    </td>
+                    <td>
+                        <%= product.type %>
+                    </td>
+                    <td>
+                        <%= product.stock %>
+                    </td>
+                    <td class="valueToCopy">
+                        <%= product._id %>
+                    </td>
+                    <td>
+                        <button onclick="copyToClipboard(this,'valueToCopy')"><img src="../Images/Dashboard/copy.png"
+                                style="width:20px;height:20px;"></button>
+                    </td>
+                </tr>
+                <% }) %>
         </table>
     </div>
 </div>
