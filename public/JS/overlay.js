@@ -1,13 +1,5 @@
 let timeout = 150;
 
-// function ShowOverlay(overlay) {
-//   setTimeout(() => {
-//     let overlays = document.getElementsByClassName('overlay-div');
-//     for (let i = 0; i < overlays.length; i++)
-//       overlays[i].style.display = 'block';
-//   }, timeout);
-// }
-
 function HideOverlay() {
   setTimeout(() => {
     let overlays = document.getElementsByClassName('overlay-div');
@@ -22,10 +14,6 @@ function ShowForm(id) {
     document.getElementById(id).style.flexDirection = 'column';
   }, timeout);
 }
-
-// function HideForm(id) {
-//   document.getElementById(id).style.display = 'none';
-// }
 
 document.addEventListener('click', function handleClickOutsideBox(event) {
   const box = document.getElementsByClassName('overlay-div');

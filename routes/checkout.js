@@ -2,16 +2,21 @@ import { Router } from 'express';
 var router = Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   const errorMsg = {};
-  res.render('checkout', { errorMsg })
+
+  let admin = false;
+  if (req.session.userType == 'admin')
+    admin = true;
+  
+  res.render('checkout', { errorMsg: errorMsg, admin: admin })
 });
 
 router.post('/', async (req, res) => {
   console.log('Checkout');
 
   //get data from form
-  const {fullname,email,address,cardnumber} = req.body;
+  const { fullname, email, address, cardnumber } = req.body;
 
   let errorMsg = {};
 
@@ -25,12 +30,12 @@ router.post('/', async (req, res) => {
     errorMsg.email = 'Invalid email';
   if (address.trim() == '')
     errorMsg.address = 'Address is required';
-  
+
   let cdform = /^(?:[0-9]{12}(?:[0-9]{3})?)$/;
   if (cardnumber.trim() == '')
     errorMsg.cardnumber = 'cardnumber is required';
   else if (!cardnumber.match(cdform))
-  errorMsg.cardnumber = 'Invalid card';
+    errorMsg.cardnumber = 'Invalid card';
 
   for (let key in errorMsg) {
     console.log(errorMsg[key]);
@@ -40,7 +45,11 @@ router.post('/', async (req, res) => {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render('checkout', { errorMsg });
+
+    let admin = false;
+    if (req.session.userType == 'admin')
+      admin = true;
+    return res.render('checkout', { errorMsg : errorMsg, admin: admin});
   }
   res.redirect('account');
 });

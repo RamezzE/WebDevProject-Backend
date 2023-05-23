@@ -25,10 +25,11 @@
                 <h1>Pixi</h1>
                 <p>Your Favourite Brand</p>
                 <div class="productsGrid">
-                    <% for (let i=0; i < products.length; i++) { %>
-                        <div class="product">
+                    <% for (let i = 0; i < products.length; i++) { %>
+                        <div class="product" onmouseenter = "TogglePhoto(this);" onmouseleave = "TogglePhoto(this);">
                             <img src="../Images/Products/<%= products[i].images[0]%>">
-                            <span>
+                            <img src="../Images/Products/<%= products[i].images[1]%>" style = "display: none;">
+                            <span style = "margin-top:auto">
                                 <%= products[i].name %>
                             </span>
                             <span class="price">
@@ -48,5 +49,6 @@
 </body>
 <script src="../JS/header.js"></script>
 <script src="../JS/productsopen.js"></script>
+<script src="../JS/products.js"></script>
 
 </html>

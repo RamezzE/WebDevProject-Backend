@@ -17,6 +17,10 @@
     <span class="menuIcon"><a href="/cart"><img class="navImg" src="../Images/Icons/bag.png"></a></span>
     <span class="menuIcon"><a id="account" href="/account"><img class="navImg"
                 src="../Images/Icons/account.png"></a></span>
+
+    <% if (admin && admin==true) { %>
+        <span class="menuIcon"><a href="/dashboard"><img class="navImg" src="../Images/Icons/dashboard.png"></a></span>
+        <% } %>
 </div>
 <div class="row2">
     <a class="menuItem" href="/">Home</a>

@@ -7,8 +7,12 @@ router.get('/', function (req, res, next) {
   if (req.session.userType)
     return res.redirect('/');
 
+  let admin = false;
+  if (req.session.userType == 'admin')
+    admin = true;
+
   let errorMsg = {};
-  res.render('login', { errorMsg });
+  res.render('login', { errorMsg, admin : admin });
 });
 
 router.post('/', async (req, res) => {

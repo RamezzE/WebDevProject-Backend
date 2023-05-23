@@ -7,9 +7,13 @@ var router = Router();
 router.get('/', function (req, res, next) {
   if (req.session.userType)
     return res.redirect('/');
-  
+
+  let admin = false;
+  if (req.session.userType == 'admin')
+    admin = true;
+
   const errorMsg = {};
-  res.render('register', { errorMsg })
+  res.render('register', { errorMsg: errorMsg, admin: admin })
 });
 
 router.post('/', async (req, res) => {
@@ -19,7 +23,7 @@ router.post('/', async (req, res) => {
   const { firstName, lastName, email, password, confirmPass } = req.body;
 
   let errorMsg = {};
-  
+
   //validate data
   if (firstName.trim() == '')
     errorMsg.firstName = 'First name is required';

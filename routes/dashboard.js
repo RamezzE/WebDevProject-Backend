@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import fileUpload from 'express-fileupload';
 dotenv.config({ path: './.env' })
 
 var router = Router();
@@ -29,8 +28,10 @@ router.get('/', async (req, res, next) => {
     return res.redirect('/');
 
   let currentTab = 'home';
-  const users = await usersCollection.find().toArray();
-  return res.render('dashboard', { currentTab: currentTab });
+  
+  console.log(req.session.firstName);
+
+  return res.render('dashboard', { currentTab: currentTab, firstName: req.session.firstName });
 });
 
 router.get('/users', async (req, res, next) => {
@@ -184,7 +185,6 @@ router.post('/products/addProduct', async (req, res) => {
     category: [men, women, kids],
     type: type,
     images: imgNames
-
   });
 
   await product.save();
