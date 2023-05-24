@@ -15,7 +15,6 @@ import wishlist_router from "./routes/wishlist.js";
 import dashboard_router from "./routes/dashboard.js";
 import register_router from "./routes/register.js";
 import product_router from "./routes/products.js";
-import details_router from "./routes/ProductDetails.js";
 import check_router from "./routes/checkout.js";
 import signOut_router from "./routes/signOut.js";
 
