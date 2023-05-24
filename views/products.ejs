@@ -25,18 +25,20 @@
                 <h1>Pixi</h1>
                 <p>Your Favourite Brand</p>
                 <div class="productsGrid">
-                    <% for (let i = 0; i < products.length; i++) { %>
+                   <% products.forEach(prd=> { %>
                         <div class="product" onmouseenter = "TogglePhoto(this);" onmouseleave = "TogglePhoto(this);">
-                            <img src="../Images/Products/<%= products[i].images[0]%>">
-                            <img src="../Images/Products/<%= products[i].images[1]%>" style = "display: none;">
-                            <span style = "margin-top:auto">
-                                <%= products[i].name %>
+                            <a href="products/<%= prd.id %>">
+                            <img src="../Images/Products/<%= prd.images[0]%>">
+                            <img src="../Images/Products/<%= prd.images[1]%>" style = "display: none;">
+                            <span style = "margin-top:auto"></a>
+                                <%= prd.id %>
+                                <%= prd.name %>
                             </span>
                             <span class="price">
-                                <%= products[i].price %> EGP
+                                <%= prd.price %> EGP
                             </span>
                         </div>
-                        <% } %>
+                        <% }) %>
                 </div>
 
             </div>

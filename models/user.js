@@ -25,7 +25,20 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  wishlist: [
+    {
+        type: String
+    }
+],cart: [
+  {
+      type: String
   }
+],orders: [
+  {
+      type: String
+  }
+]
 });
 
 const User = mongoose.model('User', userSchema);

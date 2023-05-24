@@ -51,4 +51,15 @@ router.get('/bags', async (req, res, next) => {
   return res.render('products', { products: products, admin: admin });
 });
 
+router.get('/:id', function (req, res, next) {  
+  console.log("Opening product")
+  var query = { "_id": req.params.id };
+  Product.findOne(query)
+    .then(result => {
+      res.render('productDetails', { prd: result, admin: admin });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 export default router;
