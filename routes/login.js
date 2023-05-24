@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
   else if (!email.match(emailFormat))
     errorMsg.email = 'Invalid email';
   else {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
       errorMsg.email = "Email not found!";
       return res.render('login', { errorMsg });

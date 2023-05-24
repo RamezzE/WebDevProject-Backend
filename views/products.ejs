@@ -27,11 +27,11 @@
                 <div class="productsGrid">
                    <% products.forEach(prd=> { %>
                         <div class="product" onmouseenter = "TogglePhoto(this);" onmouseleave = "TogglePhoto(this);">
-                            <a href="products/<%= prd.id %>">
+                            <a href="products/<%= prd._id %>">
                             <img src="../Images/Products/<%= prd.images[0]%>">
                             <img src="../Images/Products/<%= prd.images[1]%>" style = "display: none;">
                             <span style = "margin-top:auto"></a>
-                                <%= prd.id %>
+                                <%= prd._id %>
                                 <%= prd.name %>
                             </span>
                             <span class="price">

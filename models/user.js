@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    default: 'client'
+    default: 'user'
   },
   createdAt: {
     type: Date,

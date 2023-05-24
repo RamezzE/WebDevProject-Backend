@@ -64,10 +64,10 @@ router.post('/', async (req, res) => {
 
   //save user to db
   const user = new User({
-    firstName,
-    lastName,
-    email,
-    password,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
     userType: 'user'
   });
 

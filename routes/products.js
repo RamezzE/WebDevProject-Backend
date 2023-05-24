@@ -51,15 +51,21 @@ router.get('/bags', async (req, res, next) => {
   return res.render('products', { products: products, admin: admin });
 });
 
-router.get('/:id', function (req, res, next) {  
+router.get('/:id', async (req, res, next) => {
   console.log("Opening product")
-  var query = { "_id": req.params.id };
-  Product.findOne(query)
-    .then(result => {
-      res.render('productDetails', { prd: result, admin: admin });
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  var query = { "_id": req.params._id };
+  const product = await Product.findOne(query);
+
+  console.log("SDSA" + req.params._id);
+
+  if(!product)
+    console.log("CANNOT FIND");
+
+  let admin = false;
+  if (req.session.userType == 'admin')
+    admin = true;
+
+  res.render('ProductDetails', { prd: product, admin: admin });
+
 });
 export default router;

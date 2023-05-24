@@ -72,7 +72,10 @@ app.use((req, res, err) => {
     
     // render the error page
     // res.status(err.status || 500);
-    res.status('404').render('404');
+    let admin = false;
+    if (req.session.admin == "admin")
+      admin = true;
+    res.status('404').render('404', {admin: admin});
   });
 console.log("ENV: ", app.get('env'));
 export default app;
