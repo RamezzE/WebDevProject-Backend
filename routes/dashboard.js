@@ -148,7 +148,7 @@ router.post('/products/addProduct', async (req, res) => {
     imgNames[i] = productName + i + '.png';
     console.log(imgNames[i]);
     let uploadPath = __dirname + '/../public/Images/Products/' + imgNames[i];
-
+    
     images[i].mv(uploadPath, function (err) {
       if (err)
         return res.status(500).send(err);

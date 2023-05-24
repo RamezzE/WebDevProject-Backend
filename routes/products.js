@@ -53,7 +53,9 @@ router.get('/bags', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   console.log("Opening product")
-  var query = { "_id": req.params._id };
+  var query = { "_id": req.params.id };
+  console.log(req.params.id);
+  // return;
   const product = await Product.findOne(query);
 
   console.log("SDSA" + req.params._id);

@@ -60,7 +60,6 @@ app.use('/login', login_router);
 app.use('/dashboard', dashboard_router);
 app.use('/register', register_router);
 app.use('/products',product_router);
-app.use('/ProductDetails', details_router);
 app.use('/checkout', check_router);
 app.use('/signOut', signOut_router);
 
