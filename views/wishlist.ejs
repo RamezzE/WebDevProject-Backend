@@ -18,7 +18,7 @@
                 <div class="shopping-cart">
                     <!-- Title -->
                     <h1 class="title">Wishlist</h1>
-                    
+                    <% userData.wishlist.forEach(ws=> { %>
                     <!-- Product #1 -->
                     <div class="item">
                         <div class="buttons">
@@ -28,62 +28,18 @@
                         </div>
 
 
-                        <img src="Images/Icons/Product-1.jpg" alt="" />
+                        <img src="" alt="" />
 
 
                         <div class="description">
-                            <span>Shoes</span>
-                            <span>Running</span>
-                            <span>colours</span>
+                            <span><%=ws %></span>
+                            <span></span>
+                            <span></span>
                         </div>
 
                         <div class="total-price">$549</div>
-
-
                     </div>
-
-                    <!-- Product #2 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="Images/Icons/delete.png" alt="">
-                            </button>
-                        </div>
-
-
-                        <img src="Images/Icons/Product-2.jpg" alt="" />
-
-
-                        <div class="description">
-                            <span>Bag</span>
-                            <span>Camping</span>
-                            <span>Grey</span>
-                        </div>
-
-                        <div class="total-price">$870</div>
-
-
-                    </div>
-
-                    <!-- Product #3 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="Images/Icons/delete.png" alt="">
-                            </button>
-                        </div>
-                        <img src="Images/Icons/Product-3.jpg" alt="" />
-
-                        <div class="description">
-                            <span>Bag</span>
-                            <span>Women</span>
-                            <span>Black</span>
-                        </div>
-
-                        <div class="total-price">$349</div>
-
-
-                    </div>
+                    <% }) %>
                 </div>
             </div>
 

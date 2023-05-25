@@ -66,6 +66,9 @@ router.post('/', async (req, res) => {
       req.session.email = user.email;
       req.session.firstName = user.firstName;
       req.session.lastName = user.lastName;
+      req.session.wishlist = user.wishlist;
+      req.session.cart = user.cart;
+
 
       if (user.userType == "user")
         res.redirect('/account');

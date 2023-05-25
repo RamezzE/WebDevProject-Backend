@@ -56,14 +56,15 @@
                                 <input type="number" min="1" max="5" value="1">
                             </div>
                             <div class="btns">
-                                <button class="cart-btn"><a href="/Cart">Add to cart</a> </button>
-                                <button class="Fav-btn"><a href="/wishlist">Add to wishlist</a> </button>
+                                <button class="cart-btn"><a href="/Cart/<%= prd._id %>">Add to cart</a> </button>
+                                <button class="Fav-btn"><a href="/wishlist/<%= prd._id %>">Add to wishlist</a> </button>
                             </div>
                         </div>
                         <div class="section" id = "description">
                             <div class="pname">Description:</div>
                             <p>
                                 <%= prd.description%>
+                                <%= prd._id %>
                             </p>
                         </div>
                     </div>

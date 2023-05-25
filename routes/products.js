@@ -57,9 +57,6 @@ router.get('/:id', async (req, res, next) => {
   console.log(req.params.id);
   // return;
   const product = await Product.findOne(query);
-
-  console.log("SDSA" + req.params._id);
-
   if(!product)
     console.log("CANNOT FIND");
 

@@ -17,6 +17,8 @@ router.get('/', function (req, res, next) {
   userData.userType = req.session.userType;
   userData.firstName = req.session.firstName;
   userData.lastName = req.session.lastName;
+  userData.wishlist = req.session.wishlist;
+  userData.cart = req.session.cart;
 
   res.render('account', {userData, admin: admin});
 });
