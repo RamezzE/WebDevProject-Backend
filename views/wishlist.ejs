@@ -18,7 +18,7 @@
                 <div class="shopping-cart">
                     <!-- Title -->
                     <h1 class="title">Wishlist</h1>
-                    <% userData.wishlist.forEach(ws=> { %>
+                    <% products.forEach(prd=> { %>
                     <!-- Product #1 -->
                     <div class="item">
                         <div class="buttons">
@@ -32,12 +32,12 @@
 
 
                         <div class="description">
-                            <span><%=ws %></span>
+                            <span><%= prd.name %></span>
                             <span></span>
                             <span></span>
                         </div>
 
-                        <div class="total-price">$549</div>
+                        <div class="total-price"><%= prd.price %></div>
                     </div>
                     <% }) %>
                 </div>
