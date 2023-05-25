@@ -10,7 +10,7 @@ import app from '../app.js';
 import { createServer } from 'http';
 
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' })
+dotenv.config({ path: './.env' })
 
 import mongoose from "mongoose";
 

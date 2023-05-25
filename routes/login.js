@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
       errorMsg.email = "Email not found!";
-      return res.render('login', { errorMsg });
+      return res.render('login', { errorMsg, admin : false });
     }
   }
 
@@ -56,7 +56,7 @@ router.post('/', async (req, res) => {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render('login', { errorMsg });
+    return res.render('login', { errorMsg, admin : false });
   }
 
   //data ok

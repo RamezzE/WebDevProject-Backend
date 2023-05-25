@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
   let admin = false;
   if (req.session.userType == 'admin')
     admin = true;
-
+  
   const errorMsg = {};
   res.render('register', { errorMsg: errorMsg, admin: admin })
 });
@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render('register', { errorMsg });
+    return res.render('register', { errorMsg, admin: false });
   }
 
   //save user to db
