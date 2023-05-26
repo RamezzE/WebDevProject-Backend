@@ -14,6 +14,7 @@
     <link rel="stylesheet" type=text/css href="../../CSS/dashboard_overlay.css">
     <link rel="stylesheet" type=text/css href="../../CSS/overlay_form.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <title>Dashboard</title>
 </head>
 
@@ -35,19 +36,12 @@
 
             <a onclick="makeActive(this);" href="/dashboard/products" class=<%=currentTab=='products' ? "active" : ''
                 %>><img src="../../Images/Dashboard/cart.png"><span>Products</span></a>
-                
+
             <a onclick="makeActive(this);" href="/"><img
                     src="../../Images/Dashboard/back_arrow.png"><span>Homepage</span></a>
         </div>
 
         <div id="container">
-
-            <!-- <div id="topNav">
-                <span class = "logo">Logo and Name</span>
-                <img class = "searchImg" src = "Images/Dashboard/search.png">
-                <img src = "Images/Dashboard/msg.png">
-
-            </div> -->
 
             <% if (currentTab=="home" ) { %>
 
@@ -73,16 +67,17 @@
     <% if (currentTab=="products" ) { %>
         <%- include("./partials/dashboard_product_form.ejs"); %>
             <%- include("./partials/delete_product_overlay.ejs"); %>
-            <%- include("./partials/dashboard_product_filter_form.ejs"); %>
-    <% } else if (currentTab=="users" ) { %>
-            <%- include("./partials/dashboard_users_form.ejs"); %>
-            <%- include("./partials/dashboard_admins_form.ejs"); %>
-        <% } %>
-                            <script src="../../JS/account1.js"></script>
-                            <script src="../../JS/adminbar.js"></script>
-                            <script src="../../JS/overlay.js"></script>
-                            <script src="../../JS/adminFunctions.js"></script>
-                            <script src="../../JS/fileUploadLimit.js"></script>
+                <%- include("./partials/dashboard_product_filter_form.ejs"); %>
+                    <% } else if (currentTab=="users" ) { %>
+                        <%- include("./partials/dashboard_users_form.ejs"); %>
+                            <%- include("./partials/dashboard_admins_form.ejs"); %>
+                                <% } %>
+    
+    <script src="../../JS/account1.js"></script>
+    <script src="../../JS/adminbar.js"></script>
+    <script src="../../JS/overlay.js"></script>
+    <script src="../../JS/adminFunctions.js"></script>
+    <script src="../../JS/fileUploadLimit.js"></script>
 </body>
 
 </html>

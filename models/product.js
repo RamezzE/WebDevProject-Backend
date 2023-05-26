@@ -21,17 +21,12 @@ const productSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    category: [
+    tags: [
         {
-            type: Boolean,
-            length: 3, // 0: men, 1: women, 2: kids
+            type: String,
             required: true
         }
     ],
-    type: {
-        type: String,
-        required: true
-    },
     images: [
         {
             type: String,
@@ -39,10 +34,6 @@ const productSchema = new mongoose.Schema({
             required: true
         }
     ],
-    // images: {
-    //     type: String,
-    //     required: true
-    // },
     createdAt: {
         type: Date,
         default: Date.now

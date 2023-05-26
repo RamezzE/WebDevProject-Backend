@@ -20,8 +20,6 @@
                 <th></th>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Category</th>
-                <th>Type</th>
                 <th>Stock</th>
                 <th>ID</th>
             </tr>
@@ -30,24 +28,11 @@
                     <td>
                         <img src="../../Images/Products/<%=product.images[0]%>">
                     </td>
-
                     <td>
                         <%= product.name %>
                     </td>
                     <td>
                         <%= product.price %>
-                    </td>
-                    <td>
-                        <% if (product.category[0]==true) {%>
-                            Men
-                            <% } if (product.category[1]==true) {%>
-                                Women 
-                                <% } if (product.category[2]==true) {%>
-                                    Kids
-                                    <% } %>
-                    </td>
-                    <td>
-                        <%= product.type %>
                     </td>
                     <td>
                         <%= product.stock %>

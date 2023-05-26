@@ -12,82 +12,81 @@ let admin = false;
 router.use((req, res, next) => {
   if (req.session.userType == 'admin')
     admin = true;
-  
+
   next();
 });
 
 router.get('/men', async (req, res, next) => {
 
-  const products = await productsCollection.find({ 'category.0': true }).toArray();
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
+  const query = {
+    tags: {$in : ['man']}
+  }
+  const products = await productsCollection.find(query).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/women', async (req, res, next) => {
 
-  const products = await productsCollection.find({ 'category.1': true }).toArray();
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
+  const query = {
+    tags: {$in : ['woman']}
+  }
+  const products = await productsCollection.find(query).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/kids', async (req, res, next) => {
 
-  const products = await productsCollection.find({ 'category.2': true }).toArray();
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
+  const query = {
+    tags: {$in : ['kids']}
+  }
+  const products = await productsCollection.find(query).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/shoes', async (req, res, next) => {
-  const products = await productsCollection.find({ type: 'Shoe' }).toArray();
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
+  const query = {
+    tags: {$in : ['shoes']}
+  }
+  const products = await productsCollection.find(query).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/bags', async (req, res, next) => {
-  const products = await productsCollection.find({ type: 'Bag' }).toArray();
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
+  const query = {
+    tags: {$in : ['bags']}
+  }
+  const products = await productsCollection.find(query).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/filter', async (req, res, next) => {
-  if (req.query.men) {
-    delete req.query.men;
-    req.query['category.0'] = true;
-  }
-  if (req.query.women) {
-    delete req.query.women;
-    req.query['category.1'] = true;
-  }
-  if (req.query.kids) {
-    delete req.query.kids;
-    req.query['category.2'] = true;
-  }
+  let tags = [];
+
+  if (req.query.men)
+    tags.push('man')
+
+  if (req.query.women)
+    tags.push('woman')
+
+  if (req.query.kids)
+    tags.push('kids')
 
   let type = [];
-  if (req.query.shoes) {
-    delete req.query.shoes;
-    type.push('Shoe');
-  }
-  if (req.query.bags) {
-    delete req.query.bags;
-    type.push('Bag');
-  }
 
-  req.query.type = { $in: type };
+  if (req.query.shoes)
+    type.push('shoes')
 
-  console.log(req.query);
-  
-  let productsToDisplay = await productsCollection.find(req.query).toArray();
+  if (req.query.bags)
+    type.push('bags')
+
+  const query = {
+    $and: [
+      { tags: { $in: tags } },
+      { tags: { $in: type } }
+    ]
+  };
+
+  let productsToDisplay = await productsCollection.find(query).toArray();
 
   return res.render('products', { products: productsToDisplay, admin: admin });
 });

@@ -146,24 +146,22 @@ router.post('/products/addProduct', async (req, res) => {
     });
   }
 
-  let men, women, kids;
-  men = women = kids = false;
-  let type = "";
+  let tags = [];
 
   if (productMen == 'on')
-    men = true;
+    tags.push('man', 'men', 'male', 'boy', 'guy');
 
   if (productWomen == 'on')
-    women = true;
+    tags.push('woman', 'women', 'female', 'girl');
 
   if (productKids == 'on')
-    kids = true;
+    tags.push('kids', 'kid', 'child', 'children')
 
   if (shoes == 'on')
-    type = 'Shoe';
+    tags.push('shoes', 'shoe');
 
   else if (bags == 'on')
-    type = 'Bag';
+    tags.push('bags', 'bag');
 
   //save user to database
 
@@ -172,8 +170,7 @@ router.post('/products/addProduct', async (req, res) => {
     price: productPrice,
     description: productDescription,
     stock: productStock,
-    category: [men, women, kids],
-    type: type,
+    tags: tags,
     images: imgNames
   });
 
@@ -186,37 +183,35 @@ router.post('/products/addProduct', async (req, res) => {
 
 router.get('/products/filter', async (req, res) => {
 
-  if (req.query.men) {
-    delete req.query.men;
-    req.query['category.0'] = true;
-  }
-  if (req.query.women) {
-    delete req.query.women;
-    req.query['category.1'] = true;
-  }
-  if (req.query.kids) {
-    delete req.query.kids;
-    req.query['category.2'] = true;
-  }
+  let tags = [];
+
+  if (req.query.men)
+    tags.push('man')
+
+  if (req.query.women)
+    tags.push('woman')
+
+  if (req.query.kids)
+    tags.push('kids')
 
   let type = [];
-  if (req.query.shoes) {
-    delete req.query.shoes;
-    type.push('Shoe');
-  }
-  if (req.query.bags) {
-    delete req.query.bags;
-    type.push('Bag');
-  }
 
-  req.query.type = { $in: type };
+  if (req.query.shoes)
+    type.push('shoes')
 
-  console.log(req.query);
+  if (req.query.bags)
+    type.push('bags')
 
-  let productsToDisplay = await productsCollection.find(req.query).toArray();
+  const query = {
+    $and: [
+      { tags: { $in: tags } },
+      { tags: { $in: type } }
+    ]
+  };
+
+  let productsToDisplay = await productsCollection.find(query).toArray();
 
   return res.render('dashboard', { products: productsToDisplay, currentTab: 'products' });
-
 });
 
 router.post('/products/delete', async (req, res) => {
