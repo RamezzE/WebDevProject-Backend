@@ -20,9 +20,6 @@ const __dirname = path.dirname(__filename);
 const imageFolderPath = path.join(__dirname, '../public/Images/Products/');
 const IMAGE_LIMIT = 3;
 
-var productsToDisplay;
-var redirected = false;
-
 router.use((req, res, next) => {
   if (req.session.userType != 'admin')
     res.redirect('/');
@@ -189,19 +186,19 @@ router.post('/products/addProduct', async (req, res) => {
 
 router.get('/products/filter', async (req, res) => {
 
-  if (req.query.productMen) {
-    delete req.query.productMen;
+  if (req.query.men) {
+    delete req.query.MongoClient;
     req.query['category.0'] = true;
   }
-  if (req.query.productWomen) {
-    delete req.query.productWomen;
+  if (req.query.women) {
+    delete req.query.women;
     req.query['category.1'] = true;
   }
-  if (req.query.productKids) {
-    delete req.query.productKids;
+  if (req.query.kids) {
+    delete req.query.kids;
     req.query['category.2'] = true;
   }
-
+  
   let type = [];
   if (req.query.shoes) {
     delete req.query.shoes;

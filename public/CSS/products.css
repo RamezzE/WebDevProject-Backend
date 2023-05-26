@@ -105,3 +105,15 @@ body {
         width: 100%;
     }
 }
+
+.extraButton {
+    margin-left: auto;
+    font:inherit;
+    border:0px;
+    border-radius:10px;
+    background-color:rgb(182, 187, 191) ;
+    padding:10px;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+
+    transition: ease all 300ms;
+}

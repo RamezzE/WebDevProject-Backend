@@ -15,6 +15,15 @@ function ShowForm(id) {
   }, timeout);
 }
 
+function submitForm(field) {
+  let form = field.parentNode;
+  let input = form.querySelector('div input');
+  if (input.value == '')
+      return;
+  
+  form.submit();
+}
+
 document.addEventListener('click', function handleClickOutsideBox(event) {
   const box = document.getElementsByClassName('overlay-div');
   //for each loop 

@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
     <link rel="stylesheet" type="text/css" href="../CSS/products.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/overlay_form.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/dashboard_overlay.css">
+
 </head>
 
 <body>
@@ -24,18 +27,23 @@
             <div id="bodyContainer">
                 <h1>Pixi</h1>
                 <p>Your Favourite Brand</p>
+
+                <button class = "extraButton" onclick="HideOverlay();ShowForm('filter-form-overlay')">
+                    <h4>Filter Products</h4>
+                </button>
+
                 <div class="productsGrid">
-                   <% products.forEach(prd=> { %>
-                        <div class="product" onmouseenter = "TogglePhoto(this);" onmouseleave = "TogglePhoto(this);">
+                    <% products.forEach(prd=> { %>
+                        <div class="product" onmouseenter="TogglePhoto(this);" onmouseleave="TogglePhoto(this);">
                             <a href="/products/<%= prd._id %>">
-                            <img src="../Images/Products/<%= prd.images[0]%>">
-                            <img src="../Images/Products/<%= prd.images[1]%>" style = "display: none;">
-                            <span style = "margin-top:auto"></a>
-                                <%= prd.name %>
-                            </span>
-                            <span class="price">
-                                <%= prd.price %> EGP
-                            </span>
+                                <img src="../Images/Products/<%= prd.images[0]%>">
+                                <img src="../Images/Products/<%= prd.images[1]%>" style="display: none;">
+                                <span style="margin-top:auto"></a>
+                            <%= prd.name %>
+                                </span>
+                                <span class="price">
+                                    <%= prd.price %> EGP
+                                </span>
                         </div>
                         <% }) %>
                 </div>
@@ -46,10 +54,11 @@
                 <%- include('./partials/footer.ejs') %>
             </footer>
         </div>
-
+        <%- include("./partials/product_filter_form.ejs"); %>
 </body>
 <script src="../JS/header.js"></script>
 <script src="../JS/productsopen.js"></script>
 <script src="../JS/products.js"></script>
+<script src="../JS/overlay.js"></script>
 
 </html>
