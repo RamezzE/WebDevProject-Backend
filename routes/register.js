@@ -15,6 +15,18 @@ router.post('/', async (req, res) => {
   const { firstName, lastName, email, password, confirmPass } = req.body;
 
   let errorMsg = {};
+
+   //save user to db
+   const user = new User({
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    userType: 'user'
+  });
+
+  await user.save();
+  console.log("User saved:", user);
 });
 
 export default router;
