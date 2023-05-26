@@ -42,8 +42,6 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/users', async (req, res, next) => {
-  // if (req.session.userType != 'admin')
-  //   return res.redirect('/');
 
   let currentTab = 'users';
   const users = await usersCollection.find().toArray();
@@ -82,21 +80,9 @@ router.get('/insights', async (req, res, next) => {
 });
 
 router.get('/products', async (req, res, next) => {
-  // if (req.session.userType != 'admin')
-  //   return res.redirect('/');
 
-  let currentTab = 'products';
-
-  let products;
-  if (!redirected) {
-    products = await productsCollection.find().toArray();
-  }
-  else {
-    redirected = false;
-    products = productsToDisplay;
-  }
-
-  return res.render('dashboard', { products: products, currentTab: currentTab });
+  let products = await productsCollection.find().toArray();
+  return res.render('dashboard', { products: products, currentTab: 'products' });
 });
 
 router.post('/products/addProduct', async (req, res) => {
@@ -201,33 +187,39 @@ router.post('/products/addProduct', async (req, res) => {
   return res.redirect('/dashboard/products');
 });
 
-router.post('/products/filter', async (req, res) => {
-  const { productMen, productWomen, productKids, shoes, bags } = req.body;
+router.get('/products/filter', async (req, res) => {
 
-  let type = ['Shoe', 'Bag'];
+  if (req.query.productMen) {
+    delete req.query.productMen;
+    req.query['category.0'] = true;
+  }
+  if (req.query.productWomen) {
+    delete req.query.productWomen;
+    req.query['category.1'] = true;
+  }
+  if (req.query.productKids) {
+    delete req.query.productKids;
+    req.query['category.2'] = true;
+  }
 
-  if (!shoes)
-    type[0] = '';
-  if (!bags)
-    type[1] = '';
+  let type = [];
+  if (req.query.shoes) {
+    delete req.query.shoes;
+    type.push('Shoe');
+  }
+  if (req.query.bags) {
+    delete req.query.bags;
+    type.push('Bag');
+  }
 
-  const query = {
-    // category: [men, women, kids],
-    type: { $in: type },
-  };
+  req.query.type = { $in: type };
 
-  productsToDisplay = await productsCollection.find(query).toArray();
-  //filter products by category
-  if (productMen == 'on')
-    productsToDisplay = productsToDisplay.filter(product => product.category[0] == true);
-  if (productWomen == 'on')
-    productsToDisplay = productsToDisplay.filter(product => product.category[1] == true);
-  if (productKids == 'on')
-    productsToDisplay = productsToDisplay.filter(product => product.category[2] == true);
+  console.log(req.query);
 
-  redirected = true;
+  productsToDisplay = await productsCollection.find(req.query).toArray();
 
-  return res.redirect('/dashboard/products');
+  return res.render('dashboard', { products: productsToDisplay, currentTab: 'products' });
+
 });
 
 router.post('/products/delete', async (req, res) => {

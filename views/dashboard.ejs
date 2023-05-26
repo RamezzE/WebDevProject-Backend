@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_header.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_sidebar.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_home.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_products.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_users.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_insights.css">
-    <link rel="stylesheet" type=text/css href="../CSS/dashboard_overlay.css">
-    <link rel="stylesheet" type=text/css href="../CSS/overlay_form.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_header.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_sidebar.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_home.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_products.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_users.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_insights.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/dashboard_overlay.css">
+    <link rel="stylesheet" type=text/css href="../../CSS/overlay_form.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Dashboard</title>
 </head>
@@ -22,22 +22,22 @@
     <div id="bodyContainer">
 
         <div id="sidebar">
-            <a><img src="../Images/Dashboard/menu.png" onclick="toggleSidebar()"></a>
+            <a><img src="../../Images/Dashboard/menu.png" onclick="toggleSidebar()"></a>
 
             <a onclick="makeActive(this);" href="/dashboard" class=<%=currentTab=='home' ? "active" : '' %>><img
-                    src="../Images/Dashboard/home.png"><span>Dashboard</span></a>
+                    src="../../Images/Dashboard/home.png"><span>Dashboard</span></a>
 
             <a onclick="makeActive(this);" href="/dashboard/insights" class=<%=currentTab=='insights' ? "active" : ''
-                %>><img src="../Images/Dashboard/analysis.png"><span>Insights</span></a>
+                %>><img src="../../Images/Dashboard/analysis.png"><span>Insights</span></a>
 
             <a onclick="makeActive(this);" href="/dashboard/users" class=<%=currentTab=='users' ? "active" : '' %>><img
-                    src="../Images/Dashboard/users.png"><span>Users</span></a>
+                    src="../../Images/Dashboard/users.png"><span>Users</span></a>
 
             <a onclick="makeActive(this);" href="/dashboard/products" class=<%=currentTab=='products' ? "active" : ''
-                %>><img src="../Images/Dashboard/cart.png"><span>Products</span></a>
+                %>><img src="../../Images/Dashboard/cart.png"><span>Products</span></a>
                 
             <a onclick="makeActive(this);" href="/"><img
-                    src="../Images/Dashboard/back_arrow.png"><span>Homepage</span></a>
+                    src="../../Images/Dashboard/back_arrow.png"><span>Homepage</span></a>
         </div>
 
         <div id="container">
@@ -78,11 +78,11 @@
             <%- include("./partials/dashboard_users_form.ejs"); %>
             <%- include("./partials/dashboard_admins_form.ejs"); %>
         <% } %>
-                            <script src="../JS/account1.js"></script>
-                            <script type="text/javascript" src="../JS/adminbar.js"></script>
-                            <script src="../JS/overlay.js"></script>
-                            <script src="../JS/adminFunctions.js"></script>
-                            <script src="../JS/fileUploadLimit.js"></script>
+                            <script src="../../JS/account1.js"></script>
+                            <script src="../../JS/adminbar.js"></script>
+                            <script src="../../JS/overlay.js"></script>
+                            <script src="../../JS/adminFunctions.js"></script>
+                            <script src="../../JS/fileUploadLimit.js"></script>
 </body>
 
 </html>
