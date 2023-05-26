@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
     <link rel="stylesheet" type="text/css" href="../CSS/wishlist.css">
 </head>
+
 <body>
     <div id="container">
         <div id="topNav">
@@ -19,27 +21,31 @@
                     <!-- Title -->
                     <h1 class="title">Wishlist</h1>
                     <% products.forEach(prd=> { %>
-                    <!-- Product #1 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="../Images/Icons/delete.png" alt="">
-                            </button>
-                        </div>
+                        <% console.log("SDSD") %>
+                            <% console.log(prd)%>
+                                <!-- Product #1 -->
+                                <div class="item">
+                                    <div class="buttons">
+                                        <button class="delete-btn" type="button" name="button">
+                                            <img src="../Images/Icons/delete.png" alt="">
+                                        </button>
+                                    </div>
 
+                                    <img src="../Images/Products/<%= prd.images[0]%>" alt="">
 
-                        <img src="" alt="" />
+                                    <div class="description">
+                                        <span>
+                                            <%= prd.name %>
+                                        </span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
 
-
-                        <div class="description">
-                            <span><%= prd.name %></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <div class="total-price"><%= prd.price %></div>
-                    </div>
-                    <% }) %>
+                                    <div class="total-price">
+                                        <%= prd.price %>
+                                    </div>
+                                </div>
+                                <% }) %>
                 </div>
             </div>
 
@@ -53,4 +59,5 @@
     </div>
 </body>
 <script src="../JS/header.js"></script>
+
 </html>

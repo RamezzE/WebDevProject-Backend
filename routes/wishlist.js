@@ -1,54 +1,67 @@
 import { Router } from 'express';
 import { MongoClient } from 'mongodb';
+import { ObjectId } from 'mongodb';
 var router = Router();
+import User from '../models/user.js';
 import Product from '../models/product.js';
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' })
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
+const usersCollection = database.collection('users');
 const productsCollection = database.collection('products');
+let admin = false;
 
 router.use((req, res, next) => {
   if (req.session.userType !== undefined) {
-      next();
+    if (req.session.userType == 'admin')
+      admin = true;
+    next();
   }
   else {
-    let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
-      res.render('err', { err: 'You must login to access this page',admin: admin })
+    res.render('err', { err: 'You must login to access this page', admin: admin })
   }
 });
-/* GET home page. */
-router.get('/', async (req, res, next)=> {
-  console.log(req.session.wishlist);
+
+
+router.get('/', async (req, res, next) => {
+
+
+  const user = await User.findOne({ _id: req.session.userID });
+  console.log(user);
+  let wishlist = user.wishlist;
+  console.log("WISHLIST: " + wishlist)
+
+  let wishlist_obj = [];
+
+  for (let i = 0; i < wishlist.length; i++)
+    wishlist_obj.push(new ObjectId(wishlist[i]));
+  
+  const products = await productsCollection.find({ _id: { $in: wishlist_obj } }).toArray();
+  console.log(products);
+
   let admin = false;
   if (req.session.userType == 'admin')
     admin = true;
-    let done=false;
-  req.session.wishlist.forEach(element => {
-  Product.find({ '_id': element})
-  .then(async products => {
-    console.log(products);
-    if(element===(req.session.wishlist[req.session.wishlist.size-1])){done=true;}
-    if(done){res.render('wishlist', { products: products, admin: admin });}})
-});
- 
+  res.render('wishlist', { admin: admin, products: products });
+
 });
 
-router.get('/:id', async (req, res, next) => {  
-  console.log(req.session.wishlist);
-  req.session.wishlist.push(req.params.id);
-  console.log(req.session.wishlist);
-  let products =[];
-  req.session.wishlist.forEach(element => {
-    products.push(Product.findById(element));
-  });
-    let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
-  res.render('wishlist', {  admin: admin,products: products });
+router.post('/add', async (req, res, next) => {
+  console.log("ADD");
+
+  const { product_id } = req.body;
+
+  const user = await User.findOne({ _id: req.session.userID });
+  user.wishlist.push(product_id);
+
+  await user.save();
+
+  console.log(user);
+  console.log("DONE ADDING");
+
+  res.redirect('/wishlist');
 });
 
 export default router;

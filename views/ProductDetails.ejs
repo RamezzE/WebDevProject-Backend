@@ -57,7 +57,7 @@
                             </div>
                             <div class="btns">
                                 <button class="cart-btn"><a href="/Cart/<%= prd._id %>">Add to cart</a> </button>
-                                <button class="Fav-btn"><a href="/wishlist/<%= prd._id %>">Add to wishlist</a> </button>
+                                <button class="Fav-btn" onclick = "addToWishlist('<%= prd._id%>')">Add to wishlist </button>
                             </div>
                         </div>
                         <div class="section" id = "description">

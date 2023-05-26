@@ -62,6 +62,7 @@ router.post('/', async (req, res) => {
   //data ok
   const user = await User.findOne({ email: email })
     .then(user => {
+      req.session.userID = user._id;
       req.session.userType = user.userType;
       req.session.email = user.email;
       req.session.firstName = user.firstName;
