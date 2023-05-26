@@ -20,29 +20,32 @@
                 <div class="shopping-cart">
                     <!-- Title -->
                     <h1 class="title">Shopping Bag</h1>
-                    <% userData.cart.forEach(ct=> { %>
-                    <!-- Product #1 -->
-                    <div class="item">
+                    <% products.forEach(prd=> { %>
+                        <% console.log("SDSD") %>
+                            <% console.log(prd)%>
+                     <!-- Product #1 -->
+                     <div class="item">
 
                         <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
+                            <button class="delete-btn" type="button" name="button" onclick="RemoveCart('<%= prd._id%>')">
                                 <img src="Images/Icons/delete.png" alt="">
                             </button>
-                            <button class="like-btn" type="button" name="button" onclick="change(this)">
+                            <button class="like-btn" type="button" name="button" onclick="change(this,'<%= prd._id%>')">
                                 <img src="Images/Icons/Love.png" alt="">
                             </button>
                             <button class="like-btn" type="button" name="button" style="display: none;"
-                                onclick="change2(this)">
+                                onclick="change2(this,'<%= prd._id%>')">
                                 <img src="Images/Icons/loved.png" alt="">
                             </button>
                         </div>
 
 
-                        <img src="Images/Icons/Product-1.jpg" alt="" />
+                        <img src="../Images/Products/<%= prd.images[0]%>" alt="" />
 
 
                         <div class="description">
-                            <span><%=ct %></span>
+                            <span><%= prd.name %>
+                            </span>
                             <span></span>
                             <span></span>
                         </div>
@@ -50,7 +53,7 @@
                         <div class="quantity">
                             <input type="number" id="number" name="amount" value="1" min="1" max="10" />
                         </div>
-                        <div class="total-price">$549</div>
+                        <div class="total-price"><%= prd.price %></div>
                      </div>
                     <% }) %>
                     <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
@@ -65,6 +68,7 @@
 </body>
 <script src="../JS/likebutton.js"></script>
 <script src="../JS/header.js"></script>
+<script src="../JS/Removeproducts.js"></script>
 <script type = "text/javascript">
     function toCheckout() {
         location.href = "/checkout";

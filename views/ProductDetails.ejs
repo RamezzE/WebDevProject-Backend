@@ -56,7 +56,7 @@
                                 <input type="number" min="1" max="5" value="1">
                             </div>
                             <div class="btns">
-                                <button class="cart-btn"><a href="/Cart/<%= prd._id %>">Add to cart</a> </button>
+                                <button class="cart-btn" onclick="addTocart('<%= prd._id%>')">Add to cart </button>
                                 <button class="Fav-btn" onclick = "addToWishlist('<%= prd._id%>')">Add to wishlist </button>
                             </div>
                         </div>

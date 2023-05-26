@@ -5,7 +5,7 @@ var router = Router();
 import User from '../models/user.js';
 import Product from '../models/product.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: './.env' })
+dotenv.config({ path: '../.env' })
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
@@ -61,6 +61,21 @@ router.post('/add', async (req, res, next) => {
   console.log(user);
   console.log("DONE ADDING");
 
+  res.redirect('/wishlist');
+});
+
+router.post('/delete', async (req, res, next) => {
+  console.log("DEL");
+
+  const { product_id } = req.body;
+
+  const user = await User.findOne({ _id: req.session.userID });
+  user.wishlist.pop(product_id);
+
+  await user.save();
+
+  console.log(user);
+  console.log("DONE Deleting");
   res.redirect('/wishlist');
 });
 
