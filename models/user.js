@@ -22,7 +22,28 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'user'
   },
+createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  wishlist: [
+    {
+        type: String
+    }
+],cart: [
+  {
+      type: String
+  }
+],orders: [
+  {
+      type: String
+  }
+]
 });
+
+const User = mongoose.model('User', userSchema);
+
+export default User;
 
 
 
