@@ -70,7 +70,8 @@ router.post('/delete', async (req, res, next) => {
   const { product_id } = req.body;
 
   const user = await User.findOne({ _id: req.session.userID });
-  user.cart.pop(product_id);
+  let index =  user.cart.indexOf(product_id)
+  user.cart.splice(index,1);
 
   await user.save();
 
