@@ -183,7 +183,7 @@ body {
     background-color:gray;
 }
 
-@media screen and (max-width:800px) {
+@media (max-width:800px) {
     #biggerContainer {
         margin-top:66px;
     }

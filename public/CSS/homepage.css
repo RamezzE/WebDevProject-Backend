@@ -121,15 +121,15 @@
    color: white;
 }
 
- @media screen and (max-width: 600px) {
+ @media (max-width: 600px) {
     header {
        font-size: calc(12px);
        padding: calc(0.4vh);
     }
 
     #biggerContainer {
-       margin-top: 16vw;
-    }
+      margin-top: 9.8vh;
+   }
 
     #bodyContainer .mySlides,
     #bodyContainer .containerXX {
