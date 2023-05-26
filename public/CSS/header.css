@@ -5,6 +5,11 @@
     --menu-border-color: #4d4d4d;
 }
 
+/* #biggerContainer {
+    margin-top: calc(70px);
+    overflow-y: scroll;
+} */
+
 #topNav {
     background-color: var(--navBar-bg-color);
     z-index: 2;
@@ -95,7 +100,7 @@ input[type="image"] {
 /* Smaller screens configurations: */
 
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
 
     #topNav {
         font-size: calc(var(--menu-font-size) * 1.5vw);

@@ -80,21 +80,21 @@ body {
     box-shadow:5px -3px 5px 3px rgba(128, 128, 128, 0.447);
 }
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
     .productsGrid .product {
         width:33%;
     }
 }
 
-@media screen and (max-width: 700px) {
+@media (max-width: 700px) {
     .productsGrid .product {
         width: 50%;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
     #biggerContainer {
-        margin-top: 16vw;
+        margin-top: 9.8vh;
     }
 
     #bodyContainer {

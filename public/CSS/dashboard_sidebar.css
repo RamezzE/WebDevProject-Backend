@@ -68,7 +68,7 @@
 }
 
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
 
     #sidebar a {
         font-size: calc(16px + 0.2vw);

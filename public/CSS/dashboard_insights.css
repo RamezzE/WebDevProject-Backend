@@ -171,13 +171,13 @@ b {
     transition: all ease 300ms;
 }
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 1000px) {
     .my-insights > div {
         width: 35vw;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
     .my-insights > div {
         width: 50vw;
     }

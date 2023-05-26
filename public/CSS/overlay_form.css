@@ -256,13 +256,13 @@
   border-radius: 5px;
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
   .overlay-div {
     overflow-y: scroll;
   }	
 }
 
-@media screen and (max-height: 1000px) {
+@media (max-height: 1000px) {
   .overlay-div {
     overflow-y: scroll;
   }	
