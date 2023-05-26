@@ -1,11 +1,12 @@
 import { Router } from 'express';
 var router = Router();
 
-/* GET home page. */
+let admin = false;
+
 router.get('/', function (req, res, next) {
-  let admin = false;
   if (req.session.userType == 'admin')
     admin = true;
+  
   res.render('index', { admin: admin });
 });
 

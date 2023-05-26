@@ -1,7 +1,6 @@
-<!----------------------------- add product form ----------------------------->
 <div id="product-form-overlay" class="overlay-div">
     <p>Add Product</p>
-    <form method="post" action="products/addProduct" enctype="multipart/form-data">
+    <form method="post" action="/dashboard/products/addProduct" enctype="multipart/form-data">
         <div class="form-item-div">
             <input class="product-line-input" required name="productName" type="text">
             <label>Product Name</label>
@@ -75,4 +74,3 @@
     <p>Changed your mind? <a onclick="HideOverlay()"
             class="cancel-form">Cancel</a></p>
 </div>
-<!----------------------- end of add product form ---------------------------->

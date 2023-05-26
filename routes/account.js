@@ -4,23 +4,25 @@ var router = Router();
 /* GET Account page. */
 let admin = false;
 
-router.get('/', function (req, res, next) {
+router.use(function (req, res, next) {
   if (!req.session.userType)
-    res.redirect('/login');
+    return res.redirect('/login');
 
-  if (req.session.userType == 'admin')
+  else if (req.session.userType == 'admin')
     admin = true;
+    next();
+});
+
+router.get('/', function (req, res, next) {
 
   const userData = {};
-  
+
   userData.email = req.session.email;
   userData.userType = req.session.userType;
   userData.firstName = req.session.firstName;
   userData.lastName = req.session.lastName;
-  userData.wishlist = req.session.wishlist;
-  userData.cart = req.session.cart;
-
-  res.render('account', {userData, admin: admin});
+  
+  res.render('account', { userData, admin: admin });
 });
 
 export default router;
