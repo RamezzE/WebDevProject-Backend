@@ -35,7 +35,25 @@ router.post('/', async (req, res) => {
    }
  }
 
- 
+ if (password.trim() == '')
+    errorMsg.password = 'Password is required';
+  else if (password.trim().length < 8)
+    errorMsg.password = 'Password must be at least 8 characters';
+
+  if (password.trim() !== confirmPass.trim())
+    errorMsg.confirmPass = 'Passwords do not match';
+
+  for (let key in errorMsg) {
+    console.log(errorMsg[key]);
+  }
+
+  if (Object.keys(errorMsg).length > 0) {
+    for (let key in errorMsg) {
+      console.log(errorMsg[key]);
+    }
+    return res.render('register', { errorMsg, admin: false });
+  }
+
 
    //save user to db
    const user = new User({
