@@ -23,12 +23,19 @@ const IMAGE_LIMIT = 3;
 var productsToDisplay;
 var redirected = false;
 
+router.use((req, res, next) => {
+  if (req.session.userType != 'admin')
+    res.redirect('/');
+  else
+    next();
+});
+
 router.get('/', async (req, res, next) => {
   if (req.session.userType != 'admin')
     return res.redirect('/');
 
   let currentTab = 'home';
-  
+
   console.log(req.session.firstName);
 
   return res.render('dashboard', { currentTab: currentTab, firstName: req.session.firstName });
@@ -148,7 +155,7 @@ router.post('/products/addProduct', async (req, res) => {
     imgNames[i] = productName + i + '.png';
     console.log(imgNames[i]);
     let uploadPath = __dirname + '/../public/Images/Products/' + imgNames[i];
-    
+
     images[i].mv(uploadPath, function (err) {
       if (err)
         return res.status(500).send(err);
@@ -197,29 +204,27 @@ router.post('/products/addProduct', async (req, res) => {
 router.post('/products/filter', async (req, res) => {
   const { productMen, productWomen, productKids, shoes, bags } = req.body;
 
-  console.log(req.body);
+  let type = ['Shoe', 'Bag'];
 
-  let men, women, kids;
-  men = women = kids = false;
-  if (productMen == 'on')
-    men = true;
-  if (productWomen)
-    women = true;
-  if (productKids)
-    kids = true;
-
-  let type = [];
-  if (shoes)
-    type.push('Shoe');
-  if (bags)
-    type.push('Bag');
+  if (!shoes)
+    type[0] = '';
+  if (!bags)
+    type[1] = '';
 
   const query = {
-    category: [men, women, kids],
+    // category: [men, women, kids],
     type: { $in: type },
   };
 
   productsToDisplay = await productsCollection.find(query).toArray();
+  //filter products by category
+  if (productMen == 'on')
+    productsToDisplay = productsToDisplay.filter(product => product.category[0] == true);
+  if (productWomen == 'on')
+    productsToDisplay = productsToDisplay.filter(product => product.category[1] == true);
+  if (productKids == 'on')
+    productsToDisplay = productsToDisplay.filter(product => product.category[2] == true);
+
   redirected = true;
 
   return res.redirect('/dashboard/products');
