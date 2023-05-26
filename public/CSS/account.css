@@ -1,314 +1,318 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
-  
-  body {
-    margin: 0px;
-    padding: 0px;
-    background-color: #eeeeee;
-    overflow: hidden;
-  }
-  
-  #container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-  }
-  
-  #biggerContainer {
-    overflow-y: scroll;
-    height: 100%;
-    margin: 0px;
-    margin-top: calc(42px);
-    padding: 0px;
-  }
-  
-  #bodyContainer {
-    /* overflow-x: scroll; */
-    /* margin-top: 70px; */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
-  }
-  
-  .accountFlex {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    min-width: fit-content;
-    justify-content: center;
-  
-  }
-  
-  .accountFlex .col {
-    margin: 20px;
-    padding: 10px;
-    min-width: fit-content;
-    height:100%;
-    width:100%;
-  }
-  
-  
-  #bodyContainer h2 {
-    text-align: center;
-  
-  }
-  
-  .nav-item {
-    background-color: white;
-    margin-bottom: 10px;
-    padding: 10px;
-    transition: all ease 0.3s;
-  }
-  
-  .nav-item:not(#person):hover {
-    background-color: black;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .accountFlex .col {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-  }
-  
-  
-  .account-only-one {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-    padding: 20px;
-    background-color: white;
-    min-width: fit-content;
-  }
-  
-  .account-active {
-    display:flex;
-  }
-  
-  #person {
-    padding: 20px;
-  }
-  
-  #intro {
-    display: inline-block;
-    margin-left: 10px;
-  }
-  
-  #initials {
-    background-color: black;
-    border: 2px solid black;
-    border-radius: 50%;
-    color: white;
-    padding: 10px;
-    font-size: 25px;
-  }
-  
-  #hi {
-    color: grey;
-  }
-  
-  #name {
-    font-weight: bold;
-    font-size: large;
-  }
-  
-  .section>* {
-    margin: 3px 0px;
-  }
-  
-  .display-label {
-    font-size: 9px;
-    font-weight: bold;
-    display: block;
-  }
-  
-  .display-input {
-    width: 200px;
-  }
-  
-  
-  /* #sign-out {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #eeeeee;
+  overflow: hidden;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#biggerContainer {
+  overflow-y: scroll;
+  height: 100%;
+  margin: 0px;
+  margin-top: calc(42px);
+  padding: 0px;
+}
+
+#bodyContainer {
+  /* overflow-x: scroll; */
+  /* margin-top: 70px; */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+}
+
+.accountFlex {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-width: fit-content;
+  justify-content: center;
+
+}
+
+.accountFlex .col {
+  margin: 20px;
+  padding: 10px;
+  min-width: fit-content;
+  height: 100%;
+  width: 100%;
+}
+
+
+#bodyContainer h2 {
+  text-align: center;
+
+}
+
+.nav-item {
+  background-color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: all ease 0.3s;
+}
+
+.nav-item:not(#person):hover {
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.accountFlex .col {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+
+.account-only-one {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  background-color: white;
+  min-width: fit-content;
+}
+
+.account-active {
+  display: flex;
+}
+
+#person {
+  padding: 20px;
+}
+
+#intro {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+#initials {
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 50%;
+  color: white;
+  padding: 10px;
+  font-size: 25px;
+}
+
+#hi {
+  color: grey;
+}
+
+#name {
+  font-weight: bold;
+  font-size: large;
+}
+
+.section>* {
+  margin: 3px 0px;
+}
+
+.display-label {
+  font-size: 9px;
+  font-weight: bold;
+  display: block;
+}
+
+.display-input {
+  width: 200px;
+}
+
+
+/* #sign-out {
       position: absolute;
       z-index: 1;
       margin: auto;
       width: 600px;
       height: 50vh;
   } */
-  
-  .signout-button {
-    position: absolute;
-    top: 50%;
-    right: 31%;
-    padding: 1.3em 3em;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 500;
-    color: #000;
-    background-color: #fff;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
+
+.signout-button {
+  position: absolute;
+  top: 50%;
+  right: 31%;
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.signout-button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.signout-button:active {
+  transform: translateY(-1px);
+}
+
+#bodyContainer h4 {
+  padding: 6%;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+}
+
+.input {
+  width: 100%;
+  max-width: 220px;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.input:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.input:active {
+  transform: scale(0.95);
+}
+
+.input:focus {
+  border: 2px solid grey;
+}
+
+.card {
+  /* width: 260px; */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  font-size: 18px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.chat-window {
+  min-height: 220px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.message-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.send-button {
+  border: none;
+  outline: none;
+  background-color: #333;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+#chat {
+  background: whitec;
+}
+
+
+@media (max-width:600px) {
+  #biggerContainer {
+    margin-top: 9.8vh;
   }
-  
-  .signout-button:hover {
-    background-color: #23c483;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-    color: #fff;
-    transform: translateY(-7px);
-  }
-  
-  .signout-button:active {
-    transform: translateY(-1px);
-  }
-  
-  #bodyContainer h4 {
-    padding: 6%;
-  }
-  
-  .center {
-    text-align: center;
-    margin: auto;
-  }
-  
-  .input {
-    width: 100%;
-    max-width: 220px;
-    height: 45px;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1.5px solid lightgrey;
-    outline: none;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    box-shadow: 0px 0px 20px -18px;
-  }
-  
-  .input:hover {
-    border: 2px solid lightgrey;
-    box-shadow: 0px 0px 20px -17px;
-  }
-  
-  .input:active {
-    transform: scale(0.95);
-  }
-  
-  .input:focus {
-    border: 2px solid grey;
-  }
-  
-  .card {
-    /* width: 260px; */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chat-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    font-size: 18px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .chat-window {
-    min-height: 220px;
-    height:400px;
-    overflow-y: scroll;
-  }
-  
-  .message-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .chat-input {
-    display: flex;
+
+  .accountFlex {
+    flex-direction: column;
     align-items: center;
-    padding: 10px;
-    border-top: 1px solid #ccc;
+    width: 100%;
   }
-  
-  .message-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 5px;
-    font-size: 14px;
+
+  .accountFlex .col {
+    padding: 10px 30px;
+    margin-bottom: 0px;
+    /* background-color: red; */
   }
-  
-  .send-button {
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: #fff;
-    font-size: 14px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .send-button:hover {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
-  }
-  
-  #chat {
-    background: whitec;
-  }
-  
-  
-  @media (max-width:700px) {
-      .accountFlex {
-        flex-direction: column;
-        align-items: center;
-        width:100%;
-      }
-  
-      .accountFlex .col {
-        padding:10px 30px;
-        margin-bottom:0px;
-        /* background-color: red; */
-      }
-    }
-  
-  .overlay-div {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 50vh;
-    padding: 40px;
-    margin: 20px auto;
-    transform: translate(-50%, -55%);
-    background: rgba(0,0,0,.9);
-    box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    border-radius: 10px;
-  }
-  
-    #sign-out h4 {
-      position: absolute;
-      font-size: 16px;
-      color: white;
-      top: 30%;
-      right: 17%;
-    }
+}
+
+.overlay-div {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 50vh;
+  padding: 40px;
+  margin: 20px auto;
+  transform: translate(-50%, -55%);
+  background: rgba(0, 0, 0, .9);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  border-radius: 10px;
+}
+
+#sign-out h4 {
+  position: absolute;
+  font-size: 16px;
+  color: white;
+  top: 30%;
+  right: 17%;
+}
