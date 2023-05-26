@@ -21,7 +21,8 @@ router.get('/men', async (req, res, next) => {
   const query = {
     tags: {$in : ['man']}
   }
-  const products = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
@@ -30,7 +31,8 @@ router.get('/women', async (req, res, next) => {
   const query = {
     tags: {$in : ['woman']}
   }
-  const products = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
@@ -39,7 +41,8 @@ router.get('/kids', async (req, res, next) => {
   const query = {
     tags: {$in : ['kids']}
   }
-  const products = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
@@ -47,7 +50,8 @@ router.get('/shoes', async (req, res, next) => {
   const query = {
     tags: {$in : ['shoes']}
   }
-  const products = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
@@ -55,7 +59,8 @@ router.get('/bags', async (req, res, next) => {
   const query = {
     tags: {$in : ['bags']}
   }
-  const products = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
   return res.render('products', { products: products, admin: admin });
 });
 
@@ -85,10 +90,10 @@ router.get('/filter', async (req, res, next) => {
       { tags: { $in: type } }
     ]
   };
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
 
-  let productsToDisplay = await productsCollection.find(query).toArray();
-
-  return res.render('products', { products: productsToDisplay, admin: admin });
+  return res.render('products', { products: products, admin: admin });
 });
 
 router.get('/:id', async (req, res, next) => {
@@ -99,11 +104,7 @@ router.get('/:id', async (req, res, next) => {
   const product = await Product.findOne(query);
   if (!product)
     console.log("CANNOT FIND");
-
-  let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
-
+  
   res.render('ProductDetails', { prd: product, admin: admin });
 
 });

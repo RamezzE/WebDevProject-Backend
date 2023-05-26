@@ -42,7 +42,7 @@
                     <div class="right column">
                         <div class="section">
                             <div class="pname"><%= prd.name%></div>
-                            <div class="price"><del><%= (prd.price+100) %></del><%= prd.price %></div>
+                            <div class="price"><%= prd.price %> EGP</div>
                             <div class="size">
                                 <p style = "display:inline;">Size:</p>
                                 <button class="btn">36</button>
@@ -64,7 +64,6 @@
                             <div class="pname">Description:</div>
                             <p>
                                 <%= prd.description%>
-                                <%= prd._id %>
                             </p>
                         </div>
                     </div>

@@ -78,7 +78,8 @@ router.get('/insights', async (req, res, next) => {
 
 router.get('/products', async (req, res, next) => {
 
-  let products = await productsCollection.find().toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find().sort(ascendingOrder).toArray();
   return res.render('dashboard', { products: products, currentTab: 'products' });
 });
 
@@ -209,7 +210,8 @@ router.get('/products/filter', async (req, res) => {
     ]
   };
 
-  let productsToDisplay = await productsCollection.find(query).toArray();
+  const ascendingOrder = { price: 1 };
+  const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
 
   return res.render('dashboard', { products: productsToDisplay, currentTab: 'products' });
 });
