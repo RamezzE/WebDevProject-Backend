@@ -187,7 +187,7 @@ router.post('/products/addProduct', async (req, res) => {
 router.get('/products/filter', async (req, res) => {
 
   if (req.query.men) {
-    delete req.query.MongoClient;
+    delete req.query.men;
     req.query['category.0'] = true;
   }
   if (req.query.women) {
@@ -198,7 +198,7 @@ router.get('/products/filter', async (req, res) => {
     delete req.query.kids;
     req.query['category.2'] = true;
   }
-  
+
   let type = [];
   if (req.query.shoes) {
     delete req.query.shoes;
@@ -213,7 +213,7 @@ router.get('/products/filter', async (req, res) => {
 
   console.log(req.query);
 
-  productsToDisplay = await productsCollection.find(req.query).toArray();
+  let productsToDisplay = await productsCollection.find(req.query).toArray();
 
   return res.render('dashboard', { products: productsToDisplay, currentTab: 'products' });
 
