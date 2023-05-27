@@ -5,7 +5,11 @@ var router = Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('register');
+  if (req.session.userType)
+    return res.redirect('/');
+  
+  const errorMsg = {};
+  res.render('register', { errorMsg })
 });
 
 router.post('/', async (req, res) => {
