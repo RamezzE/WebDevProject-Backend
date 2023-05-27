@@ -26,13 +26,21 @@
                     <div id="login">
                         <h3>Log in</h3>
                         <form method="get" id="form">
-                            <div class="group">
-                                <input type="text" name="login_email" id="Email" class="input">
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <span class="errorMsg">Email</span>
-                                <label>Email</label>
-                            </div>
+                            <form method="post" id="form">
+                                <div class="group">
+                                    <input type="text" name="email" id="Email" class="input">
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    
+                                    <% if (!errorMsg.email) {%>
+                                        <div class = "lineBreak"><br></div>
+                                    <% } %>
+    
+                                    <span class="errorMsg">
+                                        <%= errorMsg && errorMsg.email? errorMsg.email : '' %>
+                                    </span>
+                                    <label>Email</label>
+                                </div>
 
                             <div class="group">
                                 <input type="password" id="Password" name="login_password" class="input">
