@@ -51,7 +51,10 @@
                             <input  type="email" id = "Email" name="register_email" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Email</span>
+                            <% if (!errorMsg.email) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
                             <label>Email</label>
                         </div>
 
@@ -59,7 +62,10 @@
                             <input  type="password" id="Password" name="password" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Password</span>
+                            <% if (!errorMsg.password) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.password? errorMsg.password : '' %></span>
                             <label>Password</label>
                         </div>
 
@@ -67,7 +73,10 @@
                             <input  type="password" id = "ConfirmPass" name="confirm_password" class="input" >
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <span class = "errorMsg">Confirm</span>
+                            <% if (!errorMsg.confirmPass) {%>
+                                <div class = "lineBreak"><br></div>
+                            <% } %>
+                            <span class = "errorMsg"><%= errorMsg && errorMsg.confirmPass? errorMsg.confirmPass : '' %></span>
                             <label>Confirm Password</label>
                         </div>
 
