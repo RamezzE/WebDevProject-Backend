@@ -70,6 +70,17 @@ router.post('/', async (req, res) => {
 
   await user.save();
   console.log("User saved:", user);
+
+  //data ok
+  //create session
+  req.session.userID = user._id;
+  req.session.userType = user.userType;
+  req.session.firstName = user.firstName;
+  req.session.lastName = user.lastName;
+  req.session.email = user.email;
+
+  res.redirect('account');
+
 });
 
 export default router;
