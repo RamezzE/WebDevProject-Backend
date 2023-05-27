@@ -19,13 +19,19 @@ import accessories_router from "./routes/accessories_products.js";
 import details_router from "./routes/ProductDetails.js";
 import shoes_router from "./routes/shoes_products.js";
 import check_router from "./routes/checkout.js";
+import signOut_router from "./routes/signOut.js";
+
 //Read the current directory name
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 console.log(`Project Root dir : ${__dirname}`);
 
 const app = express();
-app.use(session({ secret: 'Your_Secret_Key'}));
+app.use(session({
+  secret: 'secret-key',
+  resave: true,
+  saveUninitialized: true
+}));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -60,6 +66,7 @@ app.use('/accessories', accessories_router);
 app.use('/ProductDetails', details_router);
 app.use('/shoes', shoes_router);
 app.use('/checkout', check_router);
+app.use('/signOut', signOut_router);
 // error handler
 app.use((req, res, err) => {
     // set locals, only providing error in development
