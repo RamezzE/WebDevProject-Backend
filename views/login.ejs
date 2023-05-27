@@ -46,7 +46,13 @@
                                 <input type="password" id="Password" name="login_password" class="input">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <span class="errorMsg">Password</span>
+                                <% if (!errorMsg.password) { %>
+                                    <div class = "lineBreak"><br></div>
+                                <% } %>
+
+                                <span class="errorMsg">
+                                    <%= errorMsg && errorMsg.password? errorMsg.password : '' %>
+                                </span>
                                 <label>Password</label>
                             </div>
 
