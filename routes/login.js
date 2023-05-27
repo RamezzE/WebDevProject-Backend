@@ -31,5 +31,44 @@ router.post('/', async (req, res) => {
       return res.render('login', { errorMsg });
     }
   }
+  if (password.trim() == '')
+    errorMsg.password = 'Password is required';
+  else {
+    const user = await User.findOne({ email: email })
+      .then(user => {
+        console.log(user);
+        if (user.password !== password)
+          errorMsg.password = 'Incorrect password';
+      })
+      .catch(err => {
+        console.error(err);
+      })
+
+  }
+
+  if (Object.keys(errorMsg).length > 0) {
+    for (let key in errorMsg) {
+      console.log(errorMsg[key]);
+    }
+    return res.render('login', { errorMsg });
+  }
+
+  //data ok
+  const user = await User.findOne({ email: email })
+    .then(user => {
+      req.session.userType = user.userType;
+      req.session.email = user.email;
+      req.session.firstName = user.firstName;
+      req.session.lastName = user.lastName;
+
+      if (user.userType == "user")
+        res.redirect('/account');
+      else if (user.userType == "admin")
+        res.redirect('/dashboard');
+    })
+    .catch(err => {
+      console.error(err);
+    })
+});
 
 export default router;
