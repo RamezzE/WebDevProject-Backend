@@ -15,6 +15,8 @@ router.get('/bags', ProductController.bagsProducts);
 
 router.get('/filter', ProductController.filterProducts)
 
+router.get('/search', ProductController.searchProducts);
+
 router.get('/:id', ProductController.productDetails);
 
 export default router;
