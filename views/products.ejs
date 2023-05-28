@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="../CSS/products.css">
     <link rel="stylesheet" type="text/css" href="../CSS/overlay_form.css">
     <link rel="stylesheet" type="text/css" href="../CSS/dashboard_overlay.css">
-    
 </head>
 
 <body>
@@ -35,7 +34,7 @@
                 <div class="productsGrid">
                     <% products.forEach(prd=> { %>
                         <div class="product" onmouseenter="TogglePhoto(this);" onmouseleave="TogglePhoto(this);">
-                            <a href="/products/<%= prd._id %>">
+                            <a href="/products/<%= prd.objectID %>">
                                 <img src="../Images/Products/<%= prd.images[0]%>">
                                 <img src="../Images/Products/<%= prd.images[1]%>" style="display: none;">
                             </a>

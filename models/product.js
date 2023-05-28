@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import mongooseFuzzySearching from 'mongoose-fuzzy-searching'
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -41,7 +40,6 @@ const productSchema = new mongoose.Schema({
     }
 });
 
-productSchema.plugin(mongooseFuzzySearching, { fields: ['name','description','tags'] });
 productSchema.index({'$**': 'text'});
 const Product = mongoose.model('Product', productSchema);
 

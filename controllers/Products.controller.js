@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import Product from "../models/product.js";
+import algoliasearch from 'algoliasearch'
 
 const client = new MongoClient(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -8,6 +9,14 @@ const client = new MongoClient(process.env.MONGO_URI, {
 const database = client.db("web11");
 const productsCollection = database.collection("products");
 const ascendingOrder = { price: 1 };
+
+//-------------------------------------Algolia SEARCH API-------------------------------------
+const Algoliaclient = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  '965692c09298a4a99e53d06551605e7f', //public SEARCH ONLY KEY
+  );
+const index = Algoliaclient.initIndex("products");
+// --------------------------------------------------------------------------
 
 let admin;
 
@@ -58,9 +67,9 @@ const menProducts = async (req, res) => {
 
 const womenProducts = async (req, res) => {
   checkAdmin(req);
-//   const query = {
-//     tags: { $in: ["woman"] },
-//   };
+  //   const query = {
+  //     tags: { $in: ["woman"] },
+  //   };
   const products = await productsCollection
     .find({ $text: { $search: "woman" } })
     .sort(ascendingOrder)
@@ -116,12 +125,26 @@ const productDetails = async (req, res) => {
 };
 
 const searchProducts = async (req, res) => {
-    let searchText = req.query.search;
-    if (!searchText)
-        searchText = " ";
-    const products = await productsCollection.find({ $text: { $search: searchText } }).sort(ascendingOrder).toArray();
-    res.render('products', { products: products, admin: admin });
-}
+  
+  checkAdmin(req);
+  let query;
+  let searchResults;
+  try {
+    query = req.query.search;// Get the search query from the request query parameters
+    
+    // Make Algolia API search request and get the search results
+    searchResults = await index.search(query);
+    searchResults.hits.sort((a, b) => a.price - b.price); // sort in ascending order of price
+
+    return res.render("products", { products: searchResults.hits, admin:admin });
+
+  } catch (error) {
+    console.error("Error making Algolia API search:", error);
+    //manual  not very accurate search without api
+    searchResults = await productsCollection.find({ $text: { $search: query } }).sort(ascendingOrder).toArray();
+  }
+  res.render("products", { products: searchResults, admin: admin });
+};
 
 export default {
   filterProducts,
