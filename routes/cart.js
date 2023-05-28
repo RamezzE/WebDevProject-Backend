@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 var router = Router();
 import User from '../models/user.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: './.env' })
+dotenv.config({ path: '../.env' })
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
@@ -17,10 +17,8 @@ router.use((req, res, next) => {
       next();
   }
   else {
-    let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
-      res.render('err', { err: 'You must login to access this page',admin: admin })
+    admin = false;
+    res.render('err', { err: 'You must login to access this page',admin: admin })
   }
 });
 
@@ -54,9 +52,10 @@ router.post('/add', async (req, res, next) => {
   const { product_id } = req.body;
 
   const user = await User.findOne({ _id: req.session.userID });
-  user.cart.push(product_id);
-
-  await user.save();
+  if(!user.cart.includes(product_id)){
+    user.cart.push(product_id);
+    await user.save();
+    }
 
   console.log(user);
   console.log("DONE ADDING");
