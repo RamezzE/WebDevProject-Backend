@@ -14,6 +14,8 @@ let admin = false;
 
 router.use((req, res, next) => {
   if (req.session.userType !== undefined) {
+    if (req.session.userType == 'admin')
+    admin = true;
       next();
   }
   else {
