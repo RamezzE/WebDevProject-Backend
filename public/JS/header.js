@@ -17,11 +17,11 @@ function toggleSearchBar(bool) {
   if (bool) {
     if (searchSpan.style.display == "inline") {
         let form = document.createElement("form");
-        form.action = "/products/search";
+        form.action = "/products";
         form.method = "GET";
         let input = document.createElement("input");
         input.type = "hidden";
-        input.name = "search";
+        input.name = "query";
         input.value = searchSpan.querySelector("input").value;
         form.appendChild(input);
         document.body.appendChild(form);

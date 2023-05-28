@@ -114,6 +114,35 @@ body {
     background-color:rgb(182, 187, 191) ;
     padding:10px;
     box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
-
     transition: ease all 300ms;
 }
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination div {
+    font:inherit;
+    border:0px;
+    border-radius:10px;
+    background-color:rgb(182, 187, 191) ;
+    padding:10px;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+    margin:30px;
+    transition: ease all 300ms;
+}
+
+.pagination div:hover {
+    background-color: #dbdbdb;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: black;
+}
+
