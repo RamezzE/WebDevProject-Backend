@@ -20,6 +20,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/', async (req, res, next) => {
+  console.log(req.session.firstName); // debugging purposes
   return res.render('dashboard', { currentTab: 'home', firstName: req.session.firstName });
 });
 

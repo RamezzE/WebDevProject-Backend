@@ -18,7 +18,7 @@ const login = async (req, res) => {
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
             errorMsg.email = "Email not found!";
-            return res.render('login', { errors: errorMsg, admin: false });
+            return res.json({ errors: errorMsg, admin: false });
         }
     }
 
@@ -58,8 +58,10 @@ const login = async (req, res) => {
 
             if (user.userType == "user")
                 res.redirect('/account');
-            else if (user.userType == "admin")
+            else if (user.userType == "admin") {
+                console.log("should be logged in as admin"); // debugging purposes
                 res.redirect('/dashboard');
+            }
         })
         .catch(err => {
             console.error(err);

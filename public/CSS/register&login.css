@@ -127,16 +127,15 @@ label {
     font-size: 18px;
     font-weight: normal;
     position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
+    top: -20px;
+    font-size: 14px;
+    transition: 0.5s ease all;
     transition: 0.5s ease all;
     -moz-transition: 0.5s ease all;
     -webkit-transition: 0.5s ease all;
 }
 
-.input:focus~label,
-.input:valid~label {
+.input:focus~label, .input:valid~label {
     top: -20px;
     font-size: 14px;
     color: #5264AE;
@@ -156,8 +155,9 @@ label {
     width: 100%;
     content: '';
     height: 2px;
+    margin-bottom: 1%;
     /* width: 0; */
-    bottom: 25px;
+    bottom: 0px;
     position: absolute;
     transition: 0.5s ease all;
     -moz-transition: 0.5s ease all;
@@ -193,7 +193,7 @@ label {
     left: 0;
     pointer-events: none;
     opacity: 0.5;
-    bottom:25px;
+    bottom: 7px;
 }
 
 .input:focus~.highlight {
@@ -338,4 +338,8 @@ form > span {
     color:green;
     font-size: 20px;
     visibility: hidden;
+}
+
+#error-div {
+    margin: 4% 0 10% 0;
 }
