@@ -14,13 +14,13 @@ let admin = false;
 
 router.use((req, res, next) => {
   if (req.session.userType !== undefined) {
+    if (req.session.userType == 'admin')
+    admin = true;
       next();
   }
   else {
-    let admin = false;
-  if (req.session.userType == 'admin')
-    admin = true;
-      res.render('err', { err: 'You must login to access this page',admin: admin })
+    admin = false;
+    res.render('err', { err: 'You must login to access this page',admin: admin })
   }
 });
 
@@ -54,9 +54,10 @@ router.post('/add', async (req, res, next) => {
   const { product_id } = req.body;
 
   const user = await User.findOne({ _id: req.session.userID });
-  user.cart.push(product_id);
-
-  await user.save();
+  if(!user.cart.includes(product_id)){
+    user.cart.push(product_id);
+    await user.save();
+    }
 
   console.log(user);
   console.log("DONE ADDING");

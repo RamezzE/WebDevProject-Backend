@@ -1,7 +1,6 @@
 import { Router } from 'express';
 var router = Router();
 
-/* GET Account page. */
 let admin = false;
 
 router.use(function (req, res, next) {

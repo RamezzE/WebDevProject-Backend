@@ -40,6 +40,7 @@ const productSchema = new mongoose.Schema({
     }
 });
 
+productSchema.index({'$**': 'text'});
 const Product = mongoose.model('Product', productSchema);
 
 export default Product;

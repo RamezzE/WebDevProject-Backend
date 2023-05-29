@@ -20,6 +20,7 @@ router.use((req, res, next) => {
     next();
   }
   else {
+    admin=false;
     res.render('err', { err: 'You must login to access this page', admin: admin })
   }
 });
@@ -54,10 +55,10 @@ router.post('/add', async (req, res, next) => {
   const { product_id } = req.body;
 
   const user = await User.findOne({ _id: req.session.userID });
+  if(!user.wishlist.includes(product_id)){
   user.wishlist.push(product_id);
-
   await user.save();
-
+  }
   console.log(user);
   console.log("DONE ADDING");
 

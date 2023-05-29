@@ -20,15 +20,19 @@
         <div id="biggerContainer">
             <div id="bodyContainer">
                 <div class="shopping-cart">
-                    <!-- Title -->
                     <h1 class="title">Wishlist</h1>
-                    <% products.forEach(prd=> { %>
-                        <% console.log("SDSD") %>
-                            <% console.log(prd)%>
-                                <!-- Product #1 -->
+                    <% if(products.length==0) {%>
+                        <div class="item">
+                            <h2>No items in your wishlist</h2>
+                        </div>
+                        <a href="/products">Continue Shopping</a>
+                        
+                        <% }%>
+                            <% products.forEach(prd=> { %>
                                 <div class="item">
                                     <div class="buttons">
-                                        <button class="delete-btn" type="button" name="button" onclick="RemoveWishlist('<%= prd._id%>')">
+                                        <button class="delete-btn" type="button" name="button"
+                                            onclick="RemoveWishlist('<%= prd._id%>')">
                                             <img src="../Images/Icons/delete.png" alt="">
                                         </button>
                                     </div>
