@@ -18,7 +18,7 @@ const login = async (req, res) => {
         const existingUser = await User.findOne({ email: email });
         if (!existingUser) {
             errorMsg.email = "Email not found!";
-            return res.render('login', { errorMsg, admin: false });
+            return res.render('login', { errors: errorMsg, admin: false });
         }
     }
 
@@ -41,7 +41,7 @@ const login = async (req, res) => {
         for (let key in errorMsg) {
             console.log(errorMsg[key]);
         }
-        return res.render('login', { errorMsg, admin: false });
+        return res.json({ errors: errorMsg, admin: false });
     }
 
     //data ok

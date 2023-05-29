@@ -27,20 +27,16 @@
 $(document).ready(function() {
     $('#form').submit(function(event) {
       event.preventDefault();
-  
-      // Get form data
-      var formData = $(this).serialize();
+
+      const formData = $(this).serialize();
   
         $.ajax({
             url: '/login', // Replace with your server-side endpoint
             method: 'POST',
             data: formData,
             success: function(response) {
-            // Check if there are any errors
-            if (response.errors && response.errors.email) {
-                // Display the error message in the error span
-                $('.errorMsg').text(response.errors.email);
-            }
+                $('#emailErrorMsg').html(response.errors.email);
+                $('#passwordErrorMsg').html(response.errors.password);
             },
             error: function(err) {
             console.log(err);

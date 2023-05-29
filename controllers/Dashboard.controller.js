@@ -261,12 +261,16 @@ const makeAdmin = async (req, res) => {
   return res.redirect("/dashboard/users");
 };
 
+const getProducts = async (req, res, next) => {
+  const products = await productsCollection.find().sort(ascendingOrder).toArray();
+  return res.render('dashboard', { products: products, currentTab: 'products', errorMsg: errorMsg});
+};
+
 export default {
     addProduct,
     filterProducts,
     deleteProduct,
     deleteUser,
     makeAdmin,
-    getProducts,
-    getErrors
+    getProducts
 };

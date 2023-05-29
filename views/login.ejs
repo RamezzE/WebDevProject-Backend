@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
     <link rel="stylesheet" type="text/css" href="../CSS/header.css">
     <link rel="stylesheet" type="text/css" href="../CSS/register&login.css">
-
 </head>
 
 <body>
@@ -32,7 +31,7 @@
                                 
                                 <!-- <div class = "lineBreak"><br></div> -->
 
-                                <span class="errorMsg"></span>
+                                <span class="errorMsg" id="emailErrorMsg"></span>
                             </div>
 
                             <div class="group">
@@ -42,7 +41,7 @@
                                 <span class="bar"></span>
                                 
                                 <!-- <div class = "lineBreak"><br></div> -->
-                                <span class="errorMsg"></span>
+                                <span class="errorMsg" id="passwordErrorMsg"></span>
                             </div>
                            
                             <div>
@@ -72,7 +71,9 @@
 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../JS/header.js"></script>
 <script src="../JS/loginvalid.js"></script>
+<script src="../JS/checkErrors.js"></script>
 
 </html>
