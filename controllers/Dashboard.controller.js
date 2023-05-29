@@ -17,18 +17,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const imageFolderPath = path.join(__dirname, '../public/Images/Products/');
 const IMAGE_LIMIT = 3;
+let errorMsg = {};
 
 const addProduct = async (req, res) => {
+    errorMsg = {};
     console.log('Adding product');
 
     //get data from form
     const { productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, shoes, bags } = req.body;
-    if (!req.files || Object.keys(req.files).length === 0) 
-        return res.status(400).send('No files were uploaded.');
-    const images = req.files.images;
-    let imagesNo = req.files.images.length
-
-    let errorMsg = {};
+    // if (!req.files || Object.keys(req.files).length === 0) 
+    //     return res.status(400).send('No files were uploaded.');
 
     //validate data
     if (productName.trim() == '')
@@ -49,11 +47,11 @@ const addProduct = async (req, res) => {
     if (productStock.trim() == '')
         errorMsg.productStock = 'Product stock is required';
 
-    if (req.files.images.length == 0)
+    if (!req.files)
         errorMsg.image = 'Product image is required';
 
     else if (req.files.images.length > IMAGE_LIMIT)
-        errorMsg.image = 'You can only upload a maximum of ' + IMAGE_LIMIT + ' images';
+    errorMsg.image = 'You can only upload a maximum of ' + IMAGE_LIMIT + ' images';
 
     if (Object.keys(errorMsg).length > 0) {
         for (let key in errorMsg) {
@@ -63,25 +61,35 @@ const addProduct = async (req, res) => {
         return res.redirect('/dashboard/products');
     }
 
-    //alternative to above
-    if (imagesNo > IMAGE_LIMIT)
-        imagesNo = IMAGE_LIMIT;
+    try {
+        const images = req.files.images;
+        let imagesNo = req.files.images.length
 
-    console.log(images);
+        //alternative to above
+        if (imagesNo > IMAGE_LIMIT)
+            imagesNo = IMAGE_LIMIT;
 
-    let imgNames = [];
+        console.log(images);
 
-    for (let i = 0; i < imagesNo; i++) {
+        let imgNames = [];
 
-        imgNames[i] = productName + i + '.png';
-        console.log(imgNames[i]);
-        let uploadPath = __dirname + '/../public/Images/Products/' + imgNames[i];
+        for (let i = 0; i < imagesNo; i++) {
 
-        images[i].mv(uploadPath, function (err) {
-            if (err)
-                return res.status(500).send(err);
+            imgNames[i] = productName + i + '.png';
+            console.log(imgNames[i]);
+            let uploadPath = __dirname + '/../public/Images/Products/' + imgNames[i];
 
-        });
+            images[i].mv(uploadPath, function (err) {
+                if (err)
+                    return res.status(500).send(err);
+
+            });
+        }
+    } catch(err) {
+        console.log(err);
+        res.send = 'Error uploading images';
+        //return res.send
+        return res.redirect('/dashboard/products');
     }
 
     let tags = [];
@@ -119,6 +127,8 @@ const addProduct = async (req, res) => {
     return res.redirect('/dashboard/products');
 }
 
+const ascendingOrder = { price: 1 }; 
+
 const filterProducts = async (req, res) => {
 
     let tags = [];
@@ -147,7 +157,6 @@ const filterProducts = async (req, res) => {
         ]
     };
 
-    const ascendingOrder = { price: 1 };
     const products = await productsCollection.find(query).sort(ascendingOrder).toArray();
 
     return res.render('dashboard', { products: products, currentTab: 'products' });
@@ -210,10 +219,21 @@ const makeAdmin = async (req, res) => {
     return res.redirect('/dashboard/users');
 }
 
+const getProducts = async (req, res, next) => {
+    const products = await productsCollection.find().sort(ascendingOrder).toArray();
+    return res.render('dashboard', { products: products, currentTab: 'products', errorMsg: errorMsg});
+};
+
+// const getErrors = (req, res) => {
+//     res.send(errorMsg);
+// }
+
 export default {
     addProduct,
     filterProducts,
     deleteProduct,
     deleteUser,
-    makeAdmin
-}
+    makeAdmin,
+    getProducts,
+    getErrors
+};

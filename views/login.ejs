@@ -25,35 +25,26 @@
                         <h3>Log in</h3>
                         <form method="post" id="form">
                             <div class="group">
+                                <label>Email</label>
                                 <input type="text" name="email" id="Email" class="input">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 
-                                <% if (!errorMsg.email) {%>
-                                    <div class = "lineBreak"><br></div>
-                                <% } %>
+                                <!-- <div class = "lineBreak"><br></div> -->
 
-                                <span class="errorMsg">
-                                    <%= errorMsg && errorMsg.email? errorMsg.email : '' %>
-                                </span>
-                                <label>Email</label>
+                                <span class="errorMsg"></span>
                             </div>
 
                             <div class="group">
+                                <label>Password</label>
                                 <input type="password" id="Password" name="password" class="input">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 
-                                <% if (!errorMsg.password) { %>
-                                    <div class = "lineBreak"><br></div>
-                                <% } %>
-
-                                <span class="errorMsg">
-                                    <%= errorMsg && errorMsg.password? errorMsg.password : '' %>
-                                </span>
-                                <label>Password</label>
+                                <!-- <div class = "lineBreak"><br></div> -->
+                                <span class="errorMsg"></span>
                             </div>
-
+                           
                             <div>
                                 <button id = "submit" type="submit">LOG IN</button>
                             </div>

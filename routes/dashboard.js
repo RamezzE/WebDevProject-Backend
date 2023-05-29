@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { Router } from 'express';
-import DashboardController from '../controllers/Dashboard.controller.js';
+import DashboardController from '../controllers/Dashboard.controller.js'; 
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' })
 
@@ -36,10 +36,7 @@ router.get('/insights', async (req, res, next) => {
   return res.render('dashboard', { currentTab: 'insights' });
 });
 
-router.get('/products', async (req, res, next) => {
-  const products = await productsCollection.find().sort(ascendingOrder).toArray();
-  return res.render('dashboard', { products: products, currentTab: 'products' });
-});
+router.get('/products', DashboardController.getProducts);
 
 router.post('/products/addProduct', DashboardController.addProduct);
 

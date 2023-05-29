@@ -320,6 +320,11 @@
   background: white;
 }
 
+.errorMsg {
+  color: red;
+  opacity: 0.6;
+}
+
 #product-description-label {
   margin-top: 0;
 }
