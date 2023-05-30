@@ -42,7 +42,8 @@ router.post('/', async (req, res) => {
   if (address.trim() == '')
     errorMsg.address = 'Address is required';
 
-  let cdform = /^(?:[0-9]{12}(?:[0-9]{3})?)$/;
+  let cdform = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+  //Starting with 4 length 13 or 16 digits
   if (cardnumber.trim() == '')
     errorMsg.cardnumber = 'cardnumber is required';
   else if (!cardnumber.match(cdform))
@@ -66,7 +67,7 @@ router.post('/', async (req, res) => {
     console.log("ADD");  
     const user = await User.findOne({ _id: req.session.userID });
     user.orders=user.cart;
-    user.cart={};
+    user.cart=[];
       await user.save();
     console.log(user);
     console.log("DONE Ordering");

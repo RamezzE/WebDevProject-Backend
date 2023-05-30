@@ -27,23 +27,25 @@ router.use((req, res, next) => {
 
 
 router.get('/', async (req, res, next) => {
-//     const user = await User.findOne({ _id: req.session.userID });
-//   console.log(user);
-//   let orders = user.orders;
-//   console.log("Orders: " + orders)
-
-//   let orders_obj = [];
-
-//   for (let i = 0; i < orders.length; i++)
-//   orders_obj.push(new ObjectId(orders[i]));
-  
-//   const products = await productsCollection.find({ _id: { $in: orders_obj } }).toArray();
-//   console.log(products);
-
-//   let admin = false;
-//   if (req.session.userType == 'admin')
-//     admin = true;
-  res.render('Myproducts');
+        
+    
+    const user = await User.findOne({ _id: req.session.userID });
+      console.log(user);
+      let orders = user.orders;
+      console.log("Orders: " + orders)
+    
+      let orders_obj = [];
+    
+      for (let i = 0; i < orders.length; i++)
+      orders_obj.push(new ObjectId(orders[i]));
+      
+      const products = await productsCollection.find({ _id: { $in: orders_obj } }).toArray();
+      console.log(products);
+    
+      let admin = false;
+      if (req.session.userType == 'admin')
+        admin = true;
+      res.render('myproducts', { admin: admin, products: products });
 });
 
 export default router;
