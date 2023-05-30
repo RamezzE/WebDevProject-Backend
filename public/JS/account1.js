@@ -18,3 +18,13 @@ function signOut() {
     
     form.submit();
 }
+
+function toMyorders() {
+    var form = document.createElement('form');
+    form.method = 'GET';
+    form.action = 'Myproducts';
+
+    document.body.appendChild(form);
+    
+    form.submit();
+}

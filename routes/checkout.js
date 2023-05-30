@@ -1,5 +1,16 @@
 import { Router } from 'express';
+import { MongoClient } from 'mongodb';
+import { ObjectId } from 'mongodb';
 var router = Router();
+import User from '../models/user.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' })
+
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const database = client.db('web11');
+const usersCollection = database.collection('users');
+const productsCollection = database.collection('products');
+let admin = false;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -51,6 +62,15 @@ router.post('/', async (req, res) => {
       admin = true;
     return res.render('checkout', { errorMsg : errorMsg, admin: admin});
   }
-  res.redirect('account');
+  else{
+    console.log("ADD");  
+    const user = await User.findOne({ _id: req.session.userID });
+    user.orders=user.cart;
+    user.cart={};
+      await user.save();
+    console.log(user);
+    console.log("DONE Ordering");
+}
+  res.redirect('Myproducts');
 });
 export default router;

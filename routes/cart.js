@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 var router = Router();
 import User from '../models/user.js';
 import dotenv from 'dotenv';
-dotenv.config({ path: './.env' })
+dotenv.config({ path: '../.env' })
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const database = client.db('web11');
