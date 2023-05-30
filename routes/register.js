@@ -14,8 +14,7 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  const errorMsg = {};
-  res.render('register', { errorMsg: errorMsg, admin: admin })
+  res.render('register', { errorMsg: {}, admin: admin })
 });
 
 router.post('/', UserController.register);

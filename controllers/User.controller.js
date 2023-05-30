@@ -1,62 +1,6 @@
 import User from "../models/user.js";
 
-const checkLoginErrors = async (req, res) => {
-  console.log("Logging in user");
-
-  //get data from form
-  const { email, password } = req.body;
-
-  let errorMsg = {};
-
-  //validate data
-  let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  if (email.trim() == "") errorMsg.email = "Email is required";
-  else if (!email.match(emailFormat)) errorMsg.email = "Invalid email";
-  else {
-    const existingUser = await User.findOne({ email: email });
-    if (!existingUser) {
-      errorMsg.email = "Email not found!";
-      return res.json({ errors: errorMsg, admin: false });
-    }
-  }
-  let user;
-
-  if (password.trim() == "") errorMsg.password = "Password is required";
-  else {
-    try {
-      user = await User.findOne({ email: email });
-      if (user.password !== password) errorMsg.password = "Incorrect password";
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  if (Object.keys(errorMsg).length > 0) {
-    for (let key in errorMsg) {
-      console.log(errorMsg[key]);
-    }
-    return res.json({ errors: errorMsg, admin: false });
-  }
-  //data ok
-
-  req.session.userID = user._id;
-  req.session.userType = user.userType;
-  req.session.email = user.email;
-  req.session.firstName = user.firstName;
-  req.session.lastName = user.lastName;
-  req.session.wishlist = user.wishlist;
-  req.session.cart = user.cart;
-
-  let admin;
-
-  if (user.userType == "admin") admin = true;
-  else admin = false;
-
-  return res.json({ errors: {}, admin: admin });
-};
-
 const login = async (req, res) => {
-  console.log("Logging in user not ajax");
 
   //get data from form
   const { email, password } = req.body;
@@ -71,7 +15,6 @@ const login = async (req, res) => {
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
       errorMsg.email = "Email not found!";
-      return res.render("login", { errorMsg: errorMsg, admin: false });
     }
   }
   
@@ -90,7 +33,14 @@ const login = async (req, res) => {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render("login", { errorMsg: errorMsg, admin: false });
+    if (req.query.ajax) {
+      console.log("Ajax errors");
+      return res.json( {errors: errorMsg, admin: false} );
+    }
+    else {
+      console.log("Not ajax errors");
+      return res.render("login", { errorMsg: errorMsg, admin: false });
+    }
   }
   //data ok
   console.log("DATA OKKK");
@@ -103,12 +53,23 @@ const login = async (req, res) => {
   req.session.wishlist = user.wishlist;
   req.session.cart = user.cart;
 
-  if (user.userType == "admin") res.redirect("/dashboard");
-  else res.redirect("/account");
+  if (req.query.ajax) {
+    console.log("Logged in using ajax");
+    if (user.userType == "admin")
+      return res.json( {errors: errorMsg, admin: true} );
+    else
+      return res.json( {errors: errorMsg, admin: false} );
+  }
+  else {
+    console.log("Logged in NOT using ajax");
+    if (user.userType == "admin")
+      return res.redirect('/dashboard');
+    else
+      return res.redirect('/account');
+  }
 };
 
 const register = async (req, res) => {
-  console.log("Registering user");
 
   //get data from form
   const { firstName, lastName, email, password, confirmPass } = req.body;
@@ -145,7 +106,10 @@ const register = async (req, res) => {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    return res.render("register", { errorMsg, admin: false });
+    if (req.query.json)
+      return res.json({ errors: errorMsg, admin: false });
+    else
+      return res.render("register", { errorMsg, admin: false });
   }
 
   //save user to db
@@ -168,11 +132,17 @@ const register = async (req, res) => {
   req.session.lastName = user.lastName;
   req.session.email = user.email;
 
-  res.redirect("account");
+  if (req.query.ajax) {
+    console.log("Registration done using ajax");
+    return res.json({ errors: errorMsg, admin: false });
+  }
+  else {
+    console.log("Registration done NOT using ajax");
+    return res.redirect("/account");
+  } 
 };
 
 export default {
   login,
   register,
-  checkLoginErrors,
 };

@@ -66,7 +66,7 @@ class FormClass {
     event.preventDefault();
     const formData = $(this.form).serialize();
     $.ajax({
-      url: "/login/checkErrors",
+      url: "/login?ajax=true",
       method: "POST",
       data: formData,
       success: function (response) {
