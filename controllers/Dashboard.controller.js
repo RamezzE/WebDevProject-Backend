@@ -23,7 +23,15 @@ const Algoliaclient = algoliasearch(
   process.env.ALGOLIA_ADMIN_KEY //PRIVATE ADMIN KEY (DO NOT SHARE) - used to add/update/delete products
 );
 const index = Algoliaclient.initIndex("products");
-
+index.setSettings({
+  attributesForFaceting: [
+    'filterOnly(tags)',
+  ]
+}).then(() => {
+  // done
+}).catch(error => {
+  console.log(error);
+});
 /*
 //initialized existing products once into Algolia API
 let objectsToIndex = [];

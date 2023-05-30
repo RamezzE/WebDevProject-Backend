@@ -5,8 +5,6 @@ var router = Router();
 
 router.get('/', ProductController.searchProducts);
 
-router.get('/filter', ProductController.filterProducts)
-
 router.get('/:id', ProductController.productDetails);
 
 export default router;

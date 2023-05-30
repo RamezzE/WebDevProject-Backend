@@ -1,25 +1,25 @@
 <!----------------------------- add product form ----------------------------->
 <div id="filter-form-overlay" class="overlay-div">
     <p>Filter Products</p>
-    <form method="get" action="/products/filter" enctype="multipart/form-data">
+    <form action = "/products" method="get" enctype="multipart/form-data">
         <div class="product-form-checkbox-div">
             <div>
                 <label for="filter-men-checkbox">
-                    <input id="filter-men-checkbox" class="filter-form-checkbox" required name="men" type="checkbox">
+                    <input id="filter-men-checkbox" class="filter-form-checkbox" checked required name="men" type="checkbox">
                     <span></span>
                     Men
                 </label>
             </div>
             <div>
                 <label for="filter-women-checkbox">
-                    <input id="filter-women-checkbox" class="filter-form-checkbox" required name="women" type="checkbox">
+                    <input id="filter-women-checkbox" class="filter-form-checkbox" checked required name="women" type="checkbox">
                     <span></span>
                     Women
                 </label>
             </div>
             <div>
                 <label for="filter-kids-checkbox">
-                    <input id="filter-kids-checkbox" class="filter-form-checkbox" required name="kids" type="checkbox">
+                    <input id="filter-kids-checkbox" class="filter-form-checkbox" checked required name="kids" type="checkbox">
                     <span></span>
                     Kids
                 </label>
@@ -44,7 +44,7 @@
         </div>
         
 
-        <a onclick = "submitForm(this)">
+        <a onclick="submitFilterForm(this);">
             <span></span>
             <span></span>
             <span></span>
