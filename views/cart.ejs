@@ -21,6 +21,12 @@
                 <div class="shopping-cart">
                     <!-- Title -->
                     <h1 class="title">Shopping Bag</h1>
+                    <% if(products.length==0) {%>
+                        <div class="item">
+                            <h2>No items in your Cart</h2>
+                        </div>
+                        <a href="/products">Continue Shopping</a>                      
+                        <% }%>
                     <% products.forEach(prd=> { %>
                         <% console.log("SDSD") %>
                             <% console.log(prd)%>
@@ -57,7 +63,12 @@
                         <div class="total-price"><%= prd.price %></div>
                      </div>
                     <% }) %>
-                    <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
+                    <% if(products.length!=0) {%>
+                        <div class="item">
+                         <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
+                        </div>
+                        <% }%>
+                    
                 </div>
             </div>
 

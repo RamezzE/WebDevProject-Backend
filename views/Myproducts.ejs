@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link rel="stylesheet" type="text/css" href="CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="CSS/Myproducts.css">
+    <link rel="stylesheet" type="text/css" href="CSS/header.css">
+
+</head>
+
+<body>
+    <div id="container">
+        <div id="topNav">
+            <%- include('./partials/header.ejs') %>
+        </div>
+        <div id="biggerContainer" style = "margin-top: calc(70px);">
+            <div id="bodyContainer">
+                <div class="shopping-cart">
+                    <!-- Title -->
+                    <h1 class="title">My Orders</h1>
+                    <% if(products.length==0) {%>
+                        <div class="item">
+                            <h2>You didn't order anything yet</h2>
+                        </div>
+                        <a href="/products">Continue Shopping</a>                      
+                        <% }%>
+                    <% products.forEach(prd=> { %>
+                        <% console.log("SDSD") %>
+                            <% console.log(prd)%>
+                     <!-- Product #1 -->
+                     <div class="item">
+                        <img src="../Images/Products/<%= prd.images[0]%>" alt="" />
+                        <div class="description">
+                            <span><%= prd.name %>
+                            </span>
+                        </div>
+                        <div class="total-price"><%= prd.price %></div>
+                     </div>
+                    <% }) %>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <%- include('./partials/footer.ejs') %>
+            </footer>
+        </div>
+    </div>
+</body>
+<script src="../JS/header.js"></script>
+
+</html>

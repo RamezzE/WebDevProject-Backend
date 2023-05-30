@@ -18,3 +18,7 @@ function signOut() {
     
     form.submit();
 }
+
+function toMyorders() {
+    location.href = "/myproducts";
+}
