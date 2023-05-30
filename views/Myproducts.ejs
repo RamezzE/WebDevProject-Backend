@@ -25,7 +25,7 @@
                         <div class="item">
                             <h2>You didn't order anything yet</h2>
                         </div>
-                        <a href="/products">Continue Shopping</a>                      
+                        <a href="/products?page=0">Continue Shopping</a>                      
                         <% }%>
                     <% products.forEach(prd=> { %>
                         <% console.log("SDSD") %>
@@ -37,7 +37,7 @@
                             <span><%= prd.name %>
                             </span>
                         </div>
-                        <div class="total-price"><%= prd.price %></div>
+                        <div class="total-price"><%= prd.price %> EGP</div>
                      </div>
                     <% }) %>
                 </div>

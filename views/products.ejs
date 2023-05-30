@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../CSS/products.css">
     <link rel="stylesheet" type="text/css" href="../CSS/overlay_form.css">
     <link rel="stylesheet" type="text/css" href="../CSS/dashboard_overlay.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
                 <p>Your Favourite Brand</p>
 
                 <button class="extraButton" onclick="HideOverlay();ShowForm('filter-form-overlay')">
-                    <h4>Filter Products</h4>
+                    <h4>Filter Results</h4>
                 </button>
 
                 <div class="productsGrid">
@@ -48,9 +49,11 @@
                         <% }) %>
                 </div>
                 <div class="pagination">
+                    <% if ( products.length != 0) { %>
                     <% for (let i = 0;i<totalPages;i++) {%>
                         <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
                         <% } %>
+                    <% } %>
                     
             </div>
             </div>
@@ -64,6 +67,5 @@
 <script src="../JS/header.js"></script>
 <script src="../JS/products.js"></script>
 <script src="../JS/overlay.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

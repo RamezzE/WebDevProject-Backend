@@ -26,7 +26,6 @@ function checkAdmin(req) {
   if (req.session.userType == "admin") admin = true;
 }
 
-//FILTERING DOES NOT SUPPORT PAGING
 function filterProducts(req) {
   let tags = [];
 
@@ -88,7 +87,7 @@ const searchProducts = async (req, res) => {
       page: page,
       hitsPerPage: hitsPerPage,
     };
-    
+
     searchResults = await index.search("", search_params);
 
     //get number of pages
@@ -104,7 +103,17 @@ const searchProducts = async (req, res) => {
       .sort(ascendingOrder)
       .toArray();
   }
-  res.render("products", {
+
+  if (req.query.ajax) {
+    return res.json({
+      products: searchResults.hits,
+      // admin: admin,
+      page: page,
+      hitsPerPage: hitsPerPage,
+      totalPages: totalPages,
+    });
+  }
+  return res.render("products", {
     products: searchResults.hits,
     admin: admin,
     page: page,
@@ -116,4 +125,4 @@ const searchProducts = async (req, res) => {
 export default {
   productDetails,
   searchProducts,
-};
+}
