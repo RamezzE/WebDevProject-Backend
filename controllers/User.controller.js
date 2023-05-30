@@ -50,7 +50,7 @@ const checkLoginErrors = async (req, res) => {
   let admin;
 
   if (user.userType == "admin") admin = true;
-  else admin = true;
+  else admin = false;
 
   return res.json({ errors: {}, admin: admin });
 };

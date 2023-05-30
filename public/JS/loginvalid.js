@@ -66,7 +66,7 @@ class FormClass {
     event.preventDefault();
     const formData = $(this.form).serialize();
     $.ajax({
-      url: "/login/checkErrors", // Replace with your server-side endpoint
+      url: "/login/checkErrors",
       method: "POST",
       data: formData,
       success: function (response) {
