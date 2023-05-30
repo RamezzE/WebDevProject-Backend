@@ -66,7 +66,7 @@ const login = async (req, res) => {
   //validate data
   let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (email.trim() == "") errorMsg.email = "Email is required";
-  else if (!email.match(emailFormat)) errorMsg.email = "Invalid email";
+  else if (!email.match(emailFormat)) errorMsg.email = "Invalid Email";
   else {
     const existingUser = await User.findOne({ email: email });
     if (!existingUser) {
@@ -122,7 +122,7 @@ const register = async (req, res) => {
 
   let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (email.trim() == "") errorMsg.email = "Email is required";
-  else if (!email.match(emailFormat)) errorMsg.email = "Invalid email";
+  else if (!email.match(emailFormat)) errorMsg.email = "Invalid Email";
   else {
     const existingUser = await User.findOne({ email });
     if (existingUser) {

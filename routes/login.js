@@ -9,7 +9,6 @@ router.use(function (req, res, next) {
   next();
 });
 
-
 router.get('/', function (req, res, next) {
   res.render('login', { errorMsg: {}, admin : false });
 });
