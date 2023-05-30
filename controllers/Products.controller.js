@@ -2,7 +2,6 @@ import { MongoClient } from "mongodb";
 import Product from "../models/product.js";
 import algoliasearch from "algoliasearch";
 
-
 const client = new MongoClient(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -22,11 +21,9 @@ const index = Algoliaclient.initIndex("products");
 let admin;
 let hitsPerPage;
 
-
 function checkAdmin(req) {
   if (req.session.userType == "admin") admin = true;
 }
-
 
 //FILTERING DOES NOT SUPPORT PAGING
 const filterProducts = async (req, res) => {
@@ -77,7 +74,7 @@ const searchProducts = async (req, res) => {
 
   let query;
   let searchResults;
-
+  let totalPages;
   try {
     query = req.query.query; // Get the search query from the request query parameters
 
@@ -86,6 +83,9 @@ const searchProducts = async (req, res) => {
       page: page,
       hitsPerPage: hitsPerPage
     });
+
+    //get number of pages
+    totalPages = searchResults.nbPages
 
     searchResults.hits.sort((a, b) => a.price - b.price); // sort in ascending order of price
 
@@ -98,7 +98,7 @@ const searchProducts = async (req, res) => {
       .sort(ascendingOrder)
       .toArray();
   }
-  res.render("products", { products: searchResults.hits, admin: admin, page: page, hitsPerPage: hitsPerPage });
+  res.render("products", { products: searchResults.hits, admin: admin, page: page, hitsPerPage: hitsPerPage, totalPages: totalPages });
 };
 
 export default {

@@ -12,12 +12,11 @@ function TogglePhoto(field) {
 
 const urlParams = new URLSearchParams(window.location.search);
 
-function changePage(num) {
-  let page = urlParams.get("page");
-  if (!page) page = 0;
-
-  if (num > 0) page = parseInt(page) + 1;
-  else page = parseInt(page) - 1;
+function changePage(pageNum) {
+  if (pageNum < 0) return;
+  
+  //if page num is same as current page, do nothing
+  if (pageNum == urlParams.get("page")) return;
 
   let form = document.createElement("form");
   form.action = "/products";
@@ -26,7 +25,7 @@ function changePage(num) {
   let input = document.createElement("input");
   input.type = "hidden";
   input.name = "page";
-  input.value = page;
+  input.value = pageNum;
   form.appendChild(input);
 
   let searchQuery = urlParams.get("query");

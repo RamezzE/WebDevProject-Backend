@@ -12,10 +12,6 @@
     <link rel="stylesheet" type="text/css" href="../CSS/dashboard_overlay.css">
 </head>
 
-<% 
-let noOfPages = Math.floor(products.length / hitsPerPage)
-%>
-
 <body>
     <div id="container">
         <div id="topNav">
@@ -53,12 +49,10 @@ let noOfPages = Math.floor(products.length / hitsPerPage)
                         <% }) %>
                 </div>
                 <div class="pagination">
-                    <% if (page > 0) { %>
-                        <div onclick = "changePage(-1)"><a href = "#">Previous</a></div>
+                    <% for (let i = 0;i<totalPages;i++) {%>
+                        <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
                         <% } %>
-                            <% if (page < noOfPages ) { %>
-                                <div onclick = "changePage(1)"><a href = "#">Next</a></div>
-                                <% } %>
+                    
             </div>
             </div>
 
