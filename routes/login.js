@@ -14,6 +14,8 @@ router.get('/', function (req, res, next) {
   res.render('login', { errorMsg: {}, admin : false });
 });
 
-router.post('/', UserController.login)
+router.post('/', UserController.login);
+
+router.post('/checkErrors', UserController.checkLoginErrors);
 
 export default router;
