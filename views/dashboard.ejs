@@ -15,6 +15,7 @@
     <link rel="stylesheet" type=text/css href="../../CSS/overlay_form.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 
     <title>Dashboard</title>
 </head>
@@ -35,7 +36,7 @@
             <a onclick="makeActive(this);" href="/dashboard/users" class=<%=currentTab=='users' ? "active" : '' %>><img
                     src="../../Images/Dashboard/users.png"><span>Users</span></a>
 
-            <a onclick="makeActive(this);" href="/dashboard/products" class=<%=currentTab=='products' ? "active" : ''
+            <a onclick="makeActive(this);" href="/dashboard/products?page=0" class=<%=currentTab=='products' ? "active" : ''
                 %>><img src="../../Images/Dashboard/cart.png"><span>Products</span></a>
 
             <a onclick="makeActive(this);" href="/"><img
@@ -62,7 +63,10 @@
 
                                             <% } %>
 
+                                            
+
         </div>
+        
     </div>
 
     <% if (currentTab=="products" ) { %>
@@ -73,6 +77,8 @@
                         <%- include("./partials/dashboard_users_form.ejs"); %>
                             <%- include("./partials/dashboard_admins_form.ejs"); %>
                                 <% } %>
+
+                                
     
     <script src="../../JS/account1.js"></script>
     <script src="../../JS/adminbar.js"></script>
@@ -80,7 +86,7 @@
     <script src="../../JS/adminFunctions.js"></script>
     <script src="../../JS/fileUploadLimit.js"></script>
     <script src="../../JS/checkProductFormErrors.js"></script>
-    <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="../../JS/products.js"></script>
 
 </body>
 

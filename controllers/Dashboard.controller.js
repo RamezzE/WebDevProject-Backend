@@ -23,15 +23,16 @@ const Algoliaclient = algoliasearch(
   process.env.ALGOLIA_ADMIN_KEY //PRIVATE ADMIN KEY (DO NOT SHARE) - used to add/update/delete products
 );
 const index = Algoliaclient.initIndex("products");
-index.setSettings({
-  attributesForFaceting: [
-    'filterOnly(tags)',
-  ]
-}).then(() => {
-  // done
-}).catch(error => {
-  console.log(error);
-});
+index
+  .setSettings({
+    attributesForFaceting: ["filterOnly(tags)"],
+  })
+  .then(() => {
+    // done
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 /*
 //initialized existing products once into Algolia API
 let objectsToIndex = [];
@@ -179,38 +180,68 @@ const addProduct = async (req, res) => {
   return res.redirect("/dashboard/products");
 };
 
-const ascendingOrder = { price: 1 }; 
+const ascendingOrder = { price: 1 };
 
-const filterProducts = async (req, res) => {
+function filterProducts(req) {
   let tags = [];
 
-  if (req.query.men) tags.push("man");
+  if (req.query.men == "on") tags.push("man");
 
-  if (req.query.women) tags.push("woman");
+  if (req.query.women == "on") tags.push("woman");
 
-  if (req.query.kids) tags.push("kids");
+  if (req.query.kids == "on") tags.push("kid");
 
   let type = [];
 
-  if (req.query.shoes) type.push("shoes");
+  if (req.query.shoes == "on") type.push("shoe");
 
-  if (req.query.bags) type.push("bags");
+  if (req.query.bags == "on") type.push("bag");
 
-  const query = {
-    $and: [{ tags: { $in: tags } }, { tags: { $in: type } }],
-  };
+  let tagFilter = `${"(" + tags.map((tag) => `tags:${tag}`).join(" OR ")}`;
+  tagFilter += ")";
+  let typeFilter = `${"(" + type.map((type) => `tags:${type}`).join(" OR ")}`;
+  typeFilter += ")";
 
-  const ascendingOrder = { price: 1 };
-  const products = await productsCollection
-    .find(query)
-    .sort(ascendingOrder)
-    .toArray();
+  if (tags.length == 0 && type.length == 0) return "";
+  if (tags.length == 0) return typeFilter;
+  if (type.length == 0) return tagFilter;
 
-  return res.render("dashboard", {
-    products: products,
-    currentTab: "products",
-  });
-};
+  let filters = [tagFilter, typeFilter].filter(Boolean).join(" AND ");
+  console.log(filters);
+
+  return filters;
+}
+
+// const filterProducts = async (req, res) => {
+//   let tags = [];
+
+//   if (req.query.men) tags.push("man");
+
+//   if (req.query.women) tags.push("woman");
+
+//   if (req.query.kids) tags.push("kids");
+
+//   let type = [];
+
+//   if (req.query.shoes) type.push("shoes");
+
+//   if (req.query.bags) type.push("bags");
+
+//   const query = {
+//     $and: [{ tags: { $in: tags } }, { tags: { $in: type } }],
+//   };
+
+//   const ascendingOrder = { price: 1 };
+//   const products = await productsCollection
+//     .find(query)
+//     .sort(ascendingOrder)
+//     .toArray();
+
+//   return res.render("dashboard", {
+//     products: products,
+//     currentTab: "products",
+//   });
+// };
 
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
@@ -243,7 +274,6 @@ const deleteProduct = async (req, res) => {
     console.log("Product deleted");
     // Delete the product from the Algolia index (API)
     await index.deleteObject(productID);
-
   } else console.log("Error deleting product");
 
   return res.redirect("/dashboard/products");
@@ -270,15 +300,76 @@ const makeAdmin = async (req, res) => {
 };
 
 const getProducts = async (req, res, next) => {
-  const products = await productsCollection.find().sort(ascendingOrder).toArray();
-  return res.render('dashboard', { products: products, currentTab: 'products', errorMsg: errorMsg});
+  const products = await productsCollection
+    .find()
+    .sort(ascendingOrder)
+    .toArray();
+  return res.render("dashboard", {
+    products: products,
+    currentTab: "products",
+    errorMsg: errorMsg,
+  });
+};
+
+const searchProducts = async (req, res) => {
+  const page = parseInt(req.query.page) || 0;
+  let hitsPerPage = parseInt(req.query.hitsPerPage) || 5;
+  let query, searchResults, totalPages;
+
+  let filters = filterProducts(req);
+  try {
+    query = req.query.query; // Get the search query from the request query parameters
+
+    // Make Algolia API search request and get the search results
+
+    const search_params = {
+      query: query,
+      filters: filters,
+      page: page,
+      hitsPerPage: hitsPerPage,
+    };
+
+    searchResults = await index.search("", search_params);
+
+    //get number of pages
+    totalPages = searchResults.nbPages;
+
+    searchResults.hits.sort((a, b) => a.price - b.price); // sort in ascending order of price
+  } catch (error) {
+    console.error("Error making Algolia API search:", error);
+
+    //manual  not very accurate search without api
+    searchResults = await productsCollection
+      .find({ $text: { $search: query } })
+      .sort(ascendingOrder)
+      .toArray();
+  }
+
+  if (req.query.ajax) {
+    return res.json({
+      products: searchResults.hits,
+      page: page,
+      hitsPerPage: hitsPerPage,
+      totalPages: totalPages,
+    });
+  } else {
+    let error = {};
+    return res.render("dashboard", {
+      products: searchResults.hits,
+      currentTab: "products",
+      errorMsg: error,
+      page: page,
+      hitsPerPage: hitsPerPage,
+      totalPages: totalPages,
+    });
+  }
 };
 
 export default {
-    addProduct,
-    filterProducts,
-    deleteProduct,
-    deleteUser,
-    makeAdmin,
-    getProducts
+  addProduct,
+  deleteProduct,
+  deleteUser,
+  makeAdmin,
+  getProducts,
+  searchProducts,
 };

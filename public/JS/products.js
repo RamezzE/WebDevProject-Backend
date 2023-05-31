@@ -43,7 +43,7 @@ function changePage(pageNum) {
 function submitFilterForm(field, page = 0) {
   let form = field.parentNode;
   // Perform your desired actions here
-
+  
   let searchQuery = urlParams.get("query") || "";
   let pageNum = page;
   let hitsPerPage = urlParams.get("hitsPerPage") || 5;

@@ -15,7 +15,7 @@
     
     <div class="smallContainer">
         <h4>All Products</h4>
-        <table>
+        <table id = "productsTable">
             <tr>
                 <th></th>
                 <th>Name</th>
@@ -38,7 +38,7 @@
                         <%= product.stock %>
                     </td>
                     <td class="valueToCopy">
-                        <%= product._id %>
+                        <%= product.objectID %>
                     </td>
                     <td>
                         <button onclick="copyToClipboard(this,'valueToCopy')"><img src="../../Images/Dashboard/copy.png"
@@ -47,5 +47,13 @@
                 </tr>
                 <% }) %>
         </table>
+        <div class="pagination">
+            <% if ( products.length != 0) { %>
+            <% for (let i = 0;i<totalPages;i++) {%>
+                <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
+                <% } %>
+            <% }%>
+            
+    </div>
     </div>
 </div>

@@ -37,11 +37,11 @@ router.get('/insights', async (req, res, next) => {
   return res.render('dashboard', { currentTab: 'insights' });
 });
 
-router.get('/products', DashboardController.getProducts);
+router.get('/products', DashboardController.searchProducts);
 
 router.post('/products/addProduct', DashboardController.addProduct);
 
-router.get('/products/filter', DashboardController.filterProducts);
+// router.get('/products/filter', DashboardController.filterProducts);
 
 router.post('/products/delete', DashboardController.deleteProduct);
 
