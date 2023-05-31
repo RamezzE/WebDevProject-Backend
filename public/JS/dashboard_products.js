@@ -1,3 +1,5 @@
+let urlParams = new URLSearchParams(window.location.search);
+
 function submitFilterForm(field, page = 0) {
   let form = field.parentNode;
   // Perform your desired actions here
@@ -19,12 +21,13 @@ function submitFilterForm(field, page = 0) {
   // window.location.href = newURL;
   if (!urlParams.get("ajax"));
   newURL += "&ajax=true";
+  console.log(newURL);
 
   //ajax
-  DashboardAjaxProducts(newURL);
+  ajaxProducts(newURL);
 }
 
-function DashboardAjaxProducts(URL) {
+function ajaxProducts(URL) {
   $.ajax({
     url: URL, // Replace with your server-side endpoint
     method: "GET",
@@ -78,7 +81,7 @@ function DashboardAjaxProducts(URL) {
 
         productsTable.append(row);
       });
-      
+
       //paging
       let pagination = $(".pagination");
       pagination.empty();
@@ -98,4 +101,66 @@ function DashboardAjaxProducts(URL) {
       console.log(err);
     },
   });
+}
+
+$(document).ready(function () {
+  updateCheckBoxes();
+});
+
+function updateCheckBoxes() {
+  // Get the URL parameters
+  let urlParams = new URLSearchParams(window.location.search);
+
+  let form = document.querySelector("#filter-form-overlay a").parentNode;
+
+  let checkboxes = form.querySelectorAll("input[type='checkbox']");
+
+  let count = 0;
+
+  checkboxes.forEach(function (checkbox) {
+    let checkboxName = checkbox.name;
+
+    // Check if the checkbox name exists as a URL parameter
+    if (urlParams.has(checkboxName)) {
+      var checkboxValue = urlParams.get(checkboxName);
+
+      if (checkboxValue === "on") checkbox.checked = true;
+      else checkbox.checked = false;
+    } else {
+      checkbox.checked = false;
+      count++;
+    }
+  });
+
+  if (count == checkboxes.length) {
+    checkboxes.forEach(function (checkbox) {
+      checkbox.checked = true;
+    });
+  }
+}
+
+function changePage(pageNum) {
+  if (pageNum < 0) return;
+
+  //if page num is same as current page, do nothing
+  if (pageNum == urlParams.get("page")) return;
+
+  let currentURL = window.location.href;
+  let newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+
+  let form = document.querySelector("#filter-form-overlay a").parentNode;
+
+  let filters = form.querySelectorAll("input");
+  filters.forEach((filter) => {
+    if (filter.checked) {
+      if (window.location.search.includes(filter.name))
+        newURL = newURL.replace(
+          new RegExp(`${filter.name}=[^&]+`),
+          `${filter.name}=${filter.value}`
+        );
+      else newURL += `&${filter.name}=${filter.value}`;
+    }
+  });
+
+  window.location.href = newURL;
 }
