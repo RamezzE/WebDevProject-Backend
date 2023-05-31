@@ -15,7 +15,7 @@
     <link rel="stylesheet" type=text/css href="../../CSS/overlay_form.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    
     <title>Dashboard</title>
 </head>
 
@@ -32,7 +32,7 @@
             <a onclick="makeActive(this);" href="/dashboard/insights" class=<%=currentTab=='insights' ? "active" : ''
                 %>><img src="../../Images/Dashboard/analysis.png"><span>Insights</span></a>
 
-            <a onclick="makeActive(this);" href="/dashboard/users" class=<%=currentTab=='users' ? "active" : '' %>><img
+            <a onclick="makeActive(this);" href="/dashboard/users?page=0" class=<%=currentTab=='users' ? "active" : '' %>><img
                     src="../../Images/Dashboard/users.png"><span>Users</span></a>
 
             <a onclick="makeActive(this);" href="/dashboard/products?page=0" class=<%=currentTab=='products' ? "active" : ''
@@ -84,8 +84,13 @@
     <script src="../../JS/overlay.js"></script>
     <script src="../../JS/adminFunctions.js"></script>
     <script src="../../JS/fileUploadLimit.js"></script>
+    <% if (currentTab=="products" ) { %>
+        <script src="../../JS/dashboard_products.js"></script>
+        <% } else if (currentTab == "users") {%>
+    <script src="../../JS/dashboard_users.js"></script>
+    <% } %>
+
     <!-- <script src="../../JS/checkProductFormErrors.js"></script> -->
-    <script src="../../JS/dashboard_products.js"></script>
 </body>
 
 </html>

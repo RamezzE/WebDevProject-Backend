@@ -10,7 +10,7 @@
     </div>
     <div class="smallContainer">
         <h4>All Users</h4>
-        <table>
+        <table id = "usersTable">
             <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -20,7 +20,7 @@
             <% users.forEach(user=> { %>
             <tr>
                 <td>
-                    <%= user.firstName + " " + user.lastName %>
+                    <%= user.name%>
                 </td>
                 <td>
                     <%= user.email %>
@@ -29,7 +29,7 @@
                     <%= user.userType %>
                 </td>
                 <td class = "valueToCopy">
-                    <%= user._id %>
+                    <%= user.objectID %>
                 </td>
                 <td>
                     <button onclick = "copyToClipboard(this,'valueToCopy')"><img src="../Images/Dashboard/copy.png" style = "width:20px;height:20px;"></button>
@@ -37,5 +37,14 @@
             </tr>
             <% }) %>
         </table>
+
+        <div class="pagination">
+            <% if ( users.length != 0) { %>
+            <% for (let i = 0;i<totalPages;i++) {%>
+                <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
+                <% } %>
+            <% }%>
+            
+    </div>
     </div>
 </div>

@@ -146,7 +146,12 @@ function changePage(pageNum) {
   if (pageNum == urlParams.get("page")) return;
 
   let currentURL = window.location.href;
-  let newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+  let newURL;
+  if (!urlParams.get("page"))
+    newURL += `&page=${pageNum}`;
+  
+  else
+    newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
 
   let form = document.querySelector("#filter-form-overlay a").parentNode;
 

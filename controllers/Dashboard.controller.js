@@ -14,7 +14,7 @@ const client = new MongoClient(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 const database = client.db("web11");
-// const usersCollection = database.collection('users');
+const usersCollection = database.collection("users");
 const productsCollection = database.collection("products");
 
 //-------------------------------------Algolia SEARCH API-------------------------------------
@@ -22,44 +22,45 @@ const Algoliaclient = algoliasearch(
   process.env.ALGOLIA_APP_ID,
   process.env.ALGOLIA_ADMIN_KEY //PRIVATE ADMIN KEY (DO NOT SHARE) - used to add/update/delete products
 );
-const index = Algoliaclient.initIndex("products");
-index
-  .setSettings({
-    attributesForFaceting: ["filterOnly(tags)"],
-  })
-  .then(() => {
-    // done
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+const productsIndex = Algoliaclient.initIndex("products");
+const usersIndex = Algoliaclient.initIndex("users");
+// let index = usersIndex;
+// index
+//   .setSettings({
+//     attributesForFaceting: ["filterOnly(tags)"],
+//   })
+//   .then(() => {
+//     // done
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
 /*
 //initialized existing products once into Algolia API
 let objectsToIndex = [];
 try {
   // Fetch all products from MongoDB
-  const products = await productsCollection.find().toArray();
+  const users = await usersCollection.find().toArray();
 
-  if (products.length > 0) {
+  if (users.length > 0) {
     // Modify objects to use `_id` as objectID
-    objectsToIndex = products.map((product) => ({
-      objectID: product._id.toString(), // Use `_id` as the objectID
-      name: product.name,
-      price: product.price,
-      description: product.description,
-      stock: product.stock,
-      tags: product.tags,
-      images: product.images,
-      createdAt: product.createdAt,
+    objectsToIndex = users.map((user) => ({
+      objectID: user._id.toString(), // Use `_id` as the objectID
+      name: user.firstName + " " + user.lastName,
+      email: user.email,
+      userType: user.userType,
+      createdAt: user.createdAt,
     }));
     index.saveObjects(objectsToIndex);
   } else {
-    console.log("No products to add to Algolia index.");
+    console.log("No users to add to Algolia index.");
   }
 } catch (error) {
-  console.error("Error adding products to Algolia:", error);
+  console.error("Error adding users to Algolia:", error);
 }
 */
+
 //--------------------------------------------------------------------------
 
 const __filename = fileURLToPath(import.meta.url);
@@ -120,7 +121,7 @@ const addProduct = async (req, res) => {
       console.log(errorMsg[key]);
     }
     //need to add errorMsg later
-    return res.redirect("/dashboard/products");
+    return res.redirect("/dashboard/products?page=0");
   }
 
   //alternative to above
@@ -165,7 +166,7 @@ const addProduct = async (req, res) => {
   await product.save();
   console.log("Product saved:\n", product);
 
-  await index.saveObject({
+  await productsIndex.saveObject({
     objectID: product._id.toString(), // Use `_id` as the objectID
     name: product.name,
     price: product.price,
@@ -176,8 +177,7 @@ const addProduct = async (req, res) => {
     createdAt: product.createdAt,
   });
 
-  //data ok
-  return res.redirect("/dashboard/products");
+  return res.redirect("/dashboard/products?page=0");
 };
 
 const ascendingOrder = { price: 1 };
@@ -212,37 +212,6 @@ function filterProducts(req) {
   return filters;
 }
 
-// const filterProducts = async (req, res) => {
-//   let tags = [];
-
-//   if (req.query.men) tags.push("man");
-
-//   if (req.query.women) tags.push("woman");
-
-//   if (req.query.kids) tags.push("kids");
-
-//   let type = [];
-
-//   if (req.query.shoes) type.push("shoes");
-
-//   if (req.query.bags) type.push("bags");
-
-//   const query = {
-//     $and: [{ tags: { $in: tags } }, { tags: { $in: type } }],
-//   };
-
-//   const ascendingOrder = { price: 1 };
-//   const products = await productsCollection
-//     .find(query)
-//     .sort(ascendingOrder)
-//     .toArray();
-
-//   return res.render("dashboard", {
-//     products: products,
-//     currentTab: "products",
-//   });
-// };
-
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
 
@@ -250,7 +219,7 @@ const deleteProduct = async (req, res) => {
 
   if (!product) {
     console.log("Product ID not found");
-    return res.redirect("/dashboard/products");
+    return res.redirect("/dashboard/products?page=0");
   }
 
   const images = product.images;
@@ -273,20 +242,23 @@ const deleteProduct = async (req, res) => {
   if (deletedProduct) {
     console.log("Product deleted");
     // Delete the product from the Algolia index (API)
-    await index.deleteObject(productID);
+    await productsIndex.deleteObject(productID);
   } else console.log("Error deleting product");
 
-  return res.redirect("/dashboard/products");
+  return res.redirect("/dashboard/products?page=0");
 };
 
 const deleteUser = async (req, res) => {
   const { userID } = req.body;
   const deletedUser = await User.findOneAndDelete({ _id: userID });
 
-  if (deletedUser) console.log("User deleted");
-  else console.log("User not found");
+  if (deletedUser) {
+    console.log("User deleted");
+    // Delete the user from the Algolia index (API)
+    await usersIndex.deleteObject(userID);
+  } else console.log("User not found");
 
-  return res.redirect("/dashboard/users");
+  return res.redirect("/dashboard/users?page=0");
 };
 
 const makeAdmin = async (req, res) => {
@@ -295,8 +267,16 @@ const makeAdmin = async (req, res) => {
 
   user.userType = "admin";
   await user.save();
+  // Update the user in the Algolia index (API)
+  await usersIndex.saveObject({
+    objectID: user._id.toString(), // Use `_id` as the objectID
+    name: user.firstName + " " + user.lastName,
+    email: user.email,
+    userType: user.userType,
+    createdAt: user.createdAt,
+  });
 
-  return res.redirect("/dashboard/users");
+  return res.redirect("/dashboard/users?page=0");
 };
 
 const getProducts = async (req, res, next) => {
@@ -329,8 +309,8 @@ const searchProducts = async (req, res) => {
       hitsPerPage: hitsPerPage,
     };
 
-    searchResults = await index.search("", search_params);
-
+    searchResults = await productsIndex.search("", search_params);
+    //sort
     //get number of pages
     totalPages = searchResults.nbPages;
 
@@ -365,6 +345,53 @@ const searchProducts = async (req, res) => {
   }
 };
 
+const searchUsers = async (req, res) => {
+  const page = parseInt(req.query.page) || 0;
+  let hitsPerPage = parseInt(req.query.hitsPerPage) || 5;
+  let query, searchResults, totalPages;
+
+  try {
+    query = req.query.query; // Get the search query from the request query parameters
+
+    // Make Algolia API search request and get the search results
+
+    const search_params = {
+      query: query,
+      page: page,
+      hitsPerPage: hitsPerPage,
+    };
+    //sort by CreatedAt
+    searchResults = await usersIndex.search("", search_params);
+    searchResults.hits.sort((a, b) => a.createdAt - b.createdAt); // sort in ascending order of createdAt
+    
+    //get number of pages
+    totalPages = searchResults.nbPages;
+  } catch (error) {
+    console.error("Error making Algolia API search:", error);
+    searchResults = await usersCollection.find().toArray();
+    return res.render("dashboard", {
+      users: searchResults.hits,
+      currentTab: "users",
+    });
+  }
+  if (req.query.ajax) {
+    return res.json({
+      users: searchResults.hits,
+      page: page,
+      hitsPerPage: hitsPerPage,
+      totalPages: totalPages,
+    });
+  }
+
+  return res.render("dashboard", {
+    users: searchResults.hits,
+    currentTab: "users",
+    page: page,
+    hitsPerPage: hitsPerPage,
+    totalPages: totalPages,
+  });
+};
+
 export default {
   addProduct,
   deleteProduct,
@@ -372,4 +399,5 @@ export default {
   makeAdmin,
   getProducts,
   searchProducts,
+  searchUsers,
 };

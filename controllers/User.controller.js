@@ -1,16 +1,20 @@
 import User from "../models/user.js";
-import { Router } from 'express';
-import { MongoClient } from 'mongodb';
+// import { MongoClient } from 'mongodb';
 import { ObjectId } from 'mongodb';
-var router = Router();
-import Product from '../models/product.js';
 import dotenv from 'dotenv';
+import algoliasearch from "algoliasearch";
 dotenv.config({ path: './.env' })
 
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-const database = client.db('web11');
-const usersCollection = database.collection('users');
-const productsCollection = database.collection('products');
+const Algoliaclient = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_ADMIN_KEY //PRIVATE ADMIN KEY (DO NOT SHARE) - used to add/update/delete products
+);
+const usersIndex = Algoliaclient.initIndex("users");
+
+// const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// const database = client.db('web11');
+// const usersCollection = database.collection('users');
+// const productsCollection = database.collection('products');
 let admin = false;
 
 const login = async (req, res) => {
@@ -130,8 +134,23 @@ const register = async (req, res) => {
     userType: "user",
   });
 
-  await user.save();
-  console.log("User saved:", user);
+  try {
+    await user.save();
+    console.log("User saved:", user);
+    //save user into algolia
+    usersIndex.saveObject({
+      objectID: user._id.toString(),
+      name: user.firstName + " " + user.lastName,
+      email: user.email,
+      userType: user.userType,
+      createdAt: user.createdAt,
+    });
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+
 
   //data ok
   //create session
@@ -140,7 +159,7 @@ const register = async (req, res) => {
   req.session.firstName = user.firstName;
   req.session.lastName = user.lastName;
   req.session.email = user.email;
-
+  
   if (req.query.ajax) {
     console.log("Registration done using ajax");
     return res.json({ errors: errorMsg, admin: false });
