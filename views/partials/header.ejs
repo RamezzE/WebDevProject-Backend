@@ -2,28 +2,33 @@
     <span>FREE SHIPPING FOR ORDERS ABOVE 500 EGP</span>
 </header>
 <div class="row1">
-    <span class="menuIcon"><input class="navImg" type="image" src="Images/Icons/menu.png" onclick="toggleMenu()">
+    <span class="menuIcon"><input class="navImg" type="image" src="../Images/Icons/menu.png" onclick="toggleMenu()">
     </span>
     <span class="menuIcon" id="closeSearch" style="display: none;" onclick="toggleSearchBar(false)">
-        <img class="navImg" src="Images/Icons/close.png">
+        <img class="navImg" src="../Images/Icons/close.png">
     </span>
     <span class="searchSpan">
         <input class="searchBox" type="search" placeholder="Search">
     </span>
-    <span id="searchImg" class="menuIcon" onclick="toggleSearchBar(true)">
-        <input class="navImg" type="image" src="Images/Icons/search.png">
+    <span id="searchImg" class="menuIcon" onclick="toggleSearchBar(true);">
+        <input class="navImg" type="image" src="../Images/Icons/search.png">
     </span>
-    <span class="menuIcon"><a href="/wishlist"><img class="navImg" src="Images/Icons/heart.png"></a></span>
-    <span class="menuIcon"><a href="/cart"><img class="navImg" src="Images/Icons/bag.png"></a></span>
-    <span class="menuIcon"><a id="account" href="/login"><img class="navImg"
-                src="Images/Icons/account.png"></a></span>
+    <span class="menuIcon"><a href="/wishlist"><img class="navImg" src="../Images/Icons/heart.png"></a></span>
+    <span class="menuIcon"><a href="/cart"><img class="navImg" src="../Images/Icons/bag.png"></a></span>
+    <span class="menuIcon"><a id="account" href="/account"><img class="navImg"
+                src="../Images/Icons/account.png"></a></span>
+
+    <% if (admin && admin==true) { %>
+        <span class="menuIcon"><a href="/dashboard"><img class="navImg" src="../Images/Icons/dashboard.png"></a></span>
+        <% } %>
 </div>
 <div class="row2">
     <a class="menuItem" href="/">Home</a>
-    <a class="menuItem" href="/men">Men</a>
-    <a class="menuItem" href="/women">Women</a>
-    <a class="menuItem" href="#">Kids</a>
-    <a class="menuItem" href="/accessories">Accessories</a>
-    <a class="menuItem" href="/shoes">Shoes</a>
+    <a class="menuItem" href="/products?page=0">All</a>
+    <a class="menuItem" href="/products?query=men&page=0">Men</a>
+    <a class="menuItem" href="/products?query=women&page=0">Women</a>
+    <a class="menuItem" href="/products?query=kids&page=0">Kids</a>
+    <a class="menuItem" href="/products?query=shoes&page=0">Shoes</a>
+    <a class="menuItem" href="/products?query=bags&page=0">Bags</a>
     <a class="menuItem" href="#">Sale</a>
 </div>

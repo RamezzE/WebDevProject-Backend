@@ -170,8 +170,20 @@ body {
 .cart-btn:hover{
     background-color:gray;
 }
+.Fav-btn{
+    background-color: #020005;
+    margin-right: 20px;
+}
+.Fav-btn a{
+    text-decoration: none;
+    color: white;
+ 
+ }
+.Fav-btn:hover{
+    background-color:gray;
+}
 
-@media screen and (max-width:800px) {
+@media (max-width:800px) {
     #biggerContainer {
         margin-top:66px;
     }

@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'user'
   },
-createdAt: {
+  createdAt: {
     type: Date,
     default: Date.now
   },
@@ -44,12 +44,3 @@ createdAt: {
 const User = mongoose.model('User', userSchema);
 
 export default User;
-
-
-
-
-
-
-
-
-

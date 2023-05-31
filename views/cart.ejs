@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <link rel="stylesheet" type="text/css" href="CSS/header.css">
     <link rel="stylesheet" type="text/css" href="CSS/footer.css">
     <link rel="stylesheet" type="text/css" href="CSS/Cart.css">
+    <link rel="stylesheet" type="text/css" href="CSS/header.css">
+
 </head>
 
 <body>
@@ -15,107 +16,59 @@
         <div id="topNav">
             <%- include('./partials/header.ejs') %>
         </div>
-        <div id="biggerContainer">
+        <div id="biggerContainer" style = "margin-top: calc(70px);">
             <div id="bodyContainer">
                 <div class="shopping-cart">
                     <!-- Title -->
                     <h1 class="title">Shopping Bag</h1>
+                    <% if(products.length==0) {%>
+                        <div class="item">
+                            <h2>No items in your Cart</h2>
+                        </div>
+                        <a href="/products?page=0">Continue Shopping</a>                      
+                        <% }%>
+                    <% products.forEach(prd=> { %>
+                        <% console.log("SDSD") %>
+                            <% console.log(prd)%>
+                     <!-- Product #1 -->
+                     <div class="item">
+
+                        <div class="buttons">
+                            <button class="delete-btn" type="button" name="button" onclick="RemoveCart('<%= prd._id%>')">
+                                <img src="Images/Icons/delete.png" alt="">
+                            </button>
+                            <button class="like-btn" type="button" name="button" onclick="change(this,'<%= prd._id%>')">
+                                <img src="Images/Icons/Love.png" alt="">
+                            </button>
+                            <button class="like-btn" type="button" name="button" style="display: none;"
+                                onclick="change2(this,'<%= prd._id%>')">
+                                <img src="Images/Icons/loved.png" alt="">
+                            </button>
+                        </div>
+
+
+                        <img src="../Images/Products/<%= prd.images[0]%>" alt="" />
+
+
+                        <div class="description">
+                            <span><%= prd.name %>
+                            </span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="quantity">
+                            <input type="number" id="number" name="amount" value="1" min="1" max="10" />
+                        </div>
+                        <div class="total-price"><%= prd.price %></div>
+                     </div>
+                    <% }) %>
+                    <% if(products.length!=0) {%>
+                        <div class="item">
+                         <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
+                        </div>
+                        <% }%>
                     
-                    <!-- Product #1 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="Images/Icons/delete.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" onclick="change(this)">
-                                <img src="Images/Icons/Love.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" style="display: none;"
-                                onclick="change2(this)">
-                                <img src="Images/Icons/loved.png" alt="">
-                            </button>
-                        </div>
-
-
-                        <img src="Images/Icons/Product-1.jpg" alt="" />
-
-
-                        <div class="description">
-                            <span>Shoes</span>
-                            <span>Running</span>
-                            <span>colours</span>
-                        </div>
-
-                        <div class="quantity">
-                            <input type="number" id="number" name="amount" value="1" min="1" max="10" />
-                        </div>
-                        <div class="total-price">$549</div>
-
-
-                    </div>
-
-                    <!-- Product #2 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="Images/Icons/delete.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" onclick="change(this)">
-                                <img src="Images/Icons/Love.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" style="display: none;"
-                                onclick="change2(this)">
-                                <img src="Images/Icons/loved.png" alt="">
-                            </button>
-                        </div>
-
-
-                        <img src="Images/Icons/Product-2.jpg" alt="" />
-
-
-                        <div class="description">
-                            <span>Bag</span>
-                            <span>Camping</span>
-                            <span>Grey</span>
-                        </div>
-
-                        <div class="quantity">
-                            <input type="number" id="number" name="amount" value="1" min="1" max="10" />
-                        </div>
-                        <div class="total-price">$870</div>
-
-
-                    </div>
-
-                    <!-- Product #3 -->
-                    <div class="item">
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button">
-                                <img src="Images/Icons/delete.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" onclick="change(this)">
-                                <img src="Images/Icons/Love.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" style="display: none;"
-                                onclick="change2(this)">
-                                <img src="Images/Icons/loved.png" alt="">
-                            </button>
-                        </div>
-                        <img src="Images/Icons/Product-3.jpg" alt="" />
-
-                        <div class="description">
-                            <span>Bag</span>
-                            <span>Women</span>
-                            <span>Black</span>
-                        </div>
-
-                        <div class="quantity">
-                            <input type="number" id="number" name="amount" value="1" min="1" max="10" />
-                        </div>
-                        <div class="total-price">$349</div>
-
-                    </div>
-                    <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
                 </div>
             </div>
 
@@ -127,6 +80,7 @@
 </body>
 <script src="../JS/likebutton.js"></script>
 <script src="../JS/header.js"></script>
+<script src="../JS/Removeproducts.js"></script>
 <script type = "text/javascript">
     function toCheckout() {
         location.href = "/checkout";

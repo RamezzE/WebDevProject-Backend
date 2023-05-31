@@ -15,13 +15,15 @@ body {
 }
 
 #container {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
 h1 {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
 }
 
 h3 {
@@ -32,12 +34,9 @@ h3 {
     overflow-y: scroll;
     height: 94.5%;
     margin: 0px;
-    margin-top: 42px;
+    /* margin-top: 70px; */
     padding: 0px;
-    /* background-color: red; */
     bottom: 0px;
-    /* position: fixed;
-    width:100%; */
 }
 
 .bodyContainer {
@@ -45,8 +44,8 @@ h3 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-top: 30px;
 }
-
 
 form input,
 .button {
@@ -128,16 +127,15 @@ label {
     font-size: 18px;
     font-weight: normal;
     position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
+    top: -20px;
+    font-size: 14px;
+    transition: 0.5s ease all;
     transition: 0.5s ease all;
     -moz-transition: 0.5s ease all;
     -webkit-transition: 0.5s ease all;
 }
 
-.input:focus~label,
-.input:valid~label {
+.input:focus~label, .input:valid~label {
     top: -20px;
     font-size: 14px;
     color: #5264AE;
@@ -157,8 +155,9 @@ label {
     width: 100%;
     content: '';
     height: 2px;
+    margin-bottom: 1%;
     /* width: 0; */
-    bottom: 25px;
+    bottom: 0px;
     position: absolute;
     transition: 0.5s ease all;
     -moz-transition: 0.5s ease all;
@@ -194,14 +193,12 @@ label {
     left: 0;
     pointer-events: none;
     opacity: 0.5;
-    bottom:25px;
+    bottom: 7px;
 }
 
 .input:focus~.highlight {
     animation: inputHighlighter 0.4s ease;
 }
-
-
 
 
 /* ////////////////////////////////////////////////// */
@@ -290,13 +287,18 @@ label {
     }
 }
 
-
-@media screen and (max-width:600px) {
-
+@media (min-width:600px) {
     #biggerContainer {
-        margin-top: 5vh;
-        bottom: 0px;
+        margin-top: 70px;
+    }
+}
+
+@media (max-width:600px) {
+    #biggerContainer {
+        bottom: 10px;
         position: fixed;
+        top: 60px;
+
     }
 
     /* login stuff */
@@ -326,7 +328,6 @@ label {
 .errorMsg {
     display: block;
     color: red;
-    visibility: hidden;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 11px;
 }
@@ -337,4 +338,8 @@ form > span {
     color:green;
     font-size: 20px;
     visibility: hidden;
+}
+
+#error-div {
+    margin: 4% 0 10% 0;
 }

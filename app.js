@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import session from 'express-session';
+import fileUpload from 'express-fileupload';
 
 import index_router from "./routes/index.js";
 import account_router from "./routes/account.js";
@@ -13,13 +14,10 @@ import cart_router from "./routes/cart.js";
 import wishlist_router from "./routes/wishlist.js";
 import dashboard_router from "./routes/dashboard.js";
 import register_router from "./routes/register.js";
-import men_router from "./routes/men_products.js";
-import women_router from "./routes/women_products.js";
-import accessories_router from "./routes/accessories_products.js";
-import details_router from "./routes/ProductDetails.js";
-import shoes_router from "./routes/shoes_products.js";
+import product_router from "./routes/products.js";
 import check_router from "./routes/checkout.js";
 import signOut_router from "./routes/signOut.js";
+import Myorders_router from "./routes/myproducts.js";
 
 //Read the current directory name
 export const __filename = fileURLToPath(import.meta.url);
@@ -46,6 +44,7 @@ app.use(express.json());
 // When extended property is set to false, the URL-encoded data will instead be parsed with the query-string library.
 // query-string library does not support creating a nested object from your query string.
 
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
 //setup cookie parser middleware
 app.use(cookieParser());
@@ -60,23 +59,24 @@ app.use('/cart', cart_router);
 app.use('/login', login_router);
 app.use('/dashboard', dashboard_router);
 app.use('/register', register_router);
-app.use('/men',men_router);
-app.use('/women', women_router);
-app.use('/accessories', accessories_router);
-app.use('/ProductDetails', details_router);
-app.use('/shoes', shoes_router);
+app.use('/products',product_router);
 app.use('/checkout', check_router);
 app.use('/signOut', signOut_router);
+app.use('/myproducts', Myorders_router);
+
+
 // error handler
 app.use((req, res, err) => {
     // set locals, only providing error in development
-    console.log("KDJFKDJFKJDJFKD");
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     
     // render the error page
     // res.status(err.status || 500);
-    res.status('404').render('404');
+    let admin = false;
+    if (req.session.admin == "admin")
+      admin = true;
+    res.status('404').render('404', {admin: admin});
   });
-//console.log("ENV: ", app.get('env'));
+console.log("ENV: ", app.get('env'));
 export default app;

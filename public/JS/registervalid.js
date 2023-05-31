@@ -3,24 +3,24 @@ class FormClass {
         this.form = form;
         this.noErr = true;
     }
+
     initialize() {
-        document.addEventListener('submit', event => {
+        this.form.addEventListener("submit", (event) => {
+          console.log("Registering in user JS");
+          this.validateFields();
+          if (!this.noErr) {
             event.preventDefault();
-            this.validateFields();
-            if (this.noErr) {
-                document.querySelector("#form > span").style.visibility = "visible";
-            }
-            else {
-                document.querySelector("#form > span").style.visibility = "hidden";
-            }
-            
-        })
-    }
+          } else {
+            // Call the jQuery AJAX function
+            this.submitFormWithAjax(event);
+          }
+        });
+      }
+
     resetErrors() {
         let errors = document.getElementById("form").getElementsByClassName("errorMsg");
         for (let i = 0; i < errors.length; i++) {
-            errors[i].innerHTML = "E55";
-            errors[i].style.visibility = "hidden";
+            errors[i].innerHTML = "<br>";
         }
         this.noErr = true;
     }
@@ -30,15 +30,28 @@ class FormClass {
 
         for (let i = 0; i < fields.length; i++) {
             fields[i].value = fields[i].value.trim();
+            let error = document.querySelectorAll("#form .errorMsg")[i];
             if (fields[i].value === "") {
-                let error = fields[i].parentElement.getElementsByClassName("errorMsg")[0];
-                // error.innerHTML = fields[i].id.concat(" cannot be empty");
-                error.innerHTML = "Field cannot be empty";
-                error.style.visibility = "visible";
+                switch (fields[i].id) {
+                    case "firstName":
+                        error.innerHTML = "First name is required";
+                    break;
+                    case "lastName":
+                        error.innerHTML = "Last name is required";
+                    break;
+                    case "Email":
+                        error.innerHTML = "Email is required";
+                    break;
+                    case "Password":
+                        error.innerHTML = "Password is required";
+                    break;
+                    case "ConfirmPass":
+                        error.innerHTML = "Confirm password is required";
+                    break;
+                }
                 this.noErr = false;
             }
             else {
-                let error = fields[i].parentElement.getElementsByClassName("errorMsg")[0];
                 switch (fields[i].id) {
                     case "Password":
                         console.log(fields[i].value.length);
@@ -68,6 +81,30 @@ class FormClass {
             }
         }
 
+    }
+
+    submitFormWithAjax(event) {
+        event.preventDefault();
+        const formData = $(this.form).serialize();
+        $.ajax({
+            url: "/register?ajax=true",
+            method: "POST",
+            data: formData,
+            success: function (response) {
+            if (Object.keys(response.errors).length === 0)
+                window.location.href = "/account";
+            else {
+                $("#firstNameErrorMsg").html(response.errors.firstName);
+                $("#lastNameErrorMsg").html(response.errors.lastName);
+                $("#emailErrorMsg").html(response.errors.email);
+                $("#passwordErrorMsg").html(response.errors.password);
+                $("#confirmPassErrorMsg").html(response.errors.confirmPass);
+            }
+            },
+            error: function (err) {
+            console.log(err);
+            },
+        });
     }
 }
 

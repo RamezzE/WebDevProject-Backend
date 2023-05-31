@@ -1,0 +1,51 @@
+<div id="products" class="only-one">
+    <h1>Products</h1>
+
+    <div class="smallContainer" style="width:fit-content">
+        <button onclick="HideOverlay();ShowForm('product-form-overlay')">
+            <h4>Add Product</h4>
+        </button>
+        <button onclick="HideOverlay();ShowForm('delete-product-overlay')">
+            <h4>Delete Product</h4>
+        </button>
+        <button onclick="HideOverlay();ShowForm('filter-form-overlay')">
+            <h4>Filter Products</h4>
+        </button>
+    </div>
+    
+    <div class="smallContainer">
+        <h4>All Products</h4>
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>ID</th>
+            </tr>
+            <% products.forEach(product=> { %>
+                <tr>
+                    <td>
+                        <img src="../../Images/Products/<%=product.images[0]%>">
+                    </td>
+                    <td>
+                        <%= product.name %>
+                    </td>
+                    <td>
+                        <%= product.price %>
+                    </td>
+                    <td>
+                        <%= product.stock %>
+                    </td>
+                    <td class="valueToCopy">
+                        <%= product._id %>
+                    </td>
+                    <td>
+                        <button onclick="copyToClipboard(this,'valueToCopy')"><img src="../../Images/Dashboard/copy.png"
+                                style="width:20px;height:20px;"></button>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+    </div>
+</div>

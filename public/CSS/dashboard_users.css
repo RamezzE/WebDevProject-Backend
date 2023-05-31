@@ -7,15 +7,24 @@
     border:0px;
     border-style: hidden;
 } */
-
+    
 /* #users table tr:nth-child(even) {
     background-color: rgb(51, 55, 57);
     color:rgb(182, 187, 191);
     
 } */
 
-#users table tr:nth-child(even) button{
-    background-color:rgb(51, 55, 57);
+.smallContainer:nth-of-type(1) {
+    display: flex;
+    flex-direction: row;
+}
+
+.smallContainer:nth-of-type(1) button {
+    margin:10px;
+}
+
+.smallContainer:nth-of-type(1) button:nth-of-type(1) {
+    margin-left:0px;
 }
 
 /* #users th,td {
@@ -49,7 +58,7 @@
     box-shadow: none;
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
 
     th,td {
         width: unset;

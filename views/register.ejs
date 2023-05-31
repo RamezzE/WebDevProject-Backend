@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" type="text/css" href="CSS/header.css">
     <link rel="stylesheet" type="text/css" href="CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="CSS/header.css">
     <link rel="stylesheet" type="text/css" href="CSS/register&login.css">
-
 
 </head>
 
@@ -24,67 +23,86 @@
             <div class="bodyContainer">
                 <h1>Register</h1>
                 <div class="register">
-                    <form action = "/register" method="post" id="form">
+                    <form action="/register" method="post" id="form">
                         <div class="group">
-                            <input  type="text" name="firstname" id="First name" class="input">
+                            <input type="text" name="firstName" id="firstName" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.firstName) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.firstName? errorMsg.firstName : '' %></span>
                             <label>First Name</label>
                         </div>
 
+                        <div id="error-div">
+                            <span class="errorMsg" id="firstNameErrorMsg">
+                              <%if( errorMsg && errorMsg.firstName) { %>
+                                  <%=errorMsg.firstName%>
+                              <%}%>
+                            </span>
+                        </div>
+
                         <div class="group">
-                            <input  type="text" id="Last name" name="lastname" class="input">
+                            <input type="text" id="lastName" name="lastName" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.lastName) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.lastName? errorMsg.lastName : '' %></span>
                             <label>Last Name</label>
                         </div>
 
+                        <div id="error-div">
+                            <span class="errorMsg" id="lastNameErrorMsg">
+                              <%if( errorMsg && errorMsg.lastName) { %>
+                                  <%=errorMsg.lastName%>
+                              <%}%>
+                            </span>
+                        </div>
+
                         <div class="group">
-                            <input  type="email" id = "Email" name="register_email" class="input">
+                            <input type="email" id="Email" name="email" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.email) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
                             <label>Email</label>
                         </div>
 
-                        <div class="group">
-                            <input  type="password" id="Password" name="password" class="input">
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <% if (!errorMsg.password) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.password? errorMsg.password : '' %></span>
-                            <label>Password</label>
+                        <div id="error-div">
+                            <span class="errorMsg" id="emailErrorMsg">
+                              <%if( errorMsg && errorMsg.email) { %>
+                                  <%=errorMsg.email%>
+                              <%}%>
+                            </span>
                         </div>
 
                         <div class="group">
-                            <input  type="password" id = "ConfirmPass" name="confirm_password" class="input" >
+                            <input type="password" id="Password" name="password" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.confirmPass) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.confirmPass? errorMsg.confirmPass : '' %></span>
+                            <label>Password</label>
+                        </div>
+
+                        <div id="error-div">
+                            <span class="errorMsg" id="passwordErrorMsg">
+                              <%if( errorMsg && errorMsg.password) { %>
+                                  <%=errorMsg.password%>
+                              <%}%>
+                            </span>
+                        </div>
+
+                        <div class="group">
+                            <input type="password" id="ConfirmPass" name="confirmPass" class="input">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
                             <label>Confirm Password</label>
+                        </div>
+
+                        <div id="error-div">
+                            <span class="errorMsg" id="confirmPassErrorMsg">
+                              <%if( errorMsg && errorMsg.confirmPass) { %>
+                                  <%=errorMsg.confirmPass%>
+                              <%}%>
+                            </span>
                         </div>
 
                         <button id="submit" class="button" type="submit">REGISTER</button>
                         <span>Success</span>
                     </form>
                     <a href="/login"><button class="button">LOG IN</button></a>
-
 
                 </div>
             </div>
@@ -95,12 +113,11 @@
         </div>
     </div>
     </div>
-    <!-- need attribution (credits) for account icon in footer -->
-    <!-- <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a> -->
-    <!-- changed photo and got it from logomakr.com -->
-
 
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../JS/header.js"></script>
 <script src="../JS/registervalid.js"></script>
+
 </html>

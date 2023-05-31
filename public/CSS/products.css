@@ -58,23 +58,18 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: left;
     width:100%;
-    flex-grow: 0;
-}
-
-.productsGrid .column {
-    display: flex;
-    flex-direction: column;
-    width:25%;
 }
 
 .productsGrid .product {
     display: flex;
     flex-direction: column;
     padding:10px;
-    height: fit-content;
     margin-bottom:5px;
     margin-top:5px;
+    width: 20%;
+    min-height: 10vh;
 }
 
 .productsGrid .product .price {
@@ -85,25 +80,69 @@ body {
     box-shadow:5px -3px 5px 3px rgba(128, 128, 128, 0.447);
 }
 
-@media screen and (max-width: 1000px) {
-    .productsGrid .column {
-        width:50%;
+@media (max-width: 1000px) {
+    .productsGrid .product {
+        width:33%;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 700px) {
+    .productsGrid .product {
+        width: 50%;
+    }
+}
+
+@media (max-width: 600px) {
     #biggerContainer {
-        margin-top: 16vw;
+        margin-top: 9.8vh;
     }
 
     #bodyContainer {
         padding: 15px;
     }
 
-    .productsGrid .column {
-        width:100%;
+    .productsGrid .product {
+        width: 100%;
     }
 }
 
+.extraButton {
+    margin-left: auto;
+    font:inherit;
+    border:0px;
+    border-radius:10px;
+    background-color:rgb(182, 187, 191) ;
+    padding:10px;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+    transition: ease all 300ms;
+}
 
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pagination div {
+    font:inherit;
+    border:0px;
+    border-radius:3px;
+    background-color:rgb(182, 187, 191) ;
+    padding:5px;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+    margin:10px;
+    transition: ease all 300ms;
+}
+
+.pagination div:hover {
+    background-color: #dbdbdb;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: black;
+}
 
