@@ -6,7 +6,8 @@ class FormClass {
 
     initialize() {
         this.form.addEventListener("submit", (event) => {
-          console.log("Checkout user JS");
+            event.preventDefault();
+            console.log("Checkout user JS");
           this.validateFields();
           if (!this.noErr) {
             event.preventDefault();
@@ -26,14 +27,14 @@ class FormClass {
     }
     validateFields() {
         this.resetErrors();
-        let fields = document.querySelectorAll("#form div input");
+        let fields = document.getElementsByClassName("check");
 
         for (let i = 0; i < fields.length; i++) {
             fields[i].value = fields[i].value.trim();
             let error = document.querySelectorAll("#form .errorMsg")[i];
             if (fields[i].value === "") {
                 switch (fields[i].id) {
-                    case "fullname":
+                    case "fname":
                         error.innerHTML = "Name is required";
                     break;
                     case "address":
@@ -65,10 +66,11 @@ class FormClass {
     }
 
     submitFormWithAjax(event) {
+        console.log("d5lna ajax");
         event.preventDefault();
         const formData = $(this.form).serialize();
         $.ajax({
-            url: "/register?ajax=true",
+            url: "/checkout?ajax=true",
             method: "POST",
             data: formData,
             success: function (response) {

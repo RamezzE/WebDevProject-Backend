@@ -1,4 +1,17 @@
 import User from "../models/user.js";
+import { Router } from 'express';
+import { MongoClient } from 'mongodb';
+import { ObjectId } from 'mongodb';
+var router = Router();
+import Product from '../models/product.js';
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' })
+
+const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const database = client.db('web11');
+const usersCollection = database.collection('users');
+const productsCollection = database.collection('products');
+let admin = false;
 
 const login = async (req, res) => {
 
@@ -172,25 +185,39 @@ if (Object.keys(errorMsg).length > 0) {
   for (let key in errorMsg) {
     console.log(errorMsg[key]);
   }
-  if (req.query.json) {
-    console.log("Json errors");
+  if (req.query.ajax) {
+    console.log("ajax errors");
     return res.json( {errors: errorMsg, admin: false} );
   }
   else {
-    console.log("Not ajax errors");
+    console.log("No ajax errors");
     return res.render("checkout", { errorMsg: errorMsg, admin: false });
   }
 }
 else{
   console.log("ADD");  
   const user = await User.findOne({ _id: req.session.userID });
-  user.orders=user.cart;
+  let cart = user.cart;
+  console.log("new Orders: " + cart)  
+  let orders_obj = user.orders;
+      for (let i = 0; i < cart.length; i++)
+      orders_obj.push(new ObjectId(cart[i]));
+
+  user.orders=orders_obj;
   user.cart=[];
     await user.save();
   console.log(user);
   console.log("DONE Ordering");
-  res.redirect('Myproducts');
-}
+  if (req.query.ajax) {
+    console.log("checkout using ajax");
+    return res.json( {errors: errorMsg, admin: false} );
+  }
+  else {
+    console.log("checkout not using ajax");
+    return res.redirect("/myproducts");
+  }
+  }
+ 
 };
 
 export default {

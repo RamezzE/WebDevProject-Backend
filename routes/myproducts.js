@@ -27,8 +27,6 @@ router.use((req, res, next) => {
 
 
 router.get('/', async (req, res, next) => {
-        
-    
     const user = await User.findOne({ _id: req.session.userID });
       console.log(user);
       let orders = user.orders;
