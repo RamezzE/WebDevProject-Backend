@@ -1,5 +1,101 @@
 let urlParams = new URLSearchParams(window.location.search);
 
+//add listener for form submit
+
+let adminForm = document.querySelector("#admin-form-overlay");
+
+adminForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitAdminForm(adminForm.querySelector("a"));
+});
+
+let deleteForm = document.querySelector("#user-form-overlay");
+
+deleteForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitDeleteForm(deleteForm.querySelector("a"));
+});
+
+function submitAdminForm(field) {
+  let form = field.parentNode;
+
+  let formURL = form.action;
+
+  formURL += `?ajax=true`;
+  console.log(formURL)
+  ajaxAdminUser(form, formURL);
+}
+
+function ajaxAdminUser(form, URL) {
+  let msg = $("#admin-form-overlay .msg");
+  msg.empty();
+  const formData = $(form).serialize();
+  $.ajax({
+    url: URL, // Replace with your server-side endpoint
+    method: "POST",
+    data: formData,
+    success: function (response) {
+      if (!response.msg) {
+        if (response.error) {
+          let error = response.error;
+          msg.append(error);
+          return;
+        }
+      }
+
+      msg.append(response.msg);
+
+      //refresh page from here
+      setTimeout(function () {
+        location.reload();
+      }, 2000);
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
+function submitDeleteForm(field) {
+  let form = field.parentNode;
+
+  let formURL = form.action;
+
+  formURL += `?ajax=true`;
+
+  ajaxDeleteUser(form, formURL);
+}
+
+function ajaxDeleteUser(form, URL) {
+  let msg = $("#user-form-overlay .msg");
+  msg.empty();
+  const formData = $(form).serialize();
+  $.ajax({
+    url: URL, // Replace with your server-side endpoint
+    method: "POST",
+    data: formData,
+    success: function (response) {
+      if (!response.msg) {
+        if (response.error) {
+          let error = response.error;
+          msg.append(error);
+          return;
+        }
+      }
+
+      msg.append(response.msg);
+
+      //refresh page from here
+      setTimeout(function () {
+        location.reload();
+      }, 2000);
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
 function submitFilterForm(field, page = 0) {
   let form = field.parentNode;
   // Perform your desired actions here
@@ -9,7 +105,6 @@ function submitFilterForm(field, page = 0) {
   let hitsPerPage = urlParams.get("hitsPerPage") || 5;
 
   //sort by createdAt
-  
 
   let newURL = `/dashboard/users?query=${searchQuery}&page=${pageNum}&hitsPerPage=${hitsPerPage}`;
 
@@ -142,25 +237,22 @@ function changePage(pageNum) {
 
   let currentURL = window.location.href;
   let newURL;
-  if (!urlParams.get("page"))
-    newURL += `&page=${pageNum}`;
-  
-  else
-    newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+  if (!urlParams.get("page")) newURL += `&page=${pageNum}`;
+  else newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
 
-//   let form = document.querySelector("#filter-form-overlay a").parentNode;
+  //   let form = document.querySelector("#filter-form-overlay a").parentNode;
 
-//   let filters = form.querySelectorAll("input");
-//   filters.forEach((filter) => {
-//     if (filter.checked) {
-//       if (window.location.search.includes(filter.name))
-//         newURL = newURL.replace(
-//           new RegExp(`${filter.name}=[^&]+`),
-//           `${filter.name}=${filter.value}`
-//         );
-//       else newURL += `&${filter.name}=${filter.value}`;
-//     }
-//   });
+  //   let filters = form.querySelectorAll("input");
+  //   filters.forEach((filter) => {
+  //     if (filter.checked) {
+  //       if (window.location.search.includes(filter.name))
+  //         newURL = newURL.replace(
+  //           new RegExp(`${filter.name}=[^&]+`),
+  //           `${filter.name}=${filter.value}`
+  //         );
+  //       else newURL += `&${filter.name}=${filter.value}`;
+  //     }
+  //   });
 
   window.location.href = newURL;
 }

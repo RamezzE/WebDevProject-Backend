@@ -219,6 +219,7 @@ const deleteProduct = async (req, res) => {
 
   if (!product) {
     console.log("Product ID not found");
+    if (req.query.ajax) return res.json({ error: "Product ID not found" });
     return res.redirect("/dashboard/products?page=0");
   }
 
@@ -240,30 +241,75 @@ const deleteProduct = async (req, res) => {
   const deletedProduct = await Product.findOneAndDelete({ _id: productID });
 
   if (deletedProduct) {
-    console.log("Product deleted");
+    console.log("Product deleted in mongo");
     // Delete the product from the Algolia index (API)
     await productsIndex.deleteObject(productID);
-  } else console.log("Error deleting product");
+  } else {
+    console.log("Error deleting product");
+    if (req.query.ajax) return res.json({ error: "Error deleting product" });
+    return res.redirect("/dashboard/products?page=0");
+  }
 
+  if (req.query.ajax) return res.json({ msg: "Product deleted successfully" });
   return res.redirect("/dashboard/products?page=0");
 };
 
 const deleteUser = async (req, res) => {
   const { userID } = req.body;
-  const deletedUser = await User.findOneAndDelete({ _id: userID });
+  try {
+    const user = await User.findOne({ _id: userID });
+    console.log(userID);
 
-  if (deletedUser) {
-    console.log("User deleted");
-    // Delete the user from the Algolia index (API)
-    await usersIndex.deleteObject(userID);
-  } else console.log("User not found");
+    if (!user) {
+      console.log("User not found");
+      if (req.query.ajax) return res.json({ error: "User not found" });
+
+      return res.redirect("/dashboard/users?page=0");
+    }
+
+    const deletedUser = await usersCollection.findOneAndDelete({ _id: userID });
+
+    if (deletedUser) {
+      console.log("User deleted in mongo");
+      await usersIndex.deleteObject(userID);
+      console.log("User deleted in algolia");
+    } else {
+      console.log("Error deleting user");
+      if (req.query.ajax) return res.json({ error: "Error deleting user" });
+
+      return res.redirect("/dashboard/users?page=0");
+    }
+  } catch (err) {
+    console.log(err);
+    console.log("Error deleting user");
+    if (req.query.ajax) return res.json({ error: "Error deleting user" });
+
+    return res.redirect("/dashboard/users?page=0");
+  }
+
+  if (req.query.ajax) return res.json({ msg: "User deleted successfully" });
 
   return res.redirect("/dashboard/users?page=0");
 };
 
 const makeAdmin = async (req, res) => {
   const { userID } = req.body;
-  const user = await User.findOne({ _id: userID });
+  let user;
+  try {
+    user = await User.findOne({ _id: userID });
+    if (!user) {
+      console.log("User not found");
+      if (req.query.ajax) return res.json({ error: "User not found" });
+
+      return res.redirect("/dashboard/users?page=0");
+    }
+  } catch (err) {
+    console.log(err);
+    console.log("User not found");
+    if (req.query.ajax) return res.json({ error: "User not found" });
+
+    return res.redirect("/dashboard/users?page=0");
+  }
 
   user.userType = "admin";
   await user.save();
@@ -275,6 +321,8 @@ const makeAdmin = async (req, res) => {
     userType: user.userType,
     createdAt: user.createdAt,
   });
+
+  if (req.query.ajax) return res.json({ msg: "User updated successfully" });
 
   return res.redirect("/dashboard/users?page=0");
 };
@@ -363,7 +411,7 @@ const searchUsers = async (req, res) => {
     //sort by CreatedAt
     searchResults = await usersIndex.search("", search_params);
     searchResults.hits.sort((a, b) => a.createdAt - b.createdAt); // sort in ascending order of createdAt
-    
+
     //get number of pages
     totalPages = searchResults.nbPages;
   } catch (error) {

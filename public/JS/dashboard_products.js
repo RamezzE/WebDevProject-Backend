@@ -1,5 +1,55 @@
 let urlParams = new URLSearchParams(window.location.search);
 
+let deleteForm = document.querySelector("#delete-product-overlay");
+
+deleteForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitDeleteProductForm(deleteForm.querySelector("a"));
+});
+
+function submitDeleteProductForm(field) {
+  let form = field.parentNode;
+
+  let formURL = form.getAttribute('action');
+
+  formURL += `?ajax=true`;
+  console.log(formURL);
+  formURL = '/dashboard/products/delete?ajax=true'
+  
+
+  ajaxDeleteProduct(form, formURL);
+}
+
+function ajaxDeleteProduct(form, URL) {
+  let msg = $("#delete-product-overlay .msg");
+  msg.empty();
+  const formData = $(form).serialize();
+  $.ajax({
+    url: URL, // Replace with your server-side endpoint
+    method: "POST",
+    data: formData,
+    success: function (response) {
+      if (!response.msg) {
+        if (response.error) {
+          let error = response.error;
+          msg.append(error);
+          return;
+        }
+      }
+
+      msg.append(response.msg);
+
+      //refresh page from here
+      setTimeout(function () {
+        location.reload();
+      }, 2000);
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
 function submitFilterForm(field, page = 0) {
   let form = field.parentNode;
   // Perform your desired actions here

@@ -1,13 +1,16 @@
 <!----------------------------- form ----------------------------->
 <div id="delete-product-overlay" class="overlay-div">
     <p>Delete a Product</p>
-    <form action = "products/delete" method = "post">
+    <form action="products/delete" method="post">
         <div class="form-item-div">
             <input class="product-line-input" required name="productID" type="text">
             <label>Product ID</label>
         </div>
 
-        <a onclick = "submitForm(this)">
+        <div class="msg-div">
+            <p class="msg"></p>
+
+        <a onclick = "submitDeleteProductForm(this)">
             <span></span>
             <span></span>
             <span></span>
@@ -15,7 +18,6 @@
             Delete Product
         </a>
     </form>
-    <p>Changed your mind? <a onclick="HideOverlay()"
-        class="cancel-form">Cancel</a></p>
+    <p>Changed your mind? <a onclick="HideOverlay();" class="cancel-form">Cancel</a></p>
 </div>
 <!----------------------- end of delete product form ---------------------------->
