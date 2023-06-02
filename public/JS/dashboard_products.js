@@ -1,6 +1,7 @@
 let urlParams = new URLSearchParams(window.location.search);
 
 let deleteForm = document.querySelector("#delete-product-overlay");
+let currentPage = urlParams.get("page") || 0;
 
 deleteForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -10,14 +11,14 @@ deleteForm.addEventListener("submit", function (e) {
 function submitDeleteProductForm(field) {
   let form = field.parentNode;
 
-  let formURL = form.getAttribute('action');
+  let formURL = form.getAttribute("action");
 
   formURL += `?ajax=true`;
   console.log(formURL);
-  formURL = '/dashboard/products/delete?ajax=true'
-  
+  formURL = "/dashboard/products/delete?ajax=true";
 
-  ajaxDeleteProduct(form, formURL);
+  //timeout to allow the overlay to close
+  setTimeout(ajaxDeleteProduct(form, formURL), 250);
 }
 
 function ajaxDeleteProduct(form, URL) {
@@ -56,6 +57,7 @@ function submitFilterForm(field, page = 0) {
 
   let searchQuery = urlParams.get("query") || "";
   let pageNum = page;
+  currentPage = pageNum;
   let hitsPerPage = urlParams.get("hitsPerPage") || 5;
 
   let newURL = `/dashboard/products?query=${searchQuery}&page=${pageNum}&hitsPerPage=${hitsPerPage}`;
@@ -136,6 +138,9 @@ function ajaxProducts(URL) {
       let pagination = $(".pagination");
       pagination.empty();
 
+      if (response.totalPages == 1) 
+        return;
+
       for (let i = 0; i < response.totalPages; i++) {
         var pageLink = $("<div>")
           .attr("onclick", "changePage(" + i + ")")
@@ -193,15 +198,12 @@ function changePage(pageNum) {
   if (pageNum < 0) return;
 
   //if page num is same as current page, do nothing
-  if (pageNum == urlParams.get("page")) return;
+  if (pageNum == currentPage) return;
 
   let currentURL = window.location.href;
   let newURL;
-  if (!urlParams.get("page"))
-    newURL += `&page=${pageNum}`;
-  
-  else
-    newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+  if (!urlParams.get("page")) newURL += `&page=${pageNum}`;
+  else newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
 
   let form = document.querySelector("#filter-form-overlay a").parentNode;
 

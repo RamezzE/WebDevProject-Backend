@@ -1,23 +1,25 @@
 <!----------------------------- form ----------------------------->
-<div id="delete-product-overlay" class="overlay-div">
-    <p>Delete a Product</p>
-    <form action="products/delete" method="post">
-        <div class="form-item-div">
-            <input class="product-line-input" required name="productID" type="text">
-            <label>Product ID</label>
-        </div>
+<div id="delete-product-overlay" style = "height:400px" class="overlay-div">
+  <p>Delete a Product</p>
+  <form action="/dashboard/products/delete" method="post">
+    <div class="form-item-div">
+      <input class="product-line-input" required name="productID" type="text" />
+      <label>Product ID</label>
+    </div>
 
-        <div class="msg-div">
-            <p class="msg"></p>
-
-        <a onclick = "submitDeleteProductForm(this)">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Delete Product
-        </a>
-    </form>
-    <p>Changed your mind? <a onclick="HideOverlay();" class="cancel-form">Cancel</a></p>
+    <div class="msg-div">
+      <p class="msg"></p>
+    </div>
+    <a onclick="submitDeleteProductForm(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Delete Product
+    </a>
+  </form>
+  <p>
+    Changed your mind? <a onclick="HideOverlay()" class="cancel-form">Cancel</a>
+  </p>
 </div>
 <!----------------------- end of delete product form ---------------------------->
