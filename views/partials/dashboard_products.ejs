@@ -48,9 +48,9 @@
                 <% }) %>
         </table>
         <div class="pagination">
-            <% if ( products.length != 0) { %>
+            <% if ( products.length != 0 && totalPages > 1) { %>
             <% for (let i = 0;i<totalPages;i++) {%>
-                <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
+                <div onclick = "changePage('<%=i%>')"><a href=""><%= i+1 %></a></div>
                 <% } %>
             <% }%>
             

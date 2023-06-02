@@ -215,7 +215,15 @@ function filterProducts(req) {
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
 
-  const product = await Product.findOne({ _id: productID });
+  try {
+    const product = await Product.findOne({ _id: productID });
+
+  }
+  catch (error) {
+    console.error("Error deleting product:", error);
+    if (req.query.ajax) return res.json({ error: "Product ID not found" });
+    return res.redirect("/dashboard/products?page=0");
+  }
 
   if (!product) {
     console.log("Product ID not found");

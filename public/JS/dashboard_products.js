@@ -1,6 +1,8 @@
 let urlParams = new URLSearchParams(window.location.search);
 
 let deleteForm = document.querySelector("#delete-product-overlay");
+let currentPage = urlParams.get("page") || 0;
+let currentFilters = "";
 
 deleteForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -10,14 +12,14 @@ deleteForm.addEventListener("submit", function (e) {
 function submitDeleteProductForm(field) {
   let form = field.parentNode;
 
-  let formURL = form.getAttribute('action');
+  let formURL = form.getAttribute("action");
 
   formURL += `?ajax=true`;
   console.log(formURL);
-  formURL = '/dashboard/products/delete?ajax=true'
-  
+  formURL = "/dashboard/products/delete?ajax=true";
 
-  ajaxDeleteProduct(form, formURL);
+  //timeout to allow the overlay to close
+  setTimeout(ajaxDeleteProduct(form, formURL), 250);
 }
 
 function ajaxDeleteProduct(form, URL) {
@@ -56,25 +58,35 @@ function submitFilterForm(field, page = 0) {
 
   let searchQuery = urlParams.get("query") || "";
   let pageNum = page;
+  currentPage = 0;
   let hitsPerPage = urlParams.get("hitsPerPage") || 5;
 
   let newURL = `/dashboard/products?query=${searchQuery}&page=${pageNum}&hitsPerPage=${hitsPerPage}`;
 
   //add filters to url
+  currentFilters = "";
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
     if (filter.checked) {
-      newURL += `&${filter.name}=${filter.value}`;
+      currentFilters += `&${filter.name}=${filter.value}`;
     }
   });
+  console.log(currentFilters);
 
-  // window.location.href = newURL;
-  if (!urlParams.get("ajax"));
-  newURL += "&ajax=true";
-  console.log(newURL);
+
+  newURL += currentFilters;
 
   //ajax
-  ajaxProducts(newURL);
+  ajaxProducts(newURL + "&ajax=true");
+
+  //update url
+  window.history.pushState({}, "", newURL);
+
+  let pageDivs = $(".pagination div");
+  pageDivs.removeClass("active");
+  pageDivs[page].classList.add("active");
+
+  currentPage = 0;
 }
 
 function ajaxProducts(URL) {
@@ -136,12 +148,15 @@ function ajaxProducts(URL) {
       let pagination = $(".pagination");
       pagination.empty();
 
+      if (response.totalPages == 1) 
+        return;
+
       for (let i = 0; i < response.totalPages; i++) {
         var pageLink = $("<div>")
           .attr("onclick", "changePage(" + i + ")")
           .append(
             $("<a>")
-              .attr("href", "#")
+              .attr("href", "")
               .text(i + 1)
           );
         pagination.append(pageLink);
@@ -155,6 +170,17 @@ function ajaxProducts(URL) {
 
 $(document).ready(function () {
   updateCheckBoxes();
+  // submitFilterForm(document.querySelector("#filter-form-overlay a", currentPage));
+  currentFilters = "";
+  let form = document.querySelector("#filter-form-overlay a").parentNode;
+  let filters = form.querySelectorAll("input");
+  filters.forEach((filter) => {
+    if (filter.checked) {
+      currentFilters += `&${filter.name}=${filter.value}`;
+    }
+  });
+  console.log(currentFilters);
+
 });
 
 function updateCheckBoxes() {
@@ -193,29 +219,15 @@ function changePage(pageNum) {
   if (pageNum < 0) return;
 
   //if page num is same as current page, do nothing
-  if (pageNum == urlParams.get("page")) return;
-
-  let currentURL = window.location.href;
-  let newURL;
-  if (!urlParams.get("page"))
-    newURL += `&page=${pageNum}`;
+  if (pageNum == currentPage) return;
   
-  else
-    newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+  let newURL = "/dashboard/products?" + "page=" + pageNum;
 
-  let form = document.querySelector("#filter-form-overlay a").parentNode;
-
-  let filters = form.querySelectorAll("input");
-  filters.forEach((filter) => {
-    if (filter.checked) {
-      if (window.location.search.includes(filter.name))
-        newURL = newURL.replace(
-          new RegExp(`${filter.name}=[^&]+`),
-          `${filter.name}=${filter.value}`
-        );
-      else newURL += `&${filter.name}=${filter.value}`;
-    }
-  });
+  currentPage = pageNum;
+  newURL += currentFilters;
+  console.log(newURL);
 
   window.location.href = newURL;
+  window.history.pushState({}, "", newURL);
+  // ajaxProducts(newURL);
 }
