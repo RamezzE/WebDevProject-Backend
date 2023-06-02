@@ -3,6 +3,7 @@
     "algoliasearch": "^4.17.1",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
+    "crypto": "^1.0.1",
     "darkmode-js": "^1.5.7",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
