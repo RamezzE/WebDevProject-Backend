@@ -8,9 +8,13 @@ router.get('/', function (req, res, next) {
 
   let admin = false;
   if (req.session.userType == 'admin')
-    admin = true;
-  
+    {admin = true; 
   res.render('checkout', { errorMsg: errorMsg, admin: admin })
+}
+    else {
+      admin = false;
+      res.render('err', { err: 'You must login to access this page',admin: admin })
+    }
 });
 
 router.post('/', UserController.Checkout);
