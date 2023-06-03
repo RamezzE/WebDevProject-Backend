@@ -25,30 +25,21 @@
                             <div class="col-50cart">
                               <h3>Billing Address</h3>
                               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                              <input type="text" id="fname" name="fullname" placeholder="John M. Doe">
+                              <input type="text" id="fname" name="fullname" placeholder="John M. Doe" class="check">
                                <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.fullname) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.fullname? errorMsg.fullname : '' %></span>
+                            <span class = "errorMsg" id="fullNameErrorMsg"><%= errorMsg && errorMsg.fullname? errorMsg.fullname : '' %></span>
 
                               <label for="email"> Email</label>
-                              <input type="text" id="email" name="email" placeholder="john@example.com">
+                              <input type="text" id="email" class="check" name="email" placeholder="john@example.com">
                               <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.email) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
+                            <span class = "errorMsg" id="emailErrorMsg" ><%= errorMsg && errorMsg.email? errorMsg.email : '' %></span>
                               <label for="adr"> Address</label>
-                              <input type="text" id="address" name="address" placeholder="542 W. 15th Street">
+                              <input type="text" id="address" class="check" name="address" placeholder="542 W. 15th Street">
                               <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.address) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.address? errorMsg.address : '' %></span>
+                            <span class = "errorMsg" id="AdressErrorMsg"><%= errorMsg && errorMsg.address? errorMsg.address : '' %></span>
                               <label for="city">City</label>
                               <input type="text" id="city" name="city" placeholder="New York">
                   
@@ -73,15 +64,12 @@
                               </div>
                               <label for="cname">Name on Card</label>
                               <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-                              <label for="ccnum">Credit card number</label>
-                              <input type="text" id="cardnumber" name="cardnumber" placeholder="1111-2222-3333-4444">
-                              <span class="highlight"></span>
+                              <label for="fname"><i class="fa fa-user"></i> Credit Card Number</label>
+                              <input type="text" class="check" id="cardnumber" name="cardnumber" placeholder="4444-4444-4444-4/444">
+                               <span class="highlight"></span>
                             <span class="bar"></span>
-                            <% if (!errorMsg.cardnumber) {%>
-                                <div class = "lineBreak"><br></div>
-                            <% } %>
-                            <span class = "errorMsg"><%= errorMsg && errorMsg.cardnumber? errorMsg.cardnumber : '' %></span>
-                              <label for ="expmonth">Exp Month</label>
+                            <span class = "errorMsg" id="CardErrorMsg"><%= errorMsg && errorMsg.cardnumber? errorMsg.cardnumber : '' %></span>                              
+                            <label for ="expmonth">Exp Month</label>
                               <input type="text" id="expmonth" name="expmonth" placeholder="2 digits">
                   
                               <div class="rowcart">
@@ -114,6 +102,8 @@
     </div>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../JS/header.js"></script>
+<script src="../JS/checkoutvalid.js"></script>
 
 </html>

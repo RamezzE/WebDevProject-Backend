@@ -1,21 +1,26 @@
 <!----------------------------- form ----------------------------->
 <div id="user-form-overlay" class="overlay-div">
-    <p>Delete A User</p>
-    <form action = "users/delete" method = "post">
-        <div class="form-item-div">
-            <input class="product-line-input" required name="userID" type="text">
-            <label>User ID</label>
-        </div>
+  <p>Delete A User</p>
+  <form action="users/delete" method="post">
+    <div class="form-item-div">
+      <input class="product-line-input" required name="userID" type="text" />
+      <label>User ID</label>
+    </div>
 
-        <a onclick = "submitForm(this)">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Delete User
-        </a>
-    </form>
-    <p>Changed your mind? <a onclick="HideOverlay()"
-        class="cancel-form">Cancel</a></p>
+    <div class="msg-div">
+      <p class="msg"></p>
+    </div>
+
+    <a onclick="submitDeleteForm(this);">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Delete User
+    </a>
+  </form>
+  <p>
+    Changed your mind? <a onclick="HideOverlay()" class="cancel-form">Cancel</a>
+  </p>
 </div>
 <!----------------------- end of delete user form ---------------------------->

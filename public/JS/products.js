@@ -9,33 +9,29 @@ function TogglePhoto(field) {
   imgs[0].style.display = "none";
   imgs[1].style.display = "block";
 }
-
 const urlParams = new URLSearchParams(window.location.search);
+
+let currentFilters = "";
+let currentPage = urlParams.get("page") || 0;
+let searchQuery = urlParams.get("query") || "";
 
 function changePage(pageNum) {
   if (pageNum < 0) return;
 
   //if page num is same as current page, do nothing
-  if (pageNum == urlParams.get("page")) return;
+  if (pageNum == currentPage) return;
+  
+  let newURL = "/products?" + "page=" + pageNum;
 
-  let currentURL = window.location.href;
-  let newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
-
-  let form = document.querySelector("#filter-form-overlay a").parentNode;
-
-  let filters = form.querySelectorAll("input");
-  filters.forEach((filter) => {
-    if (filter.checked) {
-      if (window.location.search.includes(filter.name))
-        newURL = newURL.replace(
-          new RegExp(`${filter.name}=[^&]+`),
-          `${filter.name}=${filter.value}`
-        );
-      else newURL += `&${filter.name}=${filter.value}`;
-    }
-  });
+  currentPage = pageNum;
+  
+  newURL += "&query=" + searchQuery;
+  newURL += currentFilters;
+  console.log(newURL);
 
   window.location.href = newURL;
+  window.history.pushState({}, "", newURL);
+  // ajaxProducts(newURL);
 }
 
 //add submit event listener for form
@@ -46,24 +42,34 @@ function submitFilterForm(field, page = 0) {
 
   let searchQuery = urlParams.get("query") || "";
   let pageNum = page;
+  currentPage = 0;
   let hitsPerPage = urlParams.get("hitsPerPage") || 5;
 
   let newURL = `/products?query=${searchQuery}&page=${pageNum}&hitsPerPage=${hitsPerPage}`;
 
   //add filters to url
+  currentFilters = "";
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
     if (filter.checked) {
-      newURL += `&${filter.name}=${filter.value}`;
+      currentFilters += `&${filter.name}=${filter.value}`;
     }
   });
+  console.log(currentFilters);
 
-  // window.location.href = newURL;
-  if (!urlParams.get("ajax"));
-  newURL += "&ajax=true";
+  newURL += currentFilters;
 
   //ajax
-  ajaxProducts(newURL);
+  ajaxProducts(newURL + "&ajax=true");
+
+  //update url
+  window.history.pushState({}, "", newURL);
+
+  let pageDivs = $(".pagination div");
+  pageDivs.removeClass("active");
+  pageDivs[page].classList.add("active");
+
+  currentPage = 0;
 }
 
 function ajaxProducts(URL) {
@@ -116,6 +122,9 @@ function ajaxProducts(URL) {
       let pagination = $(".pagination");
       pagination.empty();
       
+      if (response.totalPages == 1)
+        return;
+      
       for (let i = 0; i < response.totalPages; i++) {
         var pageLink = $("<div>")
           .attr("onclick", "changePage(" + i + ")")
@@ -136,12 +145,18 @@ function ajaxProducts(URL) {
 $(document).ready(function () {
   // Function x
   updateCheckBoxes();
+  currentFilters = "";
+  let form = document.querySelector("#filter-form-overlay a").parentNode;
+  let filters = form.querySelectorAll("input");
+  filters.forEach((filter) => {
+    if (filter.checked) {
+      currentFilters += `&${filter.name}=${filter.value}`;
+    }
+  });
+  console.log(currentFilters);
 });
 
 function updateCheckBoxes() {
-  // Get the URL parameters
-  let urlParams = new URLSearchParams(window.location.search);
-
   let form = document.querySelector("#filter-form-overlay a").parentNode;
 
   let checkboxes = form.querySelectorAll("input[type='checkbox']");

@@ -44,6 +44,28 @@
     box-shadow: none;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.pagination div {
+    margin: 0px 10px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: rgb(182, 187, 191);
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
+    transition: ease all 300ms;
+}
+
+.pagination div.active {
+    background-color: rgb(51, 55, 57);
+    color:rgb(182, 187, 191);
+    box-shadow: none;
+}
+
 /* #products table .imgHeader, #products table .imgCell {
     width:unset;
     border-radius: 0px;

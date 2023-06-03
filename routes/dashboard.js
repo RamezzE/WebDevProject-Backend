@@ -24,10 +24,7 @@ router.get('/', async (req, res, next) => {
   return res.render('dashboard', { currentTab: 'home', firstName: req.session.firstName });
 });
 
-router.get('/users', async (req, res, next) => {
-  const users = await usersCollection.find().toArray();
-  return res.render('dashboard', { users: users, currentTab: 'users' });
-});
+router.get('/users', DashboardController.searchUsers);
 
 router.post('/users/delete', DashboardController.deleteUser);
 
@@ -37,11 +34,9 @@ router.get('/insights', async (req, res, next) => {
   return res.render('dashboard', { currentTab: 'insights' });
 });
 
-router.get('/products', DashboardController.getProducts);
+router.get('/products', DashboardController.searchProducts);
 
 router.post('/products/addProduct', DashboardController.addProduct);
-
-router.get('/products/filter', DashboardController.filterProducts);
 
 router.post('/products/delete', DashboardController.deleteProduct);
 

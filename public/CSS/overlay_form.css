@@ -72,10 +72,28 @@
 /* ---------------- END OF UPLOAD IMAGE THING ---------------- */
 
 /* ------------------------ FORM ------------------------ */
+
+
+* {
+  box-sizing: border-box;
+}
+
 .overlay-div {
-  height: 70vh;
-  z-index: 1;
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  max-height: 90vh;
+  max-width: 70vw;
+  padding: 40px;
+  margin: 20px auto;
+  transform: translate(-50%, -55%);
+  background: rgba(0,0,0,.9);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  z-index: 1;
 }
 
 .overlay-div p:first-child {
@@ -245,12 +263,12 @@
   font-size: 14px;
 }
 
-.overlay-div a.cancel-form {
+.overlay-div .cancel-form {
   color: #fff;
   text-decoration: none;
 }
 
-.overlay-div a.cancel-form:hover {
+.overlay-div .cancel-form:hover {
   background: transparent;
   color: #aaa;
   border-radius: 5px;
@@ -305,7 +323,7 @@
   font-size: 12px;
 }
 
-.product-form-checkbox-div span {
+.product-form-checkbox-div span, .filter-form-checkbox-div span {
   height: 15px;
   width: 15px;
   border: 2px solid white;
@@ -326,7 +344,7 @@
 }
 
 #product-description-label {
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 /* ------------------------ END OF FORM ------------------------ */

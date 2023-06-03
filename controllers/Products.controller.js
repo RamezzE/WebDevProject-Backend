@@ -107,7 +107,6 @@ const searchProducts = async (req, res) => {
   if (req.query.ajax) {
     return res.json({
       products: searchResults.hits,
-      // admin: admin,
       page: page,
       hitsPerPage: hitsPerPage,
       totalPages: totalPages,

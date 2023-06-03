@@ -1,4 +1,21 @@
 import User from "../models/user.js";
+// import { MongoClient } from 'mongodb';
+import { ObjectId } from 'mongodb';
+import dotenv from 'dotenv';
+import algoliasearch from "algoliasearch";
+dotenv.config({ path: './.env' })
+
+const Algoliaclient = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_ADMIN_KEY //PRIVATE ADMIN KEY (DO NOT SHARE) - used to add/update/delete products
+);
+const usersIndex = Algoliaclient.initIndex("users");
+
+// const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// const database = client.db('web11');
+// const usersCollection = database.collection('users');
+// const productsCollection = database.collection('products');
+let admin = false;
 
 const login = async (req, res) => {
 
@@ -117,8 +134,23 @@ const register = async (req, res) => {
     userType: "user",
   });
 
-  await user.save();
-  console.log("User saved:", user);
+  try {
+    await user.save();
+    console.log("User saved:", user);
+    //save user into algolia
+    usersIndex.saveObject({
+      objectID: user._id.toString(),
+      name: user.firstName + " " + user.lastName,
+      email: user.email,
+      userType: user.userType,
+      createdAt: user.createdAt,
+    });
+  }
+  catch (err) {
+    console.log(err);
+  }
+
+
 
   //data ok
   //create session
@@ -127,7 +159,7 @@ const register = async (req, res) => {
   req.session.firstName = user.firstName;
   req.session.lastName = user.lastName;
   req.session.email = user.email;
-
+  
   if (req.query.ajax) {
     console.log("Registration done using ajax");
     return res.json({ errors: errorMsg, admin: false });
@@ -138,7 +170,77 @@ const register = async (req, res) => {
   } 
 };
 
+const Checkout = async (req, res) => {
+console.log('Checkout');
+
+//get data from form
+const { fullname, email, address, cardnumber } = req.body;
+
+let errorMsg = {};
+
+//validate data
+if (fullname.trim() == '')
+  errorMsg.fullname = 'Full name is required';
+let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if (email.trim() == '')
+  errorMsg.email = 'Email is required';
+else if (!email.match(emailFormat))
+  errorMsg.email = 'Invalid email';
+if (address.trim() == '')
+  errorMsg.address = 'Address is required';
+
+let cdform = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+//Starting with 4 length 13 or 16 digits
+if (cardnumber.trim() == '')
+  errorMsg.cardnumber = 'cardnumber is required';
+else if (!cardnumber.match(cdform))
+  errorMsg.cardnumber = 'Invalid card';
+
+for (let key in errorMsg) {
+  console.log(errorMsg[key]);
+}
+
+if (Object.keys(errorMsg).length > 0) {
+  for (let key in errorMsg) {
+    console.log(errorMsg[key]);
+  }
+  if (req.query.ajax) {
+    console.log("ajax errors");
+    return res.json( {errors: errorMsg, admin: false} );
+  }
+  else {
+    console.log("No ajax errors");
+    return res.render("checkout", { errorMsg: errorMsg, admin: false });
+  }
+}
+else{
+  console.log("ADD");  
+  const user = await User.findOne({ _id: req.session.userID });
+  let cart = user.cart;
+  console.log("new Orders: " + cart)  
+  let orders_obj = user.orders;
+      for (let i = 0; i < cart.length; i++)
+      orders_obj.push(new ObjectId(cart[i]));
+
+  user.orders=orders_obj;
+  user.cart=[];
+    await user.save();
+  console.log(user);
+  console.log("DONE Ordering");
+  if (req.query.ajax) {
+    console.log("checkout using ajax");
+    return res.json( {errors: errorMsg, admin: false} );
+  }
+  else {
+    console.log("checkout not using ajax");
+    return res.redirect("/myproducts");
+  }
+  }
+ 
+};
+
 export default {
   login,
   register,
+  Checkout,
 };

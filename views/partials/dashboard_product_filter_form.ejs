@@ -1,25 +1,25 @@
 <!----------------------------- add product form ----------------------------->
 <div id="filter-form-overlay" class="overlay-div">
     <p>Filter Products</p>
-    <form method="get" action="/dashboard/products/filter" enctype="multipart/form-data">
+    <form method="get" action="/dashboard/products" enctype="multipart/form-data">
         <div class="product-form-checkbox-div">
             <div>
                 <label for="filter-men-checkbox">
-                    <input id="filter-men-checkbox" class="filter-form-checkbox" required name="men" type="checkbox">
+                    <input id="filter-men-checkbox" class="product-form-checkbox" required name="men" type="checkbox">
                     <span></span>
                     Men
                 </label>
             </div>
             <div>
                 <label for="filter-women-checkbox">
-                    <input id="filter-women-checkbox" class="filter-form-checkbox" required name="women" type="checkbox">
+                    <input id="filter-women-checkbox" class="product-form-checkbox" required name="women" type="checkbox">
                     <span></span>
                     Women
                 </label>
             </div>
             <div>
                 <label for="filter-kids-checkbox">
-                    <input id="filter-kids-checkbox" class="filter-form-checkbox" required name="kids" type="checkbox">
+                    <input id="filter-kids-checkbox" class="product-form-checkbox" required name="kids" type="checkbox">
                     <span></span>
                     Kids
                 </label>
@@ -29,14 +29,14 @@
         <div class="product-form-checkbox-div">
             <div>
                 <label for="filter-shoes-checkbox">
-                    <input id="filter-shoes-checkbox" class="filter-form-checkbox" checked required name="shoes" type="checkbox">
+                    <input id="filter-shoes-checkbox" class="product-form-checkbox" checked required name="shoes" type="checkbox">
                     <span></span>
                     Shoes
                 </label>
             </div>
             <div>
                 <label for="filter-bags-checkbox">
-                    <input id="filter-bags-checkbox" class="filter-form-checkbox" checked required name="bags" type="checkbox">
+                    <input id="filter-bags-checkbox" class="product-form-checkbox" checked required name="bags" type="checkbox">
                     <span></span>
                     Bag
                 </label>
@@ -44,7 +44,7 @@
         </div>
         
 
-        <a onclick = "submitForm(this)">
+        <a onclick = "submitFilterForm(this);">
             <span></span>
             <span></span>
             <span></span>
