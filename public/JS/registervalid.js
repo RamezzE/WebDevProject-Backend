@@ -54,7 +54,6 @@ class FormClass {
             else {
                 switch (fields[i].id) {
                     case "Password":
-                        console.log(fields[i].value.length);
                         if (fields[i].value.length < 8) {
                             error.innerHTML = fields[i].id + " must be more than 8 characters";
                             error.style.visibility = "visible";
