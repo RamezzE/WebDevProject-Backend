@@ -40,6 +40,7 @@ const login = async (req, res) => {
   else {
     try {
       user = await User.findOne({ email: email });
+      await bcrypt.compare(password, this.password);
       if (user.password !== password) errorMsg.password = "Incorrect password";
     } catch (err) {
       console.log(err);
