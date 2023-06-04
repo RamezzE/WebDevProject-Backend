@@ -1,13 +1,37 @@
-const options = {
-    bottom: '32px', // default: '32px'
-    right: 'unset', // default: '32px'
-    left: '32px', // default: 'unset'
-    time: '0.5s', // default: '0.3s'
-    mixColor: '#fff', // default: '#fff'
-    backgroundColor: '#fff',  // default: '#fff'
-    buttonColorDark: '#100f2c',  // default: '#100f2c'
-    buttonColorLight: '#fff', // default: '#fff'
-    saveInCookies: false, // default: true,
-    label: '🌓', // default: ''
-    autoMatchOsTheme: true // default: true
-  }
+
+
+src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+    
+
+    
+//    function toogledark(bool){
+//if (bool){
+  //  $( ".change" ).on("click", function(bool) {
+    //    if( bool==true) {
+      //      bool=false;
+ //       } else if (bool==false){
+   //     bool=true;
+//        }
+ //   });
+   //if (bool){
+     //   $( "body" ).removeClass( "dark" );
+       //   $( ".change" ).text( "🌙" );
+         //   } 
+     //    else $( "body" ).addClass( "dark" );
+       //   $( ".change" ).text( "☀️" );
+//}
+//}
+
+
+
+
+$( ".change" ).on("click", function() {
+    if( $( "body" ).hasClass( "dark" )) {
+        $( "body" ).removeClass( "dark" );
+      $( ".change" ).text( "🌙" );
+    } else {
+        $( "body" ).addClass( "dark" );
+     $( ".change" ).text( "☀️" );
+    }
+});
