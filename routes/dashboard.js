@@ -38,6 +38,8 @@ router.get('/products', DashboardController.searchProducts);
 
 router.post('/products/addProduct', DashboardController.addProduct);
 
+router.post('/products/editProduct', DashboardController.editProduct);
+
 router.post('/products/delete', DashboardController.deleteProduct);
 
 export default router;

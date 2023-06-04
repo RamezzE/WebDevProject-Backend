@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import User from "../models/user.js";
 import Product from "../models/product.js";
 import path from "path";
@@ -6,6 +7,8 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
+import ProductController from '../controllers/Products.controller.js'
+import { error } from "console";
 
 dotenv.config({ path: "./.env" });
 
@@ -78,22 +81,22 @@ const addProduct = async (req, res) => {
     productPrice,
     productDescription,
     productStock,
+    images,
     productMen,
     productWomen,
     productKids,
     shoes,
     bags,
   } = req.body;
-  if (!req.files || Object.keys(req.files).length === 0)
-    return res.status(400).send("No files were uploaded.");
-  const images = req.files.images;
-  let imagesNo = req.files.images.length;
+  console.log(req.body);
 
-  let errorMsg = {};
+  let errorMsg = {"productName": "", "productPrice": "", "productDescription": "", "productStock": "", "images": ""};
 
   //validate data
-  if (productName.trim() == "")
+  if (productName.trim() == "") {
     errorMsg.productName = "Product name is required";
+    console.log("Name error");
+  }
   else {
     const existingProduct = await Product.findOne({ productName });
     if (existingProduct) {
@@ -110,18 +113,28 @@ const addProduct = async (req, res) => {
   if (productStock.trim() == "")
     errorMsg.productStock = "Product stock is required";
 
-  if (req.files.images.length == 0)
-    errorMsg.image = "Product image is required";
-  else if (req.files.images.length > IMAGE_LIMIT)
-    errorMsg.image =
-      "You can only upload a maximum of " + IMAGE_LIMIT + " images";
+  if (!req.files || Object.keys(req.files).length === 0) {
+    errorMsg.images = "Product image is required";
+    console.log("No files");
+  }
+  else if (req.files.images.length > IMAGE_LIMIT) {
+    errorMsg.images = "You can only upload a maximum of " + IMAGE_LIMIT + " images";
+    console.log("Too many files");
+  }
 
   if (Object.keys(errorMsg).length > 0) {
     for (let key in errorMsg) {
       console.log(errorMsg[key]);
     }
-    //need to add errorMsg later
+    //need to add errorMsg without ajax later
+   if (req.query.ajax) {
+    console.log("Returning json using ajax");
+    return res.json({ errorMsg });
+   }
+   else {
     return res.redirect("/dashboard/products?page=0");
+   }
+    // return res.render("products", { errorMsg: errorMsg, admin: true });
   }
 
   //alternative to above
@@ -211,6 +224,38 @@ function filterProducts(req) {
 
   return filters;
 }
+
+const editProduct = async (req, res) => {
+  const { productID } = req.body;
+  errorMsg = {productID: ""};
+  let fetchedFields = {productName: "", productPrice: "", productDescription: "", productStock: ""};
+
+  try {
+    if (!productID || !mongoose.Types.ObjectId.isValid(productID)) {
+      // Handle invalid productID (e.g., return an error response)
+      errorMsg.productID = "Invalid productID";
+      return res.status(400).json({ errorMsg });
+    }
+    const product = await Product.findOne({ _id: productID });
+    if (!product) {
+      console.log("Product ID not found");
+      errorMsg.productID = "Product ID not found" ;
+      if (req.query.ajax) return res.json({ errorMsg });
+      return res.redirect("/dashboard/products?page=0");
+    }
+    fetchedFields.productName = product.name;
+    fetchedFields.productPrice = product.price;
+    fetchedFields.productDescription = product.description;
+    fetchedFields.productStock = product.stock;
+    console.log(fetchedFields);
+    return res.json({ fetchedFields });
+  }
+  catch (error) {
+    console.error("Error editing product:", error);
+    if (req.query.ajax) return res.json({ error: "Product ID not found" });
+    return res.redirect("/dashboard/products?page=0");
+  }
+};
 
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
@@ -450,6 +495,7 @@ const searchUsers = async (req, res) => {
 
 export default {
   addProduct,
+  editProduct,
   deleteProduct,
   deleteUser,
   makeAdmin,

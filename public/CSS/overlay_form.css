@@ -286,7 +286,7 @@
   }	
 }
 
-#product-form-textarea {
+.product-form-textarea {
   resize: none;
   padding: 4px;
 }

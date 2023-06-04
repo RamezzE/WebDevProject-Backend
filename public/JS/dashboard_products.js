@@ -4,9 +4,23 @@ let deleteForm = document.querySelector("#delete-product-overlay");
 let currentPage = urlParams.get("page") || 0;
 let currentFilters = "";
 
+let addForm = document.getElementById("addProductForm");
+
+let editForm = document.getElementById("editProductForm");
+
 deleteForm.addEventListener("submit", function (e) {
   e.preventDefault();
   submitDeleteProductForm(deleteForm.querySelector("a"));
+});
+
+addForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitAddProductForm(addForm.querySelector("a"));
+});
+
+editForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  submitEditProductForm(editForm.querySelector("a"));
 });
 
 function submitDeleteProductForm(field) {
@@ -20,6 +34,22 @@ function submitDeleteProductForm(field) {
 
   //timeout to allow the overlay to close
   setTimeout(ajaxDeleteProduct(form, formURL), 250);
+}
+
+function submitEditProductForm(field) {
+  let form = field.parentNode;
+  let formURL = "/dashboard/products/editProduct?ajax=true";
+
+  // Timeout to allow the overlay to close
+  setTimeout(ajaxEditProduct(form, formURL), 250);
+}
+
+function submitAddProductForm(field) {
+  let form = field.parentNode;
+  let formURL = "/dashboard/products/addProduct?ajax=true";
+
+  // Timeout to allow the overlay to close
+  setTimeout(ajaxAddProduct(form, formURL), 250);
 }
 
 function ajaxDeleteProduct(form, URL) {
@@ -49,6 +79,93 @@ function ajaxDeleteProduct(form, URL) {
     error: function (err) {
       console.log(err);
     },
+  });
+}
+
+function ajaxAddProduct(form, URL) {
+  console.log("In ajaxAddProduct function");
+  console.log("form: ", form);
+  // const formData = $(form).serialize();
+  const formData = new FormData();
+
+  // Append text-based form fields
+  $(form).find('input[type="text"], textarea').each(function() {
+    formData.append($(this).attr('name'), $(this).val());
+  });
+  
+  // Append file input fields
+  const fileInputs = $(form).find('input[type="file"]');
+  fileInputs.each(function() {
+    const files = $(this)[0].files;
+    const fieldName = $(this).attr('name');
+    
+    for (let i = 0; i < files.length; i++) {
+      formData.append(fieldName, files[i]);
+    }
+  });
+
+  console.log("formData: ", formData);
+  console.log(formData.keys());
+  formData.forEach((value, key) => {
+    console.log(key, value);
+  });
+  console.log(formData.has('images'));
+
+
+  $.ajax({
+    url: URL,
+    method: "POST",
+    data: formData,
+    enctype: 'multipart/form-data',
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      if (Object.keys(response.errorMsg).length === 0) {
+        setTimeout(function () {
+          location.reload();
+        }, 2000);
+      } else {
+        $("#productNameError").html(response.errorMsg.productName);
+        $("#productPriceError").html(response.errorMsg.productPrice);
+        $("#productDescriptionError").html(response.errorMsg.productDescription);
+        $("#productStockError").html(response.errorMsg.productStock);
+        $("#productImageError").html(response.errorMsg.images);
+      }
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+}
+
+function ajaxEditProduct(form, URL) {
+  console.log("In ajaxEditProduct function");
+
+  const formData = $(form).serialize();
+
+  $.ajax({
+    url: URL,
+    method: "POST",
+    data: formData,
+    success: function (response) {
+      if (!response.errorMsg) {
+        console.log("Fetched fields: ", response.fetchedFields);
+        $("label").css('top', '-30px');
+        $("input").prop('disabled', false);
+        $("#productName").attr('placeholder', response.fetchedFields.productName);
+        $("#productPrice").attr('placeholder', response.fetchedFields.productPrice);
+        $("#productDescription").attr('placeholder', response.fetchedFields.productDescription);
+        $("#productStock").attr('placeholder', response.fetchedFields.productStock);
+      }
+      else {
+        console.log("In ajax returned error");
+        console.log(response.errorMsg.productID);
+        $("#productIDError").html(response.errorMsg.productID);
+      }
+    },
+    error: function (err) {
+      console.log(err);
+    }
   });
 }
 

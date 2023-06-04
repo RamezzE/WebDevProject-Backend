@@ -1,44 +1,56 @@
-<div id="product-form-overlay" class="overlay-div">
-    <p>Add Product</p>
-    <form id="addProductForm" method="post" action="/dashboard/products/addProduct" enctype="multipart/form-data">
+<div id="edit-product-overlay" class="overlay-div">
+    <p>Enter ID to start editing</p>
+    <form id="editProductForm" method="post" action="/dashboard/products/editProduct" enctype="multipart/form-data">
+		<div class="form-item-div">
+            <input class="product-line-input" required name="productID" type="text">
+            <label>Product ID</label>
+            <span class="errorMsg" id="productIDError"><%= errorMsg && errorMsg.productID ? errorMsg.productID : '' %></span>
+        </div>
+
         <div class="form-item-div">
-            <input class="product-line-input" required name="productName" type="text">
+            <input id="productName" disabled class="product-line-input" required name="productName" type="text">
             <label>Product Name</label>
             <span class="errorMsg" id="productNameError"><%= errorMsg && errorMsg.productName ? errorMsg.productName : '' %></span>
         </div>
+
         <div class="form-item-div">
-            <input class="product-line-input" required name="productPrice" type="text">
+            <input id="productPrice" disabled class="product-line-input" required name="productPrice" type="text">
             <label>Product Price</label>
             <span class="errorMsg" id="productPriceError"><%= errorMsg && errorMsg.productPrice ? errorMsg.productPrice : '' %></span>
         </div>
+
         <div class="form-item-div">
-            <textarea class="product-line-input product-form-textarea" name="productDescription" cols="40" rows="2" required></textarea>
+            <textarea id="productDescription" disabled class="product-line-input product-form-textarea" name="productDescription" cols="40" rows="2" required></textarea>
             <label id="product-description-label">Product Description</label>
             <span class="errorMsg" id="productDescriptionError"><%= errorMsg && errorMsg.productDescription ? errorMsg.productDescription : '' %></span>
         </div>
+
         <div class="form-item-div">
-            <input class="product-line-input" required name="productStock" type="text">
+            <input id="productStock" disabled class="product-line-input" required name="productStock" type="text">
             <span class="errorMsg" id="productStockError"><%= errorMsg && errorMsg.productStock ? errorMsg.productStock : '' %></span>
             <label>Stock</label>
         </div>
+
         <div class="product-form-checkbox-div">
             <div>
                 <label for="product-men-checkbox">
-                    <input id="product-men-checkbox" class="product-form-checkbox" required name="productMen" type="checkbox">
+                    <input disabled id="product-men-checkbox" class="product-form-checkbox" required name="productMen" type="checkbox">
                     <span></span>
                     Men
                 </label>
             </div>
+
             <div>
                 <label for="product-women-checkbox">
-                    <input id="product-women-checkbox" class="product-form-checkbox" required name="productWomen" type="checkbox">
+                    <input disabled id="product-women-checkbox" class="product-form-checkbox" required name="productWomen" type="checkbox">
                     <span></span>
                     Women
                 </label>
             </div>
+
             <div>
                 <label for="product-kids-checkbox">
-                    <input id="product-kids-checkbox" class="product-form-checkbox" required name="productKids" type="checkbox">
+                    <input disabled id="product-kids-checkbox" class="product-form-checkbox" required name="productKids" type="checkbox">
                     <span></span>
                     Kids
                 </label>
@@ -48,14 +60,15 @@
         <div class="product-form-checkbox-div">
             <div>
                 <label for="product-shoes-checkbox">
-                    <input id="product-shoes-checkbox" class="product-form-checkbox" required name="shoes" type="checkbox">
+                    <input disabled id="product-shoes-checkbox" class="product-form-checkbox" required name="shoes" type="checkbox">
                     <span></span>
                     Shoes
                 </label>
             </div>
+
             <div>
                 <label for="product-bags-checkbox">
-                    <input id="product-bags-checkbox" class="product-form-checkbox" required name="bags" type="checkbox">
+                    <input disabled id="product-bags-checkbox" class="product-form-checkbox" required name="bags" type="checkbox">
                     <span></span>
                     Bag
                 </label>
@@ -63,17 +76,17 @@
         </div>
 
         <div class="form-item-div">
-            <input name="images" class="product-line-input" id="product-upload-input" type="file" accept=".webp, .png, .jpeg, .jpg" multiple required>
+            <input disabled name="images" class="product-line-input" id="product-upload-input" type="file" accept=".webp, .png, .jpeg, .jpg" multiple required>
             <span class="errorMsg" id="productImageError"><%= errorMsg && errorMsg.image ? errorMsg.image : '' %></span>
         </div>
         
 
-        <a onclick="submitAddProductForm(this)">
+        <a onclick="submitEditProductForm(this)">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            Add
+            Save
         </a>
     </form>
     <p>Changed your mind? <a onclick="HideOverlay()"
