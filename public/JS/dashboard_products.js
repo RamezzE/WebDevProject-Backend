@@ -82,35 +82,64 @@ function ajaxDeleteProduct(form, URL) {
   });
 }
 
-function ajaxAddProduct(form, URL) {
-  console.log("In ajaxAddProduct function");
-  console.log("form: ", form);
-  // const formData = $(form).serialize();
+function fileUpload() {
   const formData = new FormData();
 
   // Append text-based form fields
-  $(form).find('input[type="text"], textarea').each(function() {
+  $(form).find('input[type="text"], textarea','input[type="checkbox"]').each(function () {
     formData.append($(this).attr('name'), $(this).val());
   });
+
   
-  // Append file input fields
-  const fileInputs = $(form).find('input[type="file"]');
-  fileInputs.each(function() {
-    const files = $(this)[0].files;
-    const fieldName = $(this).attr('name');
-    
-    for (let i = 0; i < files.length; i++) {
-      formData.append(fieldName, files[i]);
-    }
-  });
 
   console.log("formData: ", formData);
   console.log(formData.keys());
   formData.forEach((value, key) => {
     console.log(key, value);
   });
-  console.log(formData.has('images'));
 
+
+
+  // Append file input fields
+  const fileInputs = $(form).find('input[type="file"]');
+  let boolReturn = false;
+  fileInputs.each(function () {
+    const files = $(this)[0].files;
+    const fieldName = $(this).attr('name');
+
+    if (files.length != 3) {
+      console.log("SDSDS")
+      $("#productImageError").html("Please upload 3 images");
+      boolReturn = true;
+      return;
+    }
+    // for (let i = 0; i < files.length; i++) {
+    // formData.append(fieldName, files[i]);
+    formData.append('images', document.querySelector('#product-upload-input').files);
+    console.log(files)
+    // formData.append('images', document.querySelector('#product-upload-input').files[1]);
+    // formData.append('images', document.querySelector('#product-upload-input').files[2]);
+    // }
+  });
+  
+
+  if (boolReturn)
+    return;
+
+  console.log(formData.has('images'));
+}
+
+function ajaxAddProduct(form, URL) {
+  console.log("In ajaxAddProduct function");
+  console.log("form: ", form);
+
+  const msg = document.querySelectorAll("#product-form-overlay .errorMsg");
+  for (let i = 0; i < msg.length; i++) {
+    msg[i].innerHTML = "";
+  }
+
+  const formData = $(form).serialize();
+  console.log(formData);
 
   $.ajax({
     url: URL,
@@ -138,10 +167,33 @@ function ajaxAddProduct(form, URL) {
   });
 }
 
+function toggleDivs(bool) {
+  let toggle = "";
+  if (bool)
+    toggle = "flex";
+  else
+    toggle = "none";
+  let divs = document.querySelectorAll("#edit-product-overlay .form-item-div");
+
+  for (let i = 1; i < divs.length; i++) {
+    divs[i].style.display = toggle;
+  }
+
+  let checkboxDiv = document.querySelectorAll("#edit-product-overlay .product-form-checkbox-div");
+  for (let i = 0; i < checkboxDiv.length; i++) {
+    checkboxDiv[i].style.display = toggle;
+  }
+}
+
 function ajaxEditProduct(form, URL) {
   console.log("In ajaxEditProduct function");
 
   const formData = $(form).serialize();
+
+  const msg = document.querySelectorAll("#edit-product-overlay .errorMsg");
+  for (let i = 0; i < msg.length; i++) {
+    msg[i].innerHTML = "";
+  }
 
   $.ajax({
     url: URL,
@@ -150,12 +202,14 @@ function ajaxEditProduct(form, URL) {
     success: function (response) {
       if (!response.errorMsg) {
         console.log("Fetched fields: ", response.fetchedFields);
-        $("label").css('top', '-30px');
+        $("#edit-product-overlay .form-item-div label").css('top', '-30px');
         $("input").prop('disabled', false);
-        $("#productName").attr('placeholder', response.fetchedFields.productName);
-        $("#productPrice").attr('placeholder', response.fetchedFields.productPrice);
-        $("#productDescription").attr('placeholder', response.fetchedFields.productDescription);
-        $("#productStock").attr('placeholder', response.fetchedFields.productStock);
+        $("textarea").prop('disabled', false);
+        $("#productName").attr('value', response.fetchedFields.productName);
+        $("#productPrice").attr('value', response.fetchedFields.productPrice);
+        $("#productDescription").html(response.fetchedFields.productDescription);
+        $("#productStock").attr('value', response.fetchedFields.productStock);
+        toggleDivs(true);
       }
       else {
         console.log("In ajax returned error");
@@ -164,6 +218,7 @@ function ajaxEditProduct(form, URL) {
       }
     },
     error: function (err) {
+      msg[0].innerHTML = "Invalid product ID";
       console.log(err);
     }
   });
@@ -265,7 +320,7 @@ function ajaxProducts(URL) {
       let pagination = $(".pagination");
       pagination.empty();
 
-      if (response.totalPages == 1) 
+      if (response.totalPages == 1)
         return;
 
       for (let i = 0; i < response.totalPages; i++) {
@@ -286,6 +341,8 @@ function ajaxProducts(URL) {
 }
 
 $(document).ready(function () {
+  toggleDivs(false);
+
   updateCheckBoxes();
   // submitFilterForm(document.querySelector("#filter-form-overlay a", currentPage));
   currentFilters = "";
@@ -337,7 +394,7 @@ function changePage(pageNum) {
 
   //if page num is same as current page, do nothing
   if (pageNum == currentPage) return;
-  
+
   let newURL = "/dashboard/products?" + "page=" + pageNum;
 
   currentPage = pageNum;

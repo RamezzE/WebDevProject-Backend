@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
+import multer from "multer";
 import ProductController from '../controllers/Products.controller.js'
 import { error } from "console";
 
@@ -74,7 +75,7 @@ let errorMsg = {};
 
 const addProduct = async (req, res) => {
   console.log("Adding product");
-
+  
   //get data from form
   const {
     productName,
@@ -90,6 +91,7 @@ const addProduct = async (req, res) => {
   } = req.body;
   console.log(req.body);
 
+  console.log(req.files)
   let errorMsg = {"productName": "", "productPrice": "", "productDescription": "", "productStock": "", "images": ""};
 
   //validate data
@@ -113,11 +115,13 @@ const addProduct = async (req, res) => {
   if (productStock.trim() == "")
     errorMsg.productStock = "Product stock is required";
 
+  let imgNames = [];
+
   if (!req.files || Object.keys(req.files).length === 0) {
     errorMsg.images = "Product image is required";
     console.log("No files");
   }
-  else if (req.files.images.length > IMAGE_LIMIT) {
+  else if (req.files.length > IMAGE_LIMIT) {
     errorMsg.images = "You can only upload a maximum of " + IMAGE_LIMIT + " images";
     console.log("Too many files");
   }
@@ -137,17 +141,20 @@ const addProduct = async (req, res) => {
     // return res.render("products", { errorMsg: errorMsg, admin: true });
   }
 
-  //alternative to above
-  if (imagesNo > IMAGE_LIMIT) imagesNo = IMAGE_LIMIT;
-
   console.log(images);
 
-  let imgNames = [];
-
-  for (let i = 0; i < imagesNo; i++) {
-    imgNames[i] = productName + i + ".png";
-    console.log(imgNames[i]);
+  for (let i = 0; i < req.files.length; i++) {
     let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
+    imgNames[i] = productName + i + ".png";
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, uploadPath); // Specify the destination folder to store the uploaded files
+      },
+      filename: function (req, file, cb) {
+        cb(null, imgNames[i]);
+      },
+    });
+    console.log(imgNames[i]);
 
     images[i].mv(uploadPath, function (err) {
       if (err) return res.status(500).send(err);
@@ -251,8 +258,9 @@ const editProduct = async (req, res) => {
     return res.json({ fetchedFields });
   }
   catch (error) {
+    errorMsg.productID = "Product ID not found" ;
     console.error("Error editing product:", error);
-    if (req.query.ajax) return res.json({ error: "Product ID not found" });
+    if (req.query.ajax) return res.json({ errorMsg });
     return res.redirect("/dashboard/products?page=0");
   }
 };
