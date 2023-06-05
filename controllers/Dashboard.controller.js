@@ -549,12 +549,11 @@ const getProducts = async (req, res, next) => {
 const searchProducts = async (req, res) => {
   const page = parseInt(req.query.page) || 0;
   let hitsPerPage = parseInt(req.query.hitsPerPage) || 5;
-  let query, searchResults, totalPages;
+  let query = req.query.query || "";
+  let searchResults, totalPages;
 
   let filters = filterProducts(req);
   try {
-    query = req.query.query; // Get the search query from the request query parameters
-
     // Make Algolia API search request and get the search results
 
     const search_params = {
@@ -603,11 +602,10 @@ const searchProducts = async (req, res) => {
 const searchUsers = async (req, res) => {
   const page = parseInt(req.query.page) || 0;
   let hitsPerPage = parseInt(req.query.hitsPerPage) || 5;
-  let query, searchResults, totalPages;
+  let query = req.query.query || "";
+  let searchResults, totalPages;
 
   try {
-    query = req.query.query; // Get the search query from the request query parameters
-
     // Make Algolia API search request and get the search results
 
     const search_params = {
@@ -615,6 +613,7 @@ const searchUsers = async (req, res) => {
       page: page,
       hitsPerPage: hitsPerPage,
     };
+
     //sort by CreatedAt
     searchResults = await usersIndex.search("", search_params);
     searchResults.hits.sort((a, b) => a.createdAt - b.createdAt); // sort in ascending order of createdAt

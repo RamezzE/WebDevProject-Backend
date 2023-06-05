@@ -3,6 +3,7 @@ let urlParams = new URLSearchParams(window.location.search);
 let deleteForm = document.querySelector("#delete-product-overlay");
 let currentPage = urlParams.get("page") || 0;
 let currentFilters = "";
+let searchQuery = urlParams.get("query") || "";
 
 let addForm = document.getElementById("addProductForm");
 
@@ -22,6 +23,14 @@ editForm.addEventListener("submit", function (e) {
   e.preventDefault();
   submitEditProductForm(editForm.querySelector("a"));
 });
+
+const searchBox = document.getElementsByClassName('search-box')[0];
+
+searchBox.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) 
+    searchProducts();
+});
+
 
 function submitDeleteProductForm(field) {
   let form = field.parentNode;
@@ -82,6 +91,23 @@ function ajaxDeleteProduct(form, URL) {
       console.log(err);
     },
   });
+}
+
+function searchProducts() {
+  let form = document.createElement("form");
+  form.action = "/dashboard/products";
+  form.method = "GET";
+  let input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "query";
+
+  let searchSpan = document.querySelector(".searchSpan");
+  input.value = searchSpan.querySelector("input").value;
+
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
 }
 
 function ajaxAddProduct(form, URL) {
@@ -281,9 +307,8 @@ function submitFilterForm(field, page = 0) {
   currentFilters = "";
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
-    if (filter.checked) {
+    if (filter.checked)
       currentFilters += `&${filter.name}=${filter.value}`;
-    }
   });
   console.log(currentFilters);
 
@@ -368,7 +393,7 @@ function ajaxProducts(URL) {
           .attr("onclick", "changePage(" + i + ")")
           .append(
             $("<a>")
-              .attr("href", "")
+              .attr("href", "#")
               .text(i + 1)
           );
         pagination.append(pageLink);
@@ -396,6 +421,9 @@ $(document).ready(function () {
 
   let pageDivs = $(".pagination div");
   pageDivs[currentPage].classList.add("currentPage");
+
+  if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
   
 });
 
@@ -472,14 +500,15 @@ function changePage(pageNum) {
 
   //if page num is same as current page, do nothing
   if (pageNum == currentPage) return;
-
+  
   let newURL = "/dashboard/products?" + "page=" + pageNum;
 
   currentPage = pageNum;
+  
+  newURL += "&query=" + searchQuery;
   newURL += currentFilters;
   console.log(newURL);
 
   window.location.href = newURL;
-  window.history.pushState({}, "", newURL);
   // ajaxProducts(newURL);
 }
