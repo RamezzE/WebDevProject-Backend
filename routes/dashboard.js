@@ -12,12 +12,12 @@ const usersCollection = database.collection('users');
 const productsCollection = database.collection('products');
 const ascendingOrder = { price: 1 };
 
-router.use((req, res, next) => {
-  if (req.session.userType != 'admin')
-    res.redirect('/');
-  else
-    next();
-});
+// router.use((req, res, next) => {
+//   if (req.session.userType != 'admin')
+//     res.redirect('/');
+//   else
+//     next();
+// });
 
 router.get('/', async (req, res, next) => {
   console.log(req.session.firstName); // debugging purposes
