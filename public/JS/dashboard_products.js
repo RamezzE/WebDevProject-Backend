@@ -384,16 +384,19 @@ $(document).ready(function () {
   toggleDivs(false);
 
   updateCheckBoxes();
-  // submitFilterForm(document.querySelector("#filter-form-overlay a", currentPage));
+
   currentFilters = "";
   let form = document.querySelector("#filter-form-overlay a").parentNode;
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
-    if (filter.checked) {
+    if (filter.checked)
       currentFilters += `&${filter.name}=${filter.value}`;
-    }
   });
   console.log(currentFilters);
+
+  let pageDivs = $(".pagination div");
+  pageDivs[currentPage].classList.add("currentPage");
+  
 });
 
 function toggleShoes() {

@@ -157,6 +157,10 @@ $(document).ready(function () {
     document.getElementsByClassName("searchBox")[0].value = searchQuery;
     // toggleSearchBar(true);
   }
+
+  let pageDivs = $(".pagination div");
+  pageDivs[currentPage].classList.add("currentPage");
+  
   console.log(currentFilters);
 });
 

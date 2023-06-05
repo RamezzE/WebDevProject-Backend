@@ -60,10 +60,13 @@
     transition: ease all 300ms;
 }
 
-.pagination div.active {
+.pagination .currentPage {
     background-color: rgb(51, 55, 57);
-    color:rgb(182, 187, 191);
     box-shadow: none;
+}
+
+.pagination .currentPage a {
+    color:rgb(182, 187, 191);
 }
 
 /* #products table .imgHeader, #products table .imgCell {

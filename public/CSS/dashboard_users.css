@@ -58,6 +58,16 @@
     box-shadow: none;
 }
 
+.pagination .currentPage {
+    background-color: rgb(51, 55, 57);
+    box-shadow: none;
+}
+
+.pagination .currentPage a {
+    color:rgb(182, 187, 191);
+}
+
+
 @media (max-width: 600px) {
 
     th,td {

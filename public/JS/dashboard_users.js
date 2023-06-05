@@ -1,5 +1,5 @@
 let urlParams = new URLSearchParams(window.location.search);
-
+let currentPage = urlParams.get("page") || 0;
 //add listener for form submit
 
 let adminForm = document.querySelector("#admin-form-overlay");
@@ -193,41 +193,10 @@ function ajaxUsers(URL) {
   });
 }
 
-// $(document).ready(function () {
-//   updateCheckBoxes();
-// });
-
-// function updateCheckBoxes() {
-//   // Get the URL parameters
-//   let urlParams = new URLSearchParams(window.location.search);
-
-//   let form = document.querySelector("#filter-form-overlay a").parentNode;
-
-//   let checkboxes = form.querySelectorAll("input[type='checkbox']");
-
-//   let count = 0;
-
-//   checkboxes.forEach(function (checkbox) {
-//     let checkboxName = checkbox.name;
-
-//     // Check if the checkbox name exists as a URL parameter
-//     if (urlParams.has(checkboxName)) {
-//       var checkboxValue = urlParams.get(checkboxName);
-
-//       if (checkboxValue === "on") checkbox.checked = true;
-//       else checkbox.checked = false;
-//     } else {
-//       checkbox.checked = false;
-//       count++;
-//     }
-//   });
-
-//   if (count == checkboxes.length) {
-//     checkboxes.forEach(function (checkbox) {
-//       checkbox.checked = true;
-//     });
-//   }
-// }
+$(document).ready(function () {
+  let pageDivs = $(".pagination div");
+  pageDivs[currentPage].classList.add("currentPage");
+});
 
 function changePage(pageNum) {
   if (pageNum < 0) return;
@@ -239,20 +208,6 @@ function changePage(pageNum) {
   let newURL;
   if (!urlParams.get("page")) newURL += `&page=${pageNum}`;
   else newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
-
-  //   let form = document.querySelector("#filter-form-overlay a").parentNode;
-
-  //   let filters = form.querySelectorAll("input");
-  //   filters.forEach((filter) => {
-  //     if (filter.checked) {
-  //       if (window.location.search.includes(filter.name))
-  //         newURL = newURL.replace(
-  //           new RegExp(`${filter.name}=[^&]+`),
-  //           `${filter.name}=${filter.value}`
-  //         );
-  //       else newURL += `&${filter.name}=${filter.value}`;
-  //     }
-  //   });
 
   window.location.href = newURL;
 }
