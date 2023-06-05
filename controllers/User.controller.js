@@ -3,6 +3,7 @@ import User from "../models/user.js";
 import { ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 import algoliasearch from "algoliasearch";
+import bcrypt from 'bcrypt';
 dotenv.config({ path: './.env' })
 
 const Algoliaclient = algoliasearch(
@@ -41,7 +42,7 @@ const login = async (req, res) => {
     try {
       user = await User.findOne({ email: email });
     
-      if (user.password !== password) errorMsg.password = "Incorrect password";
+      if (!bcrypt.compareSync(password, user.password)) errorMsg.password = "Incorrect password"; 
     } catch (err) {
       console.log(err);
     }
@@ -131,7 +132,7 @@ const register = async (req, res) => {
     firstName: firstName,
     lastName: lastName,
     email: email,
-    password: password,
+    password: await bcrypt.hash(password, 10),
     userType: "user",
   });
 
