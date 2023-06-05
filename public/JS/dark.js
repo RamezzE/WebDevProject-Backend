@@ -40,6 +40,7 @@ $( ".change" ).on("click", function() {
   if( $( "body" ).hasClass( "dark" )) {
       $( "body" ).removeClass( "dark" );
       $(".row1").removeClass("navbar-dark");
+      $(".row1").css("color", "black")
     $( ".change" ).text( "🌙" );
   } else {
       $( "body" ).addClass( "dark" );
