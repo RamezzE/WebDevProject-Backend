@@ -52,7 +52,6 @@ function submitAddProductForm(field) {
   setTimeout(ajaxAddProduct(form, formURL), 250);
 
   // send img to server
-
 }
 
 function ajaxDeleteProduct(form, URL) {
@@ -85,26 +84,28 @@ function ajaxDeleteProduct(form, URL) {
   });
 }
 
-function fileUpload() {
-  
-}
+function fileUpload() {}
 
 function ajaxAddProduct(form, URL) {
   console.log("In ajaxAddProduct function");
   console.log("form: ", form);
 
   const msg = document.querySelectorAll("#product-form-overlay .errorMsg");
-  for (let i = 0; i < msg.length; i++)
+  for (let i = 0; i < msg.length; i++) 
     msg[i].innerHTML = "";
-  
-  const formData = $(form).serialize();
+
+  // var form1 = $("#addProductForm")[0]; // You need to use standard javascript object here
+  const formData = new FormData(form);
+  // const formData = $(form).serialize();
   console.log(formData);
 
   $.ajax({
     url: URL,
     method: "POST",
     data: formData,
-    enctype: 'multipart/form-data',
+    processData: false,
+    contentType: false,
+    enctype: "multipart/form-data",
     success: function (response) {
       if (Object.keys(response.errorMsg).length === 0) {
         setTimeout(function () {
@@ -113,7 +114,9 @@ function ajaxAddProduct(form, URL) {
       } else {
         $("#productNameError").html(response.errorMsg.productName);
         $("#productPriceError").html(response.errorMsg.productPrice);
-        $("#productDescriptionError").html(response.errorMsg.productDescription);
+        $("#productDescriptionError").html(
+          response.errorMsg.productDescription
+        );
         $("#productStockError").html(response.errorMsg.productStock);
         $("#productImageError").html(response.errorMsg.images);
       }
@@ -126,17 +129,15 @@ function ajaxAddProduct(form, URL) {
 
 function toggleDivs(bool) {
   let toggle = "";
-  if (bool)
-    toggle = "flex";
-  else
-    toggle = "none";
+  if (bool) toggle = "flex";
+  else toggle = "none";
   let divs = document.querySelectorAll("#edit-product-overlay .form-item-div");
 
-  for (let i = 1; i < divs.length; i++) 
-    divs[i].style.display = toggle;
-  
+  for (let i = 1; i < divs.length; i++) divs[i].style.display = toggle;
 
-  let checkboxDiv = document.querySelectorAll("#edit-product-overlay .product-form-checkbox-div");
+  let checkboxDiv = document.querySelectorAll(
+    "#edit-product-overlay .product-form-checkbox-div"
+  );
   for (let i = 0; i < checkboxDiv.length; i++) {
     checkboxDiv[i].style.display = toggle;
   }
@@ -165,20 +166,21 @@ function ajaxCheckProductID(form, URL) {
     success: function (response) {
       if (!response.errorMsg) {
         console.log("Fetched fields: ", response.fetchedFields);
-        $("#edit-product-overlay .form-item-div label").css('top', '-30px');
+        $("#edit-product-overlay .form-item-div label").css("top", "-30px");
         $("#edit-button").css('display', 'none');
         $("#save-button").css('display', 'inline-block');
         $("#cancel-form").css('display', 'none');
-        $("input").prop('disabled', false);
+        $("input").prop("disabled", false);
         // $("#productID").prop('disabled', true);
-        $("textarea").prop('disabled', false);
-        $("#productName").attr('value', response.fetchedFields.productName);
-        $("#productPrice").attr('value', response.fetchedFields.productPrice);
-        $("#productDescription").html(response.fetchedFields.productDescription);
-        $("#productStock").attr('value', response.fetchedFields.productStock);
+        $("textarea").prop("disabled", false);
+        $("#productName").attr("value", response.fetchedFields.productName);
+        $("#productPrice").attr("value", response.fetchedFields.productPrice);
+        $("#productDescription").html(
+          response.fetchedFields.productDescription
+        );
+        $("#productStock").attr("value", response.fetchedFields.productStock);
         toggleDivs(true);
-      }
-      else {
+      } else {
         console.log("In ajax returned error");
         console.log(response.errorMsg.productID);
         $("#productIDError").html(response.errorMsg.productID);
@@ -187,7 +189,7 @@ function ajaxCheckProductID(form, URL) {
     error: function (err) {
       msg[0].innerHTML = "Invalid product ID";
       console.log(err);
-    }
+    },
   });
 }
 
@@ -257,7 +259,6 @@ function submitFilterForm(field, page = 0) {
     }
   });
   console.log(currentFilters);
-
 
   newURL += currentFilters;
 
@@ -333,8 +334,7 @@ function ajaxProducts(URL) {
       let pagination = $(".pagination");
       pagination.empty();
 
-      if (response.totalPages == 1)
-        return;
+      if (response.totalPages == 1) return;
 
       for (let i = 0; i < response.totalPages; i++) {
         var pageLink = $("<div>")
@@ -367,7 +367,6 @@ $(document).ready(function () {
     }
   });
   console.log(currentFilters);
-
 });
 
 function updateCheckBoxes() {

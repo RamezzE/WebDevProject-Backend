@@ -2,22 +2,22 @@
     <p>Add Product</p>
     <form id="addProductForm" method="post" action="/dashboard/products/addProduct" enctype="multipart/form-data">
         <div class="form-item-div">
-            <input class="product-line-input" required name="productName" type="text" value="">
+            <input class="product-line-input" required name="productName" type="text">
             <label>Product Name</label>
             <span class="errorMsg" id="productNameError"><%= errorMsg && errorMsg.productName ? errorMsg.productName : '' %></span>
         </div>
         <div class="form-item-div">
-            <input class="product-line-input" required name="productPrice" type="text" value="h">
+            <input class="product-line-input" required name="productPrice" type="text">
             <label>Product Price</label>
             <span class="errorMsg" id="productPriceError"><%= errorMsg && errorMsg.productPrice ? errorMsg.productPrice : '' %></span>
         </div>
         <div class="form-item-div">
-            <textarea class="product-line-input product-form-textarea" name="productDescription" cols="40" rows="2" required> </textarea>
+            <textarea class="product-line-input product-form-textarea" name="productDescription" cols="40" rows="2" required></textarea>
             <label id="product-description-label">Product Description</label>
             <span class="errorMsg" id="productDescriptionError"><%= errorMsg && errorMsg.productDescription ? errorMsg.productDescription : '' %></span>
         </div>
         <div class="form-item-div">
-            <input class="product-line-input" required name="productStock" type="text" value="">
+            <input class="product-line-input" required name="productStock" type="text">
             <span class="errorMsg" id="productStockError"><%= errorMsg && errorMsg.productStock ? errorMsg.productStock : '' %></span>
             <label>Stock</label>
         </div>

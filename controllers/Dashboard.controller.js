@@ -81,7 +81,6 @@ const addProduct = async (req, res) => {
     productPrice,
     productDescription,
     productStock,
-    images,
     productMen,
     productWomen,
     productKids,
@@ -90,7 +89,8 @@ const addProduct = async (req, res) => {
   } = req.body;
   console.log(req.body);
 
-  console.log(req.files)
+  console.log("IMAGESSS:")
+  console.log(req.files.images);
   let errorMsg = {"productName": "", "productPrice": "", "productDescription": "", "productStock": "", "images": ""};
 
   //validate data
@@ -120,9 +120,11 @@ const addProduct = async (req, res) => {
     errorMsg.images = "Product image is required";
     console.log("No files");
   }
-  else if (req.files.length > IMAGE_LIMIT) {
-    errorMsg.images = "You can only upload a maximum of " + IMAGE_LIMIT + " images";
-    console.log("Too many files");
+  else if (req.files.images.length != IMAGE_LIMIT) {
+    errorMsg.images = "Please upload exactly " + IMAGE_LIMIT + " images";
+    console.log("Wrong number of files");
+    console.log(req.files.images.length);
+    console.log(req.files.length);
   }
 
   if (Object.keys(errorMsg).length > 0) {
@@ -139,8 +141,6 @@ const addProduct = async (req, res) => {
    }
     // return res.render("products", { errorMsg: errorMsg, admin: true });
   }
-
-  console.log(images);
 
   for (let i = 0; i < req.files.length; i++) {
     let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
@@ -195,6 +195,8 @@ const addProduct = async (req, res) => {
     images: product.images,
     createdAt: product.createdAt,
   });
+
+  console.log("Product saved to Algolia and MongoDB");
 
   return res.redirect("/dashboard/products?page=0");
 };
