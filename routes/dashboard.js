@@ -3,7 +3,7 @@ import { Router } from 'express';
 import DashboardController from '../controllers/Dashboard.controller.js'; 
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' })
-
+import multer from "multer";
 var router = Router();
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
