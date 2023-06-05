@@ -120,7 +120,7 @@ input[type="image"] {
 }
 
 .navbar-dark {
-    background-color: #222;
+    background-color: #222 !important;
     color: #e6e6e6
 }
 

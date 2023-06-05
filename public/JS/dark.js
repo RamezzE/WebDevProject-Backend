@@ -44,6 +44,8 @@ $( ".change" ).on("click", function() {
   } else {
       $( "body" ).addClass( "dark" );
       $(".row1").addClass("navbar-dark");
+      $(".row1").css("color", "white")
+
    $( ".change" ).text( "☀️" );
   }
 });
