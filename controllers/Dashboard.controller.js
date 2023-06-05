@@ -7,7 +7,6 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
-import multer from "multer";
 import ProductController from '../controllers/Products.controller.js'
 import { error } from "console";
 

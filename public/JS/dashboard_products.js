@@ -50,6 +50,9 @@ function submitAddProductForm(field) {
 
   // Timeout to allow the overlay to close
   setTimeout(ajaxAddProduct(form, formURL), 250);
+
+  // send img to server
+
 }
 
 function ajaxDeleteProduct(form, URL) {
@@ -83,50 +86,7 @@ function ajaxDeleteProduct(form, URL) {
 }
 
 function fileUpload() {
-  const formData = new FormData();
-
-  // Append text-based form fields
-  $(form).find('input[type="text"], textarea','input[type="checkbox"]').each(function () {
-    formData.append($(this).attr('name'), $(this).val());
-  });
-
   
-
-  console.log("formData: ", formData);
-  console.log(formData.keys());
-  formData.forEach((value, key) => {
-    console.log(key, value);
-  });
-
-
-
-  // Append file input fields
-  const fileInputs = $(form).find('input[type="file"]');
-  let boolReturn = false;
-  fileInputs.each(function () {
-    const files = $(this)[0].files;
-    const fieldName = $(this).attr('name');
-
-    if (files.length != 3) {
-      console.log("SDSDS")
-      $("#productImageError").html("Please upload 3 images");
-      boolReturn = true;
-      return;
-    }
-    // for (let i = 0; i < files.length; i++) {
-    // formData.append(fieldName, files[i]);
-    formData.append('images', document.querySelector('#product-upload-input').files);
-    console.log(files)
-    // formData.append('images', document.querySelector('#product-upload-input').files[1]);
-    // formData.append('images', document.querySelector('#product-upload-input').files[2]);
-    // }
-  });
-  
-
-  if (boolReturn)
-    return;
-
-  console.log(formData.has('images'));
 }
 
 function ajaxAddProduct(form, URL) {
@@ -134,10 +94,9 @@ function ajaxAddProduct(form, URL) {
   console.log("form: ", form);
 
   const msg = document.querySelectorAll("#product-form-overlay .errorMsg");
-  for (let i = 0; i < msg.length; i++) {
+  for (let i = 0; i < msg.length; i++)
     msg[i].innerHTML = "";
-  }
-
+  
   const formData = $(form).serialize();
   console.log(formData);
 
@@ -146,8 +105,6 @@ function ajaxAddProduct(form, URL) {
     method: "POST",
     data: formData,
     enctype: 'multipart/form-data',
-    processData: false,
-    contentType: false,
     success: function (response) {
       if (Object.keys(response.errorMsg).length === 0) {
         setTimeout(function () {
@@ -175,9 +132,9 @@ function toggleDivs(bool) {
     toggle = "none";
   let divs = document.querySelectorAll("#edit-product-overlay .form-item-div");
 
-  for (let i = 1; i < divs.length; i++) {
+  for (let i = 1; i < divs.length; i++) 
     divs[i].style.display = toggle;
-  }
+  
 
   let checkboxDiv = document.querySelectorAll("#edit-product-overlay .product-form-checkbox-div");
   for (let i = 0; i < checkboxDiv.length; i++) {
