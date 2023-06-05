@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
-import ProductController from '../controllers/Products.controller.js'
+import ProductController from "../controllers/Products.controller.js";
 import { error } from "console";
 
 dotenv.config({ path: "./.env" });
@@ -74,7 +74,7 @@ let errorMsg = {};
 
 const addProduct = async (req, res) => {
   console.log("Adding product");
-  
+
   //get data from form
   const {
     productName,
@@ -89,16 +89,19 @@ const addProduct = async (req, res) => {
   } = req.body;
   console.log(req.body);
 
-  console.log("IMAGESSS:")
-  console.log(req.files.images);
-  let errorMsg = {"productName": "", "productPrice": "", "productDescription": "", "productStock": "", "images": ""};
+  let errorMsg = {
+    productName: "",
+    productPrice: "",
+    productDescription: "",
+    productStock: "",
+    images: "",
+  };
 
   //validate data
   if (productName.trim() == "") {
     errorMsg.productName = "Product name is required";
     console.log("Name error");
-  }
-  else {
+  } else {
     const existingProduct = await Product.findOne({ productName });
     if (existingProduct) {
       errorMsg.productName = "Product already exists!";
@@ -119,12 +122,11 @@ const addProduct = async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     errorMsg.images = "Product image is required";
     console.log("No files");
-  }
-  else if (req.files.images.length != IMAGE_LIMIT) {
+  } else if (req.files.images.length != IMAGE_LIMIT) {
     errorMsg.images = "Please upload exactly " + IMAGE_LIMIT + " images";
     console.log("Wrong number of files");
     console.log(req.files.images.length);
-    console.log(req.files.length);
+    // console.log(req.files.length); //undefined
   }
 
   if (Object.keys(errorMsg).length > 0) {
@@ -132,29 +134,20 @@ const addProduct = async (req, res) => {
       console.log(errorMsg[key]);
     }
     //need to add errorMsg without ajax later
-   if (req.query.ajax) {
-    console.log("Returning json using ajax");
-    return res.json({ errorMsg });
-   }
-   else {
-    return res.redirect("/dashboard/products?page=0");
-   }
+    if (req.query.ajax) {
+      console.log("Returning json using ajax");
+      return res.json({ errorMsg });
+    } else {
+      return res.redirect("/dashboard/products?page=0");
+    }
     // return res.render("products", { errorMsg: errorMsg, admin: true });
   }
 
-  for (let i = 0; i < req.files.length; i++) {
-    let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
+  for (let i = 0; i < imagesNo; i++) {
     imgNames[i] = productName + i + ".png";
-    const storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, uploadPath); // Specify the destination folder to store the uploaded files
-      },
-      filename: function (req, file, cb) {
-        cb(null, imgNames[i]);
-      },
-    });
     console.log(imgNames[i]);
-
+    let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
+    
     images[i].mv(uploadPath, function (err) {
       if (err) return res.status(500).send(err);
     });
@@ -235,8 +228,13 @@ function filterProducts(req) {
 
 const checkProductID = async (req, res) => {
   const { productID } = req.body;
-  errorMsg = {productID: ""};
-  let fetchedFields = {productName: "", productPrice: "", productDescription: "", productStock: ""};
+  errorMsg = { productID: "" };
+  let fetchedFields = {
+    productName: "",
+    productPrice: "",
+    productDescription: "",
+    productStock: "",
+  };
 
   try {
     if (!productID || !mongoose.Types.ObjectId.isValid(productID)) {
@@ -248,7 +246,7 @@ const checkProductID = async (req, res) => {
     const product = await Product.findOne({ _id: productID });
     if (!product) {
       console.log("Product ID not found");
-      errorMsg.productID = "Product ID not found" ;
+      errorMsg.productID = "Product ID not found";
       if (req.query.ajax) return res.json({ errorMsg });
       return res.redirect("/dashboard/products?page=0");
     }
@@ -258,9 +256,8 @@ const checkProductID = async (req, res) => {
     fetchedFields.productStock = product.stock;
     console.log(fetchedFields);
     return res.json({ fetchedFields });
-  }
-  catch (error) {
-    errorMsg.productID = "Product ID not found" ;
+  } catch (error) {
+    errorMsg.productID = "Product ID not found";
     console.error("Error editing product:", error);
     if (req.query.ajax) return res.json({ errorMsg });
     return res.redirect("/dashboard/products?page=0");
@@ -268,14 +265,24 @@ const checkProductID = async (req, res) => {
 };
 
 const editProduct = async (req, res) => {
-  const { productID, productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, productShoes, productBags } = req.body;
+  const {
+    productID,
+    productName,
+    productPrice,
+    productDescription,
+    productStock,
+    productMen,
+    productWomen,
+    productKids,
+    productShoes,
+    productBags,
+  } = req.body;
   errorMsg = {};
 
   if (productName.trim() == "") {
     errorMsg.productName = "Product name is required";
     console.log("Name error");
-  }
-  else {
+  } else {
     const existingProduct = await Product.findOne({ productName });
     if (existingProduct) {
       errorMsg.productName = "Product already exists!";
@@ -295,8 +302,7 @@ const editProduct = async (req, res) => {
     if (req.query.ajax) {
       console.log("Returning json using ajax");
       return res.json({ errorMsg });
-    }
-    else {
+    } else {
       return res.redirect("/dashboard/products?page=0");
     }
   }
@@ -315,46 +321,40 @@ const editProduct = async (req, res) => {
 
   const product = await Product.findOne({ _id: productID });
   console.log(productID);
-  if (!product ) {
+  if (!product) {
     if (req.query.ajax) return res.json({ error: "Product ID not found" });
     return res.redirect("/dashboard/products?page=0");
   }
 
   product.name = productName;
-  product.price = productPrice,
-  product.description = productDescription,
-  product.stock = productStock,
-  product.tags = tags,
-
-  
-
-  await product.save ({
-    _id: productID,
-    name: product.name,
-    price: product.price,
-    description: product.description,
-    stock: product.stock,
-    tags: product.tags,
-  });
+  (product.price = productPrice),
+    (product.description = productDescription),
+    (product.stock = productStock),
+    (product.tags = tags),
+    await product.save({
+      _id: productID,
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      stock: product.stock,
+      tags: product.tags,
+    });
 
   //update in algolia
-
 
   console.log("Product edited sucessfuly:\n", product);
 
   let successMsg = "Product edited sucessfuly";
 
   res.json({ successMsg });
-}
+};
 
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
 
   try {
     const product = await Product.findOne({ _id: productID });
-
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error deleting product:", error);
     if (req.query.ajax) return res.json({ error: "Product ID not found" });
     return res.redirect("/dashboard/products?page=0");
