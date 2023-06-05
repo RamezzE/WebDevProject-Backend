@@ -129,11 +129,11 @@ body {
 .pagination div {
     font:inherit;
     border:0px;
-    border-radius:3px;
     background-color:rgb(182, 187, 191) ;
     padding:5px;
     box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
     margin:10px;
+    border-radius: 10px;
     transition: ease all 300ms;
 }
 
@@ -145,4 +145,16 @@ body {
     text-decoration: none;
     color: black;
 }
+
+.pagination .currentPage {
+    background-color: rgb(51, 55, 57);
+    box-shadow: none;
+}
+
+.pagination .currentPage a {
+    color:rgb(182, 187, 191);
+}
+
+
+
 
