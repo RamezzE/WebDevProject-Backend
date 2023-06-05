@@ -12,6 +12,11 @@ let searchSpan = document.getElementsByClassName("searchSpan")[0];
 let searchBox = document.getElementsByClassName("searchBox")[0];
 let closeSearch = document.getElementById("closeSearch");
 
+searchBox.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) 
+    toggleSearchBar(true);
+});
+
 function toggleSearchBar(bool) {
   let value;
   if (bool) {

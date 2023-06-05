@@ -1,5 +1,7 @@
 let urlParams = new URLSearchParams(window.location.search);
 let currentPage = urlParams.get("page") || 0;
+let searchQuery = urlParams.get("query") || "";
+
 //add listener for form submit
 
 let adminForm = document.querySelector("#admin-form-overlay");
@@ -16,13 +18,20 @@ deleteForm.addEventListener("submit", function (e) {
   submitDeleteForm(deleteForm.querySelector("a"));
 });
 
+const searchBox = document.getElementsByClassName('search-box')[0];
+
+searchBox.addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) 
+    searchUsers();
+});
+
 function submitAdminForm(field) {
   let form = field.parentNode;
 
   let formURL = form.action;
 
   formURL += `?ajax=true`;
-  console.log(formURL)
+  console.log(formURL);
   ajaxAdminUser(form, formURL);
 }
 
@@ -96,6 +105,23 @@ function ajaxDeleteUser(form, URL) {
   });
 }
 
+function searchUsers() {
+  let form = document.createElement("form");
+  form.action = "/dashboard/users";
+  form.method = "GET";
+  let input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "query";
+
+  let searchSpan = document.querySelector(".searchSpan");
+  input.value = searchSpan.querySelector("input").value;
+
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
 function submitFilterForm(field, page = 0) {
   let form = field.parentNode;
   // Perform your desired actions here
@@ -111,9 +137,7 @@ function submitFilterForm(field, page = 0) {
   //add filters to url
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
-    if (filter.checked) {
-      newURL += `&${filter.name}=${filter.value}`;
-    }
+    if (filter.checked) newURL += `&${filter.name}=${filter.value}`;
   });
 
   // window.location.href = newURL;
@@ -196,18 +220,25 @@ function ajaxUsers(URL) {
 $(document).ready(function () {
   let pageDivs = $(".pagination div");
   pageDivs[currentPage].classList.add("currentPage");
+
+  if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
 });
 
 function changePage(pageNum) {
   if (pageNum < 0) return;
 
   //if page num is same as current page, do nothing
-  if (pageNum == urlParams.get("page")) return;
+  if (pageNum == currentPage) return;
+  
+  let newURL = "/dashboard/users?" + "page=" + pageNum;
 
-  let currentURL = window.location.href;
-  let newURL;
-  if (!urlParams.get("page")) newURL += `&page=${pageNum}`;
-  else newURL = currentURL.replace(/page=\d+/, `page=${pageNum}`);
+  currentPage = pageNum;
+  
+  newURL += "&query=" + searchQuery;
+  console.log(newURL);
 
   window.location.href = newURL;
+
+  // window.location.href = newURL;
 }

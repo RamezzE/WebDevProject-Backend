@@ -30,7 +30,7 @@ function changePage(pageNum) {
   console.log(newURL);
 
   window.location.href = newURL;
-  window.history.pushState({}, "", newURL);
+  // window.history.pushState({}, "", newURL);
   // ajaxProducts(newURL);
 }
 
@@ -149,18 +149,15 @@ $(document).ready(function () {
   let form = document.querySelector("#filter-form-overlay a").parentNode;
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
-    if (filter.checked) {
+    if (filter.checked) 
       currentFilters += `&${filter.name}=${filter.value}`;
-    }
   });
-  if (searchQuery != "") {
+  if (searchQuery != "") 
     document.getElementsByClassName("searchBox")[0].value = searchQuery;
-    // toggleSearchBar(true);
-  }
 
   let pageDivs = $(".pagination div");
   pageDivs[currentPage].classList.add("currentPage");
-  
+
   console.log(currentFilters);
 });
 

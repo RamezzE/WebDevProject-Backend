@@ -18,14 +18,11 @@
     
     <div class="smallContainer" style="margin: 0;">
         <div class="search-div">
-            <span id="closeSearch" style="display: none;" onclick="toggleSearchBar(false)">
-                <img src="../Images/Icons/close.png">
-            </span>
             <span class="searchSpan">
-                <input class="search-box" type="search" placeholder="Search" style>
+                <input class="search-box" type="search" placeholder="Search">
             </span>
-            <span onclick="toggleSearchBar(true);">
-                <input id="search-img" type="image" src="../Images/Icons/search.png">
+            <span>
+                <input id="search-img" type="image" src="../Images/Icons/search.png" onclick = "searchProducts()">
             </span>
         </div>
     </div>
@@ -67,7 +64,7 @@
         <div class="pagination">
             <% if ( products.length != 0 && totalPages > 1) { %>
             <% for (let i = 0;i<totalPages;i++) {%>
-                <div onclick = "changePage('<%=i%>')"><a href=""><%= i+1 %></a></div>
+                <div onclick = "changePage('<%=i%>')"><a href="#"><%= i+1 %></a></div>
                 <% } %>
             <% }%>
             
