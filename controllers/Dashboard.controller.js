@@ -232,7 +232,7 @@ function filterProducts(req) {
   return filters;
 }
 
-const editProduct = async (req, res) => {
+const checkProductID = async (req, res) => {
   const { productID } = req.body;
   errorMsg = {productID: ""};
   let fetchedFields = {productName: "", productPrice: "", productDescription: "", productStock: ""};
@@ -243,6 +243,7 @@ const editProduct = async (req, res) => {
       errorMsg.productID = "Invalid productID";
       return res.status(400).json({ errorMsg });
     }
+
     const product = await Product.findOne({ _id: productID });
     if (!product) {
       console.log("Product ID not found");
@@ -264,6 +265,86 @@ const editProduct = async (req, res) => {
     return res.redirect("/dashboard/products?page=0");
   }
 };
+
+const editProduct = async (req, res) => {
+  const { productID, productName, productPrice, productDescription, productStock, productMen, productWomen, productKids, productShoes, productBags } = req.body;
+  errorMsg = {};
+
+  if (productName.trim() == "") {
+    errorMsg.productName = "Product name is required";
+    console.log("Name error");
+  }
+  else {
+    const existingProduct = await Product.findOne({ productName });
+    if (existingProduct) {
+      errorMsg.productName = "Product already exists!";
+    }
+  }
+
+  if (productPrice.trim() == "")
+    errorMsg.productPrice = "Product price is required";
+
+  if (productDescription.trim() == "")
+    errorMsg.productDescription = "Product description is required";
+
+  if (productStock.trim() == "")
+    errorMsg.productStock = "Product stock is required";
+
+  if (Object.keys(errorMsg).length > 0) {
+    if (req.query.ajax) {
+      console.log("Returning json using ajax");
+      return res.json({ errorMsg });
+    }
+    else {
+      return res.redirect("/dashboard/products?page=0");
+    }
+  }
+  // return res.render("products", { errorMsg: errorMsg, admin: true });
+
+  let tags = [];
+
+  if (productMen == "on") tags.push("man", "men", "male", "boy", "guy");
+
+  if (productWomen == "on") tags.push("woman", "women", "female", "girl");
+
+  if (productKids == "on") tags.push("kids", "kid", "child", "children");
+
+  if (productShoes == "on") tags.push("shoes", "shoe");
+  else if (productBags == "on") tags.push("bags", "bag");
+
+  const product = await Product.findOne({ _id: productID });
+  console.log(productID);
+  if (!product ) {
+    if (req.query.ajax) return res.json({ error: "Product ID not found" });
+    return res.redirect("/dashboard/products?page=0");
+  }
+
+  product.name = productName;
+  product.price = productPrice,
+  product.description = productDescription,
+  product.stock = productStock,
+  product.tags = tags,
+
+  
+
+  await product.save ({
+    _id: productID,
+    name: product.name,
+    price: product.price,
+    description: product.description,
+    stock: product.stock,
+    tags: product.tags,
+  });
+
+  //update in algolia
+
+
+  console.log("Product edited sucessfuly:\n", product);
+
+  let successMsg = "Product edited sucessfuly";
+
+  res.json({ successMsg });
+}
 
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
@@ -503,6 +584,7 @@ const searchUsers = async (req, res) => {
 
 export default {
   addProduct,
+  checkProductID,
   editProduct,
   deleteProduct,
   deleteUser,

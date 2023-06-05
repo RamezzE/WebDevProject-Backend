@@ -185,8 +185,14 @@ function toggleDivs(bool) {
   }
 }
 
-function ajaxEditProduct(form, URL) {
-  console.log("In ajaxEditProduct function");
+function submitCheckProductIDForm(field) {
+  let form = field.parentNode;
+  let formURL = "/dashboard/products/checkProductID?ajax=true";
+  setTimeout(ajaxCheckProductID(form, formURL), 250);
+}
+
+function ajaxCheckProductID(form, URL) {
+  console.log("In ajaxCheckProductID function");
 
   const formData = $(form).serialize();
 
@@ -194,7 +200,7 @@ function ajaxEditProduct(form, URL) {
   for (let i = 0; i < msg.length; i++) {
     msg[i].innerHTML = "";
   }
-
+    
   $.ajax({
     url: URL,
     method: "POST",
@@ -203,7 +209,11 @@ function ajaxEditProduct(form, URL) {
       if (!response.errorMsg) {
         console.log("Fetched fields: ", response.fetchedFields);
         $("#edit-product-overlay .form-item-div label").css('top', '-30px');
+        $("#edit-button").css('display', 'none');
+        $("#save-button").css('display', 'inline-block');
+        $("#cancel-form").css('display', 'none');
         $("input").prop('disabled', false);
+        // $("#productID").prop('disabled', true);
         $("textarea").prop('disabled', false);
         $("#productName").attr('value', response.fetchedFields.productName);
         $("#productPrice").attr('value', response.fetchedFields.productPrice);
@@ -222,6 +232,52 @@ function ajaxEditProduct(form, URL) {
       console.log(err);
     }
   });
+}
+
+function ajaxEditProduct(form, URL) {
+  console.log("In ajaxEditProduct function");
+
+  const formData = $(form).serialize();
+
+  const msg = document.querySelectorAll("#edit-product-overlay .errorMsg");
+  for (let i = 0; i < msg.length; i++) {
+    msg[i].innerHTML = "";
+  }
+
+  $.ajax({
+    url: URL,
+    method: "POST",
+    data: formData,
+    success: function (response) {
+      if (!response.errorMsg) {
+        $("#edit-p").css('display', 'none');
+        $("#productIDDiv").css('display', 'none');
+        $("#save-button").css('display', 'none');
+        toggleDivs(false);
+        $("#success-span").html(response.successMsg);
+        setTimeout(function () {
+          location.reload();
+        }, 2000);
+      }
+      else {
+        console.log("In ajax returned error");
+        console.log(response.errorMsg.productID);
+        $("#productNameError").html(response.errorMsg.productName);
+        $("#productPriceError").html(response.errorMsg.productPrice);
+        $("#productDescriptionError").html(response.errorMsg.productDescription);
+        $("#productStockError").html(response.errorMsg.productStock);
+      }
+    },
+    error: function (err) {
+      msg[0].innerHTML = "Invalid product ID";
+      console.log(err);
+    }
+  });
+
+
+  // matensash dol ya dodo lama el validation yeb2a tamam 3ashan te-reset el buttons
+  // $("#edit-button").css('display', 'none');
+  // $("#save-button").css('display', 'flex');
 }
 
 function submitFilterForm(field, page = 0) {

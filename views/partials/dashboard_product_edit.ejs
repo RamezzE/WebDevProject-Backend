@@ -1,8 +1,8 @@
 <div id="edit-product-overlay" class="overlay-div">
-    <p>Enter ID to start editing</p>
+    <p id="edit-p">Enter ID to start editing</p>
     <form id="editProductForm" method="post" action="/dashboard/products/editProduct" enctype="multipart/form-data">
-		<div class="form-item-div">
-            <input class="product-line-input" required name="productID" type="text">
+		<div class="form-item-div" id="productIDDiv">
+            <input id="productID" class="product-line-input" required name="productID" type="text">
             <label>Product ID</label>
             <span class="errorMsg" id="productIDError"><%= errorMsg && errorMsg.productID ? errorMsg.productID : '' %></span>
         </div>
@@ -81,14 +81,22 @@
         </div>
         
 
-        <a onclick="submitEditProductForm(this)">
+        <a id="edit-button" onclick="submitCheckProductIDForm(this)">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Edit
+        </a>
+
+        <a id="save-button" onclick="submitEditProductForm(this)" style="display: none;">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Save
         </a>
+        <span id="success-span" style="color: green; font-size: large;"></span>
     </form>
-    <p>Changed your mind? <a onclick="HideOverlay()"
-            class="cancel-form">Cancel</a></p>
+    <p id="cancel-form">Changed your mind? <a onclick="HideOverlay()" class="cancel-form">Cancel</a></p>
 </div>
