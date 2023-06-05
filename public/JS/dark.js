@@ -26,12 +26,24 @@ src=
 
 
 
+// $( ".change" ).on("click", function() {
+//     if( $( "body" ).hasClass( "dark" )) {
+//         $( "body" ).removeClass( "dark" );
+//       $( ".change" ).text( "🌙" );
+//     } else {
+//         $( "body" ).addClass( "dark" );
+//      $( ".change" ).text( "☀️" );
+//     }
+// });
+
 $( ".change" ).on("click", function() {
-    if( $( "body" ).hasClass( "dark" )) {
-        $( "body" ).removeClass( "dark" );
-      $( ".change" ).text( "🌙" );
-    } else {
-        $( "body" ).addClass( "dark" );
-     $( ".change" ).text( "☀️" );
-    }
+  if( $( "body" ).hasClass( "dark" )) {
+      $( "body" ).removeClass( "dark" );
+      $(".row1").removeClass("navbar-dark");
+    $( ".change" ).text( "🌙" );
+  } else {
+      $( "body" ).addClass( "dark" );
+      $(".row1").addClass("navbar-dark");
+   $( ".change" ).text( "☀️" );
+  }
 });

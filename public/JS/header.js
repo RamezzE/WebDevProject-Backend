@@ -35,6 +35,7 @@ function toggleSearchBar(bool) {
     searchImg.style.marginLeft = "0";
     searchBox.style.width = "100%";
     searchSpan.style.width = "70%";
+    searchBox.style.display = "inline";
   } else {
     value = "";
     searchSpan.style.marginLeft = "auto";

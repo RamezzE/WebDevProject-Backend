@@ -153,6 +153,10 @@ $(document).ready(function () {
       currentFilters += `&${filter.name}=${filter.value}`;
     }
   });
+  if (searchQuery != "") {
+    document.getElementsByClassName("searchBox")[0].value = searchQuery;
+    // toggleSearchBar(true);
+  }
   console.log(currentFilters);
 });
 
