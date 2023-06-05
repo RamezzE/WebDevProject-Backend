@@ -91,9 +91,8 @@ function ajaxAddProduct(form, URL) {
   const msg = document.querySelectorAll("#product-form-overlay .errorMsg");
   for (let i = 0; i < msg.length; i++) msg[i].innerHTML = "";
 
-  var form1 = $("#addProductForm")[0]; // You need to use standard javascript object here
-  var formData = new FormData(form1);
-  // const formData = $(form).serialize();
+  var formData = new FormData(form);
+
   console.log(formData);
 
   $.ajax({
@@ -175,6 +174,22 @@ function ajaxCheckProductID(form, URL) {
         );
         $("#productStock").attr("value", response.fetchedFields.productStock);
         toggleDivs(true);
+          
+        if (response.fetchedFields.tags.includes('man'))
+          $("#edit-men-checkbox").prop("checked", true);
+        
+        if (response.fetchedFields.tags.includes('woman'))
+          $("#edit-women-checkbox").prop("checked", true);
+
+        if (response.fetchedFields.tags.includes('kid'))
+          $("#edit-kids-checkbox").prop("checked", true);
+
+        if (response.fetchedFields.tags.includes('shoe'))
+          $("#edit-shoes-checkbox").prop("checked", true);
+
+        else if (response.fetchedFields.tags.includes('bag'))
+          $("#edit-bags-checkbox").prop("checked", true);
+
       } else {
         console.log("In ajax returned error");
         console.log(response.errorMsg.productID);
@@ -191,7 +206,7 @@ function ajaxCheckProductID(form, URL) {
 function ajaxEditProduct(form, URL) {
   console.log("In ajaxEditProduct function");
 
-  const formData = $(form).serialize();
+  const formData = new FormData(form);
 
   const msg = document.querySelectorAll("#edit-product-overlay .errorMsg");
   for (let i = 0; i < msg.length; i++) {
@@ -202,6 +217,9 @@ function ajaxEditProduct(form, URL) {
     url: URL,
     method: "POST",
     data: formData,
+    processData: false,
+    contentType: false,
+    enctype: "multipart/form-data",
     success: function (response) {
       if (!response.errorMsg) {
         $("#edit-p").css("display", "none");
@@ -222,6 +240,9 @@ function ajaxEditProduct(form, URL) {
           response.errorMsg.productDescription
         );
         $("#productStockError").html(response.errorMsg.productStock);
+
+
+
       }
     },
     error: function (err) {

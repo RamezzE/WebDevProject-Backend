@@ -64,6 +64,34 @@ try {
 }
 */
 
+// let index = productsIndex;
+
+// try {
+//   // Fetch all products from MongoDB
+//   const products = await productsCollection.find().toArray();
+
+//   if (products.length > 0) {
+//     // Modify objects to use `_id` as objectID
+//     objectsToIndex = products.map((product) => ({
+//       objectID: product._id.toString(), // Use `_id` as the objectID
+//       name: product.name,
+//       price: product.price,
+//       description: product.description,
+//       stock: product.stock,
+//       tags: product.tags,
+//       images: product.images,
+//       createdAt: product.createdAt,
+//     }));
+//     index.saveObjects(objectsToIndex);
+//   } else {
+//     console.log("No products to add to Algolia index.");
+//   }
+// } catch (error) {
+//   console.error("Error adding products to Algolia:", error);
+// }
+
+// console.log("Algolia index updated.");
+
 //--------------------------------------------------------------------------
 
 const __filename = fileURLToPath(import.meta.url);
@@ -147,7 +175,7 @@ const addProduct = async (req, res) => {
     imgNames[i] = productName + i + ".png";
     console.log(imgNames[i]);
     let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
-    
+
     images[i].mv(uploadPath, function (err) {
       if (err) return res.status(500).send(err);
     });
@@ -234,6 +262,7 @@ const checkProductID = async (req, res) => {
     productPrice: "",
     productDescription: "",
     productStock: "",
+    tags: [],
   };
 
   try {
@@ -254,6 +283,8 @@ const checkProductID = async (req, res) => {
     fetchedFields.productPrice = product.price;
     fetchedFields.productDescription = product.description;
     fetchedFields.productStock = product.stock;
+    fetchedFields.tags = product.tags;
+
     console.log(fetchedFields);
     return res.json({ fetchedFields });
   } catch (error) {
@@ -262,6 +293,8 @@ const checkProductID = async (req, res) => {
     if (req.query.ajax) return res.json({ errorMsg });
     return res.redirect("/dashboard/products?page=0");
   }
+
+
 };
 
 const editProduct = async (req, res) => {
@@ -299,6 +332,12 @@ const editProduct = async (req, res) => {
     errorMsg.productStock = "Product stock is required";
 
   if (Object.keys(errorMsg).length > 0) {
+    if (req.files.images.length != IMAGE_LIMIT)
+      errorMsg.images =
+        "Please upload either NO Images or exactly" + IMAGE_LIMIT + " images ";
+  }
+
+  if (Object.keys(errorMsg).length > 0) {
     if (req.query.ajax) {
       console.log("Returning json using ajax");
       return res.json({ errorMsg });
@@ -320,31 +359,56 @@ const editProduct = async (req, res) => {
   else if (productBags == "on") tags.push("bags", "bag");
 
   const product = await Product.findOne({ _id: productID });
+
   console.log(productID);
   if (!product) {
     if (req.query.ajax) return res.json({ error: "Product ID not found" });
     return res.redirect("/dashboard/products?page=0");
   }
+  let images;
+  images = product.images;
+  if (productName != product.name) {
+    //rename images
+    for (let i = 0; i < images.length; i++) {
+      let oldPath = path.join(__dirname, "../public/Images/Products/", images[i]);
+
+      let newPath = path.join(__dirname, "../public/Images/Products/", productName + i + ".png");
+
+      fs.rename(oldPath, newPath, (err) => {
+        if (err) console.log(err);
+      });
+      images[i] = productName + i + ".png";
+    }
+  }
 
   product.name = productName;
-  (product.price = productPrice),
-    (product.description = productDescription),
-    (product.stock = productStock),
-    (product.tags = tags),
-    await product.save({
-      _id: productID,
-      name: product.name,
-      price: product.price,
-      description: product.description,
-      stock: product.stock,
-      tags: product.tags,
-    });
+  product.price = productPrice;
+  product.description = productDescription;
+  product.stock = productStock;
+  if (tags.length > 0)
+    product.tags = tags;
+  product.images = images;
 
-  //update in algolia
+  await product.save();
 
-  console.log("Product edited sucessfuly:\n", product);
+  //update in algolia here
+  //get the product from the algolia 
+  const algoliaProduct = await productsIndex.getObject(productID);
+  //update the product
+  algoliaProduct.name = productName;
+  algoliaProduct.price = productPrice;
+  algoliaProduct.description = productDescription;
+  algoliaProduct.stock = productStock;
+  if (tags.length > 0)
+    algoliaProduct.tags = tags;
+  algoliaProduct.images = images;
+  //save the product
+  await productsIndex.saveObject(algoliaProduct);
 
-  let successMsg = "Product edited sucessfuly";
+
+  console.log("Product edited sucessfully:\n", product);
+
+  let successMsg = "Product edited sucessfully";
 
   res.json({ successMsg });
 };
