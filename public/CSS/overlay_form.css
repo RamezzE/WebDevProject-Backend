@@ -113,6 +113,11 @@
   margin-bottom: 30px;
 }
 
+.product-line-input:-webkit-autofill, .product-line-input:-webkit-autofill:hover, .product-line-input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff !important;
+}
+
 .overlay-div .form-item-div .product-line-input {
   width: 100%;
   padding: 10px 0;

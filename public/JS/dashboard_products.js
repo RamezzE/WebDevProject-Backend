@@ -169,9 +169,7 @@ function ajaxCheckProductID(form, URL) {
         $("#edit-product-overlay .form-item-div label").css("top", "-30px");
         $("#edit-button").css('display', 'none');
         $("#save-button").css('display', 'inline-block');
-        $("#cancel-form").css('display', 'none');
         $("input").prop("disabled", false);
-        // $("#productID").prop('disabled', true);
         $("textarea").prop("disabled", false);
         $("#productName").attr("value", response.fetchedFields.productName);
         $("#productPrice").attr("value", response.fetchedFields.productPrice);
@@ -212,6 +210,7 @@ function ajaxEditProduct(form, URL) {
         $("#edit-p").css('display', 'none');
         $("#productIDDiv").css('display', 'none');
         $("#save-button").css('display', 'none');
+        $("#cancel-form").css('display', 'none');
         toggleDivs(false);
         $("#success-span").html(response.successMsg);
         setTimeout(function () {
