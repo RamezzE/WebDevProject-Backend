@@ -95,6 +95,15 @@ function ajaxAddProduct(form, URL) {
 
   console.log(formData);
 
+  document.getElementById("product-shoes-checkbox").onchange = function () {
+    if (this.checked) {
+      document.getElementById("product-bags-checkbox").checked = false;
+    }
+    else {
+      document.getElementById("product-bags-checkbox").checked = true;
+    }
+  }
+
   $.ajax({
     url: URL,
     method: "POST",
@@ -163,6 +172,8 @@ function ajaxCheckProductID(form, URL) {
       if (!response.errorMsg) {
         console.log("Fetched fields: ", response.fetchedFields);
         $("#edit-product-overlay .form-item-div label").css("top", "-30px");
+        $("#edit-p").html("Edit Product");
+        $("#productIDDiv").css("display", "none");
         $("#edit-button").css("display", "none");
         $("#save-button").css("display", "inline-block");
         $("input").prop("disabled", false);
@@ -223,7 +234,6 @@ function ajaxEditProduct(form, URL) {
     success: function (response) {
       if (!response.errorMsg) {
         $("#edit-p").css("display", "none");
-        $("#productIDDiv").css("display", "none");
         $("#save-button").css("display", "none");
         $("#cancel-form").css("display", "none");
         toggleDivs(false);
@@ -385,6 +395,42 @@ $(document).ready(function () {
   });
   console.log(currentFilters);
 });
+
+function toggleShoes() {
+  let addShoes = document.getElementById("product-shoes-checkbox");
+  let addBags = document.getElementById("product-bags-checkbox");
+
+  let editShoes = document.getElementById("edit-shoes-checkbox");
+  let editBags = document.getElementById("edit-bags-checkbox");
+
+  if (addShoes.checked)
+    addBags.checked = false;
+  else
+    addBags.checked = true;
+  
+  if (editShoes.checked)
+    editBags.checked = false;
+  else
+    editBags.checked = true;
+}
+
+function toggleBags() {
+  let addBags = document.getElementById("product-bags-checkbox");
+  let addShoes = document.getElementById("product-shoes-checkbox");
+
+  let editBags = document.getElementById("edit-bags-checkbox");
+  let editShoes = document.getElementById("edit-shoes-checkbox");
+
+  if (addBags.checked)
+    addShoes.checked = false;
+  else
+    addShoes.checked = true;
+
+  if (editBags.checked)
+    editShoes.checked = false;
+  else
+    editShoes.checked = true;
+}
 
 function updateCheckBoxes() {
   // Get the URL parameters
