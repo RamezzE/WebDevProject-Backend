@@ -68,5 +68,17 @@
     }
 }
 
+.search-div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
+.search-box {
+    padding: 5px;
+    border-radius: 10px;
+}
 
+#search-img {
+    height: 2.7vh;
+}
