@@ -5,6 +5,9 @@ let currentPage = urlParams.get("page") || 0;
 let currentFilters = "";
 let searchQuery = urlParams.get("query") || "";
 
+if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
+
 let addForm = document.getElementById("addProductForm");
 
 let editForm = document.getElementById("editProductForm");
@@ -24,13 +27,36 @@ editForm.addEventListener("submit", function (e) {
   submitEditProductForm(editForm.querySelector("a"));
 });
 
-const searchBox = document.getElementsByClassName('search-box')[0];
+const searchBox = document.getElementsByClassName("search-box")[0];
 
-searchBox.addEventListener('keydown', (event) => {
-  if (event.keyCode === 13) 
-    searchProducts();
+searchBox.addEventListener("keydown", (event) => {
+  if (event.keyCode === 13) searchProducts();
 });
 
+function onLoad() {
+  if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
+  
+  toggleDivs(false);
+
+  updateCheckBoxes();
+
+  currentFilters = "";
+  let form = document.querySelector("#filter-form-overlay a").parentNode;
+  let filters = form.querySelectorAll("input");
+  filters.forEach((filter) => {
+    if (filter.checked) currentFilters += `&${filter.name}=${filter.value}`;
+  });
+  console.log(currentFilters);
+
+  let pageDivs = $(".pagination div");
+  pageDivs[currentPage].classList.add("currentPage");
+
+  
+}
+
+$(document).ready(onLoad);
+window.onLoad = onLoad;
 
 function submitDeleteProductForm(field) {
   let form = field.parentNode;
@@ -124,11 +150,10 @@ function ajaxAddProduct(form, URL) {
   document.getElementById("product-shoes-checkbox").onchange = function () {
     if (this.checked) {
       document.getElementById("product-bags-checkbox").checked = false;
-    }
-    else {
+    } else {
       document.getElementById("product-bags-checkbox").checked = true;
     }
-  }
+  };
 
   $.ajax({
     url: URL,
@@ -211,22 +236,20 @@ function ajaxCheckProductID(form, URL) {
         );
         $("#productStock").attr("value", response.fetchedFields.productStock);
         toggleDivs(true);
-          
-        if (response.fetchedFields.tags.includes('man'))
+
+        if (response.fetchedFields.tags.includes("man"))
           $("#edit-men-checkbox").prop("checked", true);
-        
-        if (response.fetchedFields.tags.includes('woman'))
+
+        if (response.fetchedFields.tags.includes("woman"))
           $("#edit-women-checkbox").prop("checked", true);
 
-        if (response.fetchedFields.tags.includes('kid'))
+        if (response.fetchedFields.tags.includes("kid"))
           $("#edit-kids-checkbox").prop("checked", true);
 
-        if (response.fetchedFields.tags.includes('shoe'))
+        if (response.fetchedFields.tags.includes("shoe"))
           $("#edit-shoes-checkbox").prop("checked", true);
-
-        else if (response.fetchedFields.tags.includes('bag'))
+        else if (response.fetchedFields.tags.includes("bag"))
           $("#edit-bags-checkbox").prop("checked", true);
-
       } else {
         console.log("In ajax returned error");
         console.log(response.errorMsg.productID);
@@ -276,9 +299,6 @@ function ajaxEditProduct(form, URL) {
           response.errorMsg.productDescription
         );
         $("#productStockError").html(response.errorMsg.productStock);
-
-
-
       }
     },
     error: function (err) {
@@ -307,8 +327,7 @@ function submitFilterForm(field, page = 0) {
   currentFilters = "";
   let filters = form.querySelectorAll("input");
   filters.forEach((filter) => {
-    if (filter.checked)
-      currentFilters += `&${filter.name}=${filter.value}`;
+    if (filter.checked) currentFilters += `&${filter.name}=${filter.value}`;
   });
   console.log(currentFilters);
 
@@ -405,28 +424,6 @@ function ajaxProducts(URL) {
   });
 }
 
-$(document).ready(function () {
-  toggleDivs(false);
-
-  updateCheckBoxes();
-
-  currentFilters = "";
-  let form = document.querySelector("#filter-form-overlay a").parentNode;
-  let filters = form.querySelectorAll("input");
-  filters.forEach((filter) => {
-    if (filter.checked)
-      currentFilters += `&${filter.name}=${filter.value}`;
-  });
-  console.log(currentFilters);
-
-  let pageDivs = $(".pagination div");
-  pageDivs[currentPage].classList.add("currentPage");
-
-  if (searchQuery != "")
-    document.getElementsByClassName("search-box")[0].value = searchQuery;
-  
-});
-
 function toggleShoes() {
   let addShoes = document.getElementById("product-shoes-checkbox");
   let addBags = document.getElementById("product-bags-checkbox");
@@ -434,15 +431,11 @@ function toggleShoes() {
   let editShoes = document.getElementById("edit-shoes-checkbox");
   let editBags = document.getElementById("edit-bags-checkbox");
 
-  if (addShoes.checked)
-    addBags.checked = false;
-  else
-    addBags.checked = true;
-  
-  if (editShoes.checked)
-    editBags.checked = false;
-  else
-    editBags.checked = true;
+  if (addShoes.checked) addBags.checked = false;
+  else addBags.checked = true;
+
+  if (editShoes.checked) editBags.checked = false;
+  else editBags.checked = true;
 }
 
 function toggleBags() {
@@ -452,15 +445,11 @@ function toggleBags() {
   let editBags = document.getElementById("edit-bags-checkbox");
   let editShoes = document.getElementById("edit-shoes-checkbox");
 
-  if (addBags.checked)
-    addShoes.checked = false;
-  else
-    addShoes.checked = true;
+  if (addBags.checked) addShoes.checked = false;
+  else addShoes.checked = true;
 
-  if (editBags.checked)
-    editShoes.checked = false;
-  else
-    editShoes.checked = true;
+  if (editBags.checked) editShoes.checked = false;
+  else editShoes.checked = true;
 }
 
 function updateCheckBoxes() {
@@ -500,11 +489,11 @@ function changePage(pageNum) {
 
   //if page num is same as current page, do nothing
   if (pageNum == currentPage) return;
-  
+
   let newURL = "/dashboard/products?" + "page=" + pageNum;
 
   currentPage = pageNum;
-  
+
   newURL += "&query=" + searchQuery;
   newURL += currentFilters;
   console.log(newURL);

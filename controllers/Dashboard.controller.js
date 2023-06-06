@@ -39,7 +39,9 @@ const usersIndex = Algoliaclient.initIndex("users");
 //     console.log(error);
 //   });
 
-/*
+await usersIndex.clearObjects();
+
+let index = usersIndex;
 //initialized existing products once into Algolia API
 let objectsToIndex = [];
 try {
@@ -62,7 +64,6 @@ try {
 } catch (error) {
   console.error("Error adding users to Algolia:", error);
 }
-*/
 
 // let index = productsIndex;
 
@@ -293,8 +294,6 @@ const checkProductID = async (req, res) => {
     if (req.query.ajax) return res.json({ errorMsg });
     return res.redirect("/dashboard/products?page=0");
   }
-
-
 };
 
 const editProduct = async (req, res) => {
@@ -370,9 +369,17 @@ const editProduct = async (req, res) => {
   if (productName != product.name) {
     //rename images
     for (let i = 0; i < images.length; i++) {
-      let oldPath = path.join(__dirname, "../public/Images/Products/", images[i]);
+      let oldPath = path.join(
+        __dirname,
+        "../public/Images/Products/",
+        images[i]
+      );
 
-      let newPath = path.join(__dirname, "../public/Images/Products/", productName + i + ".png");
+      let newPath = path.join(
+        __dirname,
+        "../public/Images/Products/",
+        productName + i + ".png"
+      );
 
       fs.rename(oldPath, newPath, (err) => {
         if (err) console.log(err);
@@ -385,26 +392,23 @@ const editProduct = async (req, res) => {
   product.price = productPrice;
   product.description = productDescription;
   product.stock = productStock;
-  if (tags.length > 0)
-    product.tags = tags;
+  if (tags.length > 0) product.tags = tags;
   product.images = images;
 
   await product.save();
 
   //update in algolia here
-  //get the product from the algolia 
+  //get the product from the algolia
   const algoliaProduct = await productsIndex.getObject(productID);
   //update the product
   algoliaProduct.name = productName;
   algoliaProduct.price = productPrice;
   algoliaProduct.description = productDescription;
   algoliaProduct.stock = productStock;
-  if (tags.length > 0)
-    algoliaProduct.tags = tags;
+  if (tags.length > 0) algoliaProduct.tags = tags;
   algoliaProduct.images = images;
   //save the product
   await productsIndex.saveObject(algoliaProduct);
-
 
   console.log("Product edited sucessfully:\n", product);
 
@@ -474,12 +478,13 @@ const deleteUser = async (req, res) => {
       return res.redirect("/dashboard/users?page=0");
     }
 
-    const deletedUser = await usersCollection.findOneAndDelete({ _id: userID });
+    const deletedUser = await User.findOneAndDelete({ _id: userID });
 
     if (deletedUser) {
       console.log("User deleted in mongo");
-      await usersIndex.deleteObject(userID);
-      console.log("User deleted in algolia");
+      let bool = await usersIndex.deleteObject(userID);
+      if (bool) console.log("User deleted in algolia");
+      else console.log("Error deleting user in algolia");
     } else {
       console.log("Error deleting user");
       if (req.query.ajax) return res.json({ error: "Error deleting user" });

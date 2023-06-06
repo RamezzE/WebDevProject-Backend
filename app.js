@@ -18,7 +18,6 @@ import product_router from "./routes/products.js";
 import check_router from "./routes/checkout.js";
 import signOut_router from "./routes/signOut.js";
 import Myorders_router from "./routes/myproducts.js";
-import editing_router from "./routes/editing.js";
 
 //Read the current directory name
 export const __filename = fileURLToPath(import.meta.url);
@@ -64,7 +63,6 @@ app.use('/products',product_router);
 app.use('/checkout', check_router);
 app.use('/signOut', signOut_router);
 app.use('/myproducts', Myorders_router);
-app.use('/editing', editing_router);
 
 
 // error handler

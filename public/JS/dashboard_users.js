@@ -1,7 +1,8 @@
 let urlParams = new URLSearchParams(window.location.search);
 let currentPage = urlParams.get("page") || 0;
 let searchQuery = urlParams.get("query") || "";
-
+if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
 //add listener for form submit
 
 let adminForm = document.querySelector("#admin-form-overlay");
@@ -24,6 +25,17 @@ searchBox.addEventListener('keydown', (event) => {
   if (event.keyCode === 13) 
     searchUsers();
 });
+
+function onLoad() {
+  if (searchQuery != "")
+    document.getElementsByClassName("search-box")[0].value = searchQuery;
+
+  let pageDivs = $(".pagination div");
+  pageDivs[currentPage].classList.add("currentPage");
+}
+
+$(document).ready(onLoad);
+window.onLoad = onLoad;
 
 function submitAdminForm(field) {
   let form = field.parentNode;
@@ -216,14 +228,6 @@ function ajaxUsers(URL) {
     },
   });
 }
-
-$(document).ready(function () {
-  let pageDivs = $(".pagination div");
-  pageDivs[currentPage].classList.add("currentPage");
-
-  if (searchQuery != "")
-    document.getElementsByClassName("search-box")[0].value = searchQuery;
-});
 
 function changePage(pageNum) {
   if (pageNum < 0) return;

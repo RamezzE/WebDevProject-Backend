@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" type="text/css" href="CSS/footer.css">
-    <link rel="stylesheet" type="text/css" href="CSS/header.css">
-    <link rel="stylesheet" type="text/css" href="CSS/register&login.css">
+    <title>Edit Details</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/register&login.css">
 
 </head>
 
@@ -21,11 +21,60 @@
         <div id="biggerContainer">
 
             <div class="bodyContainer">
-                <h1>Edit</h1>
+                <h1>Edit Details</h1>
                 <div class="register">
-                    <form action="/edit" method="post" id="form">
+                    
+                    <form action="/account/edit" method="post" id="form">
+
+                        <span id = "successSpan"></span>
+
                         <div class="group">
-                            <input type="text" name="oldpass" id="oldpass" class="input">
+                            <input type="text" name="firstName" id="firstName" class="input" value = "<%= user.firstName%>">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>First Name</label>
+                        </div>
+
+                        <div id="error-div">
+                            <span class="errorMsg" id = "firstNameErrorMsg">
+                              <%if( errorMsg && errorMsg.firstName) { %>
+                                  <%=errorMsg.firstName%>
+                              <%}%>
+                            </span>
+                        </div>
+
+                        <div class="group">
+                            <input type="text" name="lastName" id="lastName" class="input" value = "<%= user.lastName%>">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Last Name</label>
+                        </div>
+
+                        <div id="error-div">
+                            <span class="errorMsg" id = "lastNameErrorMsg">
+                              <%if( errorMsg && errorMsg.lastName) { %>
+                                  <%=errorMsg.lastName%>
+                              <%}%>
+                            </span>
+                        </div>
+
+                        <div class="group" >
+                            <input type="email" name="email" id="email" class="input" value = "<%= user.email %>">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Email</label>
+                        </div>
+
+                        <div id="error-div">
+                            <span class="errorMsg" id = "emailErrorMsg">
+                              <%if( errorMsg && errorMsg.email) { %>
+                                  <%=errorMsg.email%>
+                              <%}%>
+                            </span>
+                        </div>
+
+                        <div class="group">
+                            <input type="password" name="oldpass" id="oldpass" class="input">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Old password</label>
@@ -69,8 +118,8 @@
                             </span>
                         </div>
 
-                        <button id="submit" class="button" type="submit">Edit</button>
-                        <span>Success</span>
+                        <button id="submit" class="button" type="submit">Edit my Details</button>
+                        
                     </form>
                     <a href="/account"><button class="button">Back</button></a>
 

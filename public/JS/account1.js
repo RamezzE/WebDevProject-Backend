@@ -23,5 +23,5 @@ function toMyorders() {
     location.href = "/myproducts";
 }
 function toedit() {
-    location.href = "/editing";
+    location.href = "/account/editing";
 }
