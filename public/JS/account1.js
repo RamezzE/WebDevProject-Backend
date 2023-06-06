@@ -22,3 +22,6 @@ function signOut() {
 function toMyorders() {
     location.href = "/myproducts";
 }
+function toedit() {
+    location.href = "/editing";
+}

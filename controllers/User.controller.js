@@ -241,8 +241,57 @@ else{
  
 };
 
+const editing = async (req, res) => {
+  const user = await User.findOne({ _id: req.session.userID });
+    
+  console.log(user);
+  console.log("Editing");
+
+  //get data from form
+  const { oldpass, password, confirmPass } = req.body;
+
+  let errorMsg = {};
+
+  //validate data
+  if (oldpass.trim() == "") errorMsg.oldpass = "Old password is required";
+
+  if (!bcrypt.compareSync(oldpass, user.password)) {
+      errorMsg.oldpass = "Old password isn't correct";
+  }
+
+  if (password.trim() == "") errorMsg.password = "Password is required";
+  else if (password.trim().length < 8)
+    errorMsg.password = "Password must be at least 8 characters";
+
+  if (password.trim() !== confirmPass.trim())
+    errorMsg.confirmPass = "Passwords do not match";
+
+  if (Object.keys(errorMsg).length > 0) {
+    for (let key in errorMsg) {
+      console.log(errorMsg[key]);
+    }
+    if (req.query.ajax)
+      return res.json({ errors: errorMsg, admin: false });
+    else
+      return res.render("editing", { errorMsg, admin: false });
+  }
+  else{
+  user.password=await bcrypt.hash(password, 10);
+  await user.save();
+  }
+  if (req.query.ajax) {
+    console.log("Editing done using ajax");
+    return res.json({ errors: errorMsg, admin: false });
+  }
+  else {
+    console.log("Editing done NOT using ajax");
+    return res.redirect("/account");
+  };
+}
+
 export default {
   login,
   register,
   Checkout,
+  editing
 };
