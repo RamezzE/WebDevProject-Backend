@@ -38,6 +38,18 @@
                 <!-- <span><img src="" alt=""></span> -->
                 <span>My details</span>
               </div>
+
+
+              <div
+              class="nav-item"
+              onclick="setTimeout(AccountOneAtATime, 50, 'Weather');"
+            >
+              <!-- <span><img src="" alt=""></span> -->
+              <span>Weather</span>
+              
+            </div>
+
+
               <div class="nav-item" onclick="toedit()">
                 <!-- <span><img src="" alt=""></span> -->
                 <span>Edit my profile</span>
@@ -101,6 +113,24 @@
                 </div>
               </div>
 
+
+              <div class="account-only-one" id="Weather">
+                <h3>Weather</h3>
+                <hr>
+                <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <div class="container">
+    <div class="icon">---</div>
+    <div class="temp">-°C</div>
+    <div class="summary">----</div>
+    <div class="location"></div>
+    </div>
+</body>
+                
+                </div>
               <div class="account-only-one" id="chat">
                 <div class="test">
                   <div class="card">
@@ -140,5 +170,6 @@
     <script src="../JS/overlay.js"></script>
     <script src="../JS/account1.js"></script>
     <script src="../JS/header.js"></script>
+    <script src="../JS/weather.js"></script>
   </body>
 </html>
