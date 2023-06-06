@@ -19,7 +19,7 @@
           <div class="formsContainer">
             <div id="login">
               <h3>Log in</h3>
-              <form method="post" id="form" action = "/login">
+              <form method="post" id="form" action="/login">
                 <div class="group">
                   <input type="text" name="email" id="Email" class="input" />
                   <label>Email</label>
@@ -28,8 +28,7 @@
                 </div>
                 <div id="error-div">
                   <span class="errorMsg" id="emailErrorMsg">
-                    <%if( errorMsg && errorMsg.email) { %>
-                        <%=errorMsg.email%>
+                    <%if( errorMsg && errorMsg.email) { %> <%=errorMsg.email%>
                     <%}%>
                   </span>
                 </div>
@@ -49,8 +48,7 @@
                 <div id="error-div">
                   <span class="errorMsg" id="passwordErrorMsg">
                     <% if(errorMsg && errorMsg.password) { %>
-                        <%=errorMsg.password%>
-                    <%} %>
+                    <%=errorMsg.password%> <%} %>
                   </span>
                 </div>
 
@@ -76,7 +74,7 @@
     <!-- <a href="https://www.flaticon.com/free-icons/user" title="user icons">User icons created by Freepik - Flaticon</a> -->
     <!-- changed photo and got it from logomakr.com -->
   </body>
-  
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../JS/header.js"></script>
   <script src="../JS/loginvalid.js"></script>

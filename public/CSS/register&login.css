@@ -101,9 +101,13 @@ form {
     flex-direction: column;
 }
 
+/*first group only */
+.group:first-child {
+    margin-top: 10%;
+}
 .group {
     position: relative;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 0%;
     width: 100%;
 }

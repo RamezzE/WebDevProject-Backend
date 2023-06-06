@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import dotenv from "dotenv";
 import algoliasearch from "algoliasearch";
+
 import ProductController from "../controllers/Products.controller.js";
 import { error } from "console";
 
@@ -39,31 +40,31 @@ const usersIndex = Algoliaclient.initIndex("users");
 //     console.log(error);
 //   });
 
-await usersIndex.clearObjects();
+// await usersIndex.clearObjects();
 
-let index = usersIndex;
-//initialized existing products once into Algolia API
-let objectsToIndex = [];
-try {
-  // Fetch all products from MongoDB
-  const users = await usersCollection.find().toArray();
+// let index = usersIndex;
+// //initialized existing products once into Algolia API
+// let objectsToIndex = [];
+// try {
+//   // Fetch all products from MongoDB
+//   const users = await usersCollection.find().toArray();
 
-  if (users.length > 0) {
-    // Modify objects to use `_id` as objectID
-    objectsToIndex = users.map((user) => ({
-      objectID: user._id.toString(), // Use `_id` as the objectID
-      name: user.firstName + " " + user.lastName,
-      email: user.email,
-      userType: user.userType,
-      createdAt: user.createdAt,
-    }));
-    index.saveObjects(objectsToIndex);
-  } else {
-    console.log("No users to add to Algolia index.");
-  }
-} catch (error) {
-  console.error("Error adding users to Algolia:", error);
-}
+//   if (users.length > 0) {
+//     // Modify objects to use `_id` as objectID
+//     objectsToIndex = users.map((user) => ({
+//       objectID: user._id.toString(), // Use `_id` as the objectID
+//       name: user.firstName + " " + user.lastName,
+//       email: user.email,
+//       userType: user.userType,
+//       createdAt: user.createdAt,
+//     }));
+//     index.saveObjects(objectsToIndex);
+//   } else {
+//     console.log("No users to add to Algolia index.");
+//   }
+// } catch (error) {
+//   console.error("Error adding users to Algolia:", error);
+// }
 
 // let index = productsIndex;
 
@@ -173,7 +174,7 @@ const addProduct = async (req, res) => {
   }
 
   for (let i = 0; i < imagesNo; i++) {
-    imgNames[i] = productName + i + ".png";
+    imgNames[i] = productName.trim() + i + ".png";
     console.log(imgNames[i]);
     let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
 
@@ -378,13 +379,13 @@ const editProduct = async (req, res) => {
       let newPath = path.join(
         __dirname,
         "../public/Images/Products/",
-        productName + i + ".png"
+        productName.trim() + i + ".png"
       );
 
       fs.rename(oldPath, newPath, (err) => {
         if (err) console.log(err);
       });
-      images[i] = productName + i + ".png";
+      images[i] = productName.trim() + i + ".png";
     }
   }
 

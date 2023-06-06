@@ -65,6 +65,13 @@ class FormClass {
               this.noErr = false;
             }
             break;
+          case "oldpass":
+            if (fields[i].value.length < 8) {
+              error.innerHTML = "Old Password must be more than 8 characters";
+              error.style.visibility = "visible";
+              this.noErr = false;
+            }
+            break;
           case "Password":
             if (fields[i].value.length < 8) {
               error.innerHTML =
@@ -95,8 +102,12 @@ class FormClass {
       data: formData,
       success: function (response) {
         if (Object.keys(response.errors).length === 0) {
-            $("#successSpan").html('Successfully updated your details');
-            $("#successSpan").css("visibility", "visible");
+          $("#successSpan").html("Successfully updated your details");
+          $("#successSpan").css("visibility", "visible");
+          let formDivs = document.querySelectorAll("form div");
+          for (let i = 0; i < formDivs.length; i++)
+            formDivs[i].style.display = "none";
+
           setTimeout(function () {
             window.location.href = "/account";
           }, 2000);

@@ -1,129 +1,144 @@
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/account.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../CSS/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/account.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css" />
     <title>My Account</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="container">
-        <div id="topNav">
-            <%- include('./partials/header.ejs') %>
-        </div>
+      <div id="topNav"><%- include('./partials/header.ejs') %></div>
 
-        <div id="biggerContainer">
-            <div id="bodyContainer">
-
-                <div class="accountFlex">
-                    <div id="left-col" class="col">
-                        <div id="person" class="nav-item">
-                            <span id="initials"><%= userData.firstName.charAt(0) + userData.lastName.charAt(0) %></span>
-                            <div id="intro">
-                                <span id="hi">Hi, </span>
-                                <br>
-                                <span id="name"><%= userData.firstName + " " + userData.lastName%> </span>
-                            </div>
-                        </div>
-
-                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'details');">
-                            <!-- <span><img src="" alt=""></span> -->
-                            <span>My details</span>
-                        </div>
-                        <!-- <div class="nav-item" onclick="OneAtATime('payment-methods')">
-                            <span><img src="" alt=""></span>
-                            <span>Payment methods</span>
-                        </div> -->
-                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'chat');">
-                            <!-- <span><img src="" alt=""></span> -->
-                            <span>Chat</span>
-                        </div>
-                        <div class="nav-item" onclick="toMyorders()">
-                            <!-- <span><img src="" alt=""></span> -->
-                            <span>My Orders</span>
-                        </div>
-                        <div class="nav-item" onclick="toedit()">
-                            <!-- <span><img src="" alt=""></span> -->
-                            <span>Edit my profile</span>
-                        </div>
-                        <div class="nav-item" onclick="setTimeout(AccountOneAtATime, 50, 'sign-out'); ShowOverlay('sign-out')">
-                            <!-- <span><img src="" alt=""></span> -->
-                            <span>Sign out</span>
-                        </div>
-                    </div>
-
-                    <div id="right-col" class="col">
-
-                        <div class="account-only-one account-active" id="details">
-                            <h3>My details</h3>
-                            <h5>Personal Information</h5>
-                            <hr>
-                            <div id="display-names" class = "section">
-                                <label class="display-label">FIRST NAME</label>
-                                <input disabled class="display-input" id="display-firstname" type="text"
-                                    placeholder= "<%= userData.firstName %>">
-
-                                <label class="display-label">LAST NAME</label>
-                                <input disabled class="display-input" id="display-lastname" type="text"
-                                    placeholder="<%= userData.lastName %>">
-                            </div>
-
-                            <h5>E-mail address</h5>
-                            <hr>
-
-                            <div class = "section">
-                                    <label class="display-label">E-MAIL ADDRESS</label>
-                                    <input disabled class="display-input" type="text"
-                                        placeholder="<%= userData.email %>">
-                            </div>
-                        </div>
-
-                        
-                        
-                        <div class="account-only-one" id="chat">
-                            <div class="test">
-                                <div class="card">
-                                    <div class="chat-header">Chat</div>
-                                    <div class="chat-window">
-                                        <ul class="message-list"></ul>
-                                    </div>
-                                    <div class="chat-input">
-                                        <input type="text" class="message-input" placeholder="Type your message here">
-                                        <button class="send-button">Send</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <div id="biggerContainer">
+        <div id="bodyContainer">
+          <div class="accountFlex">
+            <div id="left-col" class="col">
+              <div id="person" class="nav-item">
+                <span id="initials"
+                  ><%= userData.firstName.charAt(0) +
+                  userData.lastName.charAt(0) %></span
+                >
+                <div id="intro">
+                  <span id="hi">Hi, </span>
+                  <br />
+                  <span id="name"
+                    ><%= userData.firstName + " " + userData.lastName%>
+                  </span>
                 </div>
+              </div>
+
+              <div
+                class="nav-item"
+                onclick="setTimeout(AccountOneAtATime, 50, 'details');"
+              >
+                <!-- <span><img src="" alt=""></span> -->
+                <span>My details</span>
+              </div>
+              <div class="nav-item" onclick="toedit()">
+                <!-- <span><img src="" alt=""></span> -->
+                <span>Edit my profile</span>
+              </div>
+              <div class="nav-item" onclick="toMyorders()">
+                <!-- <span><img src="" alt=""></span> -->
+                <span>My Orders</span>
+              </div>
+              <div
+                class="nav-item"
+                onclick="setTimeout(AccountOneAtATime, 50, 'chat');"
+              >
+                <!-- <span><img src="" alt=""></span> -->
+                <span>Chat</span>
+              </div>
+              <div
+                class="nav-item"
+                onclick="setTimeout(AccountOneAtATime, 50, 'sign-out'); ShowOverlay('sign-out')"
+              >
+                <!-- <span><img src="" alt=""></span> -->
+                <span>Sign out</span>
+              </div>
             </div>
 
-            <footer class="footer">
-                <%- include('./partials/footer.ejs') %>  
-        </footer>
-    </div>
+            <div id="right-col" class="col">
+              <div class="account-only-one account-active" id="details">
+                <h3>My details</h3>
+                <h5>Personal Information</h5>
+                <hr />
+                <div id="display-names" class="section">
+                  <label class="display-label">FIRST NAME</label>
+                  <input
+                    disabled
+                    class="display-input"
+                    id="display-firstname"
+                    type="text"
+                    placeholder="<%= userData.firstName %>"
+                  />
 
-    </div>
+                  <label class="display-label">LAST NAME</label>
+                  <input
+                    disabled
+                    class="display-input"
+                    id="display-lastname"
+                    type="text"
+                    placeholder="<%= userData.lastName %>"
+                  />
+                </div>
 
+                <h5>E-mail address</h5>
+                <hr />
+
+                <div class="section">
+                  <label class="display-label">E-MAIL ADDRESS</label>
+                  <input
+                    disabled
+                    class="display-input"
+                    type="text"
+                    placeholder="<%= userData.email %>"
+                  />
+                </div>
+              </div>
+
+              <div class="account-only-one" id="chat">
+                <div class="test">
+                  <div class="card">
+                    <div class="chat-header">Chat</div>
+                    <div class="chat-window">
+                      <ul class="message-list"></ul>
+                    </div>
+                    <div class="chat-input">
+                      <input
+                        type="text"
+                        class="message-input"
+                        placeholder="Type your message here"
+                      />
+                      <button class="send-button">Send</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer"><%- include('./partials/footer.ejs') %></footer>
+      </div>
     </div>
 
     <div class="account-only-one overlay-div" id="sign-out">
-        <div>
-            <h4 class="center">Are you sure you want to sign out?</h4>
-        </div>
+      <div>
+        <h4 class="center">Are you sure you want to sign out?</h4>
+      </div>
 
-        <div class="center">
-            <button class="signout-button" onclick = "signOut()">Sign Out</button>
-        </div>
+      <div class="center">
+        <button class="signout-button" onclick="signOut()">Sign Out</button>
+      </div>
     </div>
 
     <script src="../JS/overlay.js"></script>
     <script src="../JS/account1.js"></script>
     <script src="../JS/header.js"></script>
-</body>
-
+  </body>
 </html>
