@@ -24,6 +24,7 @@ let hitsPerPage;
 
 function checkAdmin(req) {
   if (req.session.userType == "admin") admin = true;
+  else admin = false;
 }
 
 function filterProducts(req) {
