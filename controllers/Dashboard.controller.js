@@ -119,23 +119,24 @@ const addProduct = async (req, res) => {
   } = req.body;
   console.log(req.body);
 
-  let errorMsg = {
-    productName: "",
-    productPrice: "",
-    productDescription: "",
-    productStock: "",
-    images: "",
-  };
+  // let errorMsg = {
+  //   productName: "",
+  //   productPrice: "",
+  //   productDescription: "",
+  //   productStock: "",
+  //   images: "",
+  // };
+
+  let errorMsg = {};
 
   //validate data
   if (productName.trim() == "") {
     errorMsg.productName = "Product name is required";
     console.log("Name error");
   } else {
-    const existingProduct = await Product.findOne({ productName });
-    if (existingProduct) {
+    const existingProduct = await Product.findOne({ name: productName });
+    if (existingProduct) 
       errorMsg.productName = "Product already exists!";
-    }
   }
 
   if (productPrice.trim() == "")
@@ -156,24 +157,23 @@ const addProduct = async (req, res) => {
     errorMsg.images = "Please upload exactly " + IMAGE_LIMIT + " images";
     console.log("Wrong number of files");
     console.log(req.files.images.length);
-    // console.log(req.files.length); //undefined
   }
 
   if (Object.keys(errorMsg).length > 0) {
-    for (let key in errorMsg) {
+    for (let key in errorMsg) 
       console.log(errorMsg[key]);
-    }
+    
     //need to add errorMsg without ajax later
-    if (req.query.ajax) {
-      console.log("Returning json using ajax");
+    if (req.query.ajax) 
       return res.json({ errorMsg });
-    } else {
+     else 
       return res.redirect("/dashboard/products?page=0");
-    }
-    // return res.render("products", { errorMsg: errorMsg, admin: true });
+    
   }
 
-  for (let i = 0; i < imagesNo; i++) {
+  let images = req.files.images;
+
+  for (let i = 0; i < req.files.images.length; i++) {
     imgNames[i] = productName.trim() + i + ".png";
     console.log(imgNames[i]);
     let uploadPath = __dirname + "/../public/Images/Products/" + imgNames[i];
@@ -420,9 +420,9 @@ const editProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   const { productID } = req.body;
-
+  let product;
   try {
-    const product = await Product.findOne({ _id: productID });
+    product = await Product.findOne({ _id: productID });
   } catch (error) {
     console.error("Error deleting product:", error);
     if (req.query.ajax) return res.json({ error: "Product ID not found" });

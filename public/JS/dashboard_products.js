@@ -163,16 +163,23 @@ function ajaxAddProduct(form, URL) {
     contentType: false,
     enctype: "multipart/form-data",
     success: function (response) {
-      if (Object.keys(response.errorMsg).length === 0) {
+      if (!response.errorMsg) {
+        console.log("Success");
+        $("#product-form-overlay #success-span").html("Successfully Added Product");
+        //hide all divs
+        let divs = form.querySelectorAll("#addProductForm > div");
+        for (let i = 0; i < divs.length; i++) 
+          divs[i].style.display = "none";
+        document.querySelectorAll("#product-form-overlay p")[1].style.display = "none";
+        document.querySelectorAll("#product-form-overlay a")[0].style.display = "none";
+        //refresh page from here
         setTimeout(function () {
-          location.reload();
+          window.location.reload();
         }, 2000);
       } else {
         $("#productNameError").html(response.errorMsg.productName);
         $("#productPriceError").html(response.errorMsg.productPrice);
-        $("#productDescriptionError").html(
-          response.errorMsg.productDescription
-        );
+        $("#productDescriptionError").html(response.errorMsg.productDescription);
         $("#productStockError").html(response.errorMsg.productStock);
         $("#productImageError").html(response.errorMsg.images);
       }
@@ -286,7 +293,7 @@ function ajaxEditProduct(form, URL) {
         $("#save-button").css("display", "none");
         $("#cancel-form").css("display", "none");
         toggleDivs(false);
-        $("#success-span").html(response.successMsg);
+        $("#editProductForm #success-span").html(response.successMsg);
         setTimeout(function () {
           location.reload();
         }, 2000);
