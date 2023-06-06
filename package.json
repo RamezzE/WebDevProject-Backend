@@ -23,7 +23,8 @@
     "nodemon": "^2.0.22",
     "package.json": "^2.0.1",
     "sax": "^1.2.4",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "use-dark-mode": "^2.3.1"
   },
   "name": "webdev",
   "description": "",
