@@ -43,7 +43,7 @@ router.get('/', async (req, res, next) => {
       let admin = false;
       if (req.session.userType == 'admin')
         admin = true;
-      res.render('myproducts', { admin: admin, products: products });
+      res.render('Myproducts', { admin: admin, products: products });
 });
 
 export default router;

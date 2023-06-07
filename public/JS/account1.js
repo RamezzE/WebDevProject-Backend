@@ -20,7 +20,7 @@ function signOut() {
 }
 
 function toMyorders() {
-    location.href = "/myproducts";
+    location.href = "/Myproducts";
 }
 function toedit() {
     location.href = "/account/editing";

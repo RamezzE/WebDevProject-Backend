@@ -62,7 +62,7 @@ app.use('/register', register_router);
 app.use('/products',product_router);
 app.use('/checkout', check_router);
 app.use('/signOut', signOut_router);
-app.use('/myproducts', Myorders_router);
+app.use('/Myproducts', Myorders_router);
 
 
 // error handler

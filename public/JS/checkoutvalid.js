@@ -75,7 +75,7 @@ class FormClass {
             data: formData,
             success: function (response) {
             if (Object.keys(response.errors).length === 0)
-                window.location.href = "/myproducts";
+                window.location.href = "/Myproducts";
             else {
                 $("#fullNameErrorMsg").html(response.errors.fullname);
                 $("#AdressErrorMsg").html(response.errors.address);

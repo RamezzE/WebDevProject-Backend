@@ -214,7 +214,7 @@ const Checkout = async (req, res) => {
       return res.json({ errors: errorMsg, admin: false });
     } else {
       console.log("checkout not using ajax");
-      return res.redirect("/myproducts");
+      return res.redirect("/Myproducts");
     }
   }
 };
