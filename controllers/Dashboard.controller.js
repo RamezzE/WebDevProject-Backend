@@ -307,10 +307,12 @@ const editProduct = async (req, res) => {
     productMen,
     productWomen,
     productKids,
-    productShoes,
-    productBags,
+    shoes,
+    bags,
   } = req.body;
   errorMsg = {};
+
+  console.log(req.body);
 
   if (productName.trim() == "") {
     errorMsg.productName = "Product name is required";
@@ -355,8 +357,8 @@ const editProduct = async (req, res) => {
 
   if (productKids == "on") tags.push("kids", "kid", "child", "children");
 
-  if (productShoes == "on") tags.push("shoes", "shoe");
-  else if (productBags == "on") tags.push("bags", "bag");
+  if (shoes == "on") tags.push("shoes", "shoe");
+  else if (bags == "on") tags.push("bags", "bag");
 
   const product = await Product.findOne({ _id: productID });
 

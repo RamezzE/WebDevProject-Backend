@@ -1,13 +1,15 @@
 <html lang="en">
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../JS/dark.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
-    <link rel="stylesheet" type="text/css" href="CSS/footer.css">
-    <link rel="stylesheet" type="text/css" href="CSS/Cart.css">
-    <link rel="stylesheet" type="text/css" href="CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/Cart.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
 
 </head>
 
@@ -28,21 +30,19 @@
                         <a id="continue-shopping" href="/products?page=0">Continue Shopping</a>                      
                         <% }%>
                     <% products.forEach(prd=> { %>
-                        <% console.log("SDSD") %>
-                            <% console.log(prd)%>
                      <!-- Product #1 -->
                      <div class="item">
 
                         <div class="buttons">
                             <button class="delete-btn" type="button" name="button" onclick="RemoveCart('<%= prd._id%>')">
-                                <img src="Images/Icons/delete.png" alt="">
+                                <img src="../Images/Icons/delete.png" alt="">
                             </button>
                             <button class="like-btn" type="button" name="button" onclick="change(this,'<%= prd._id%>')">
-                                <img src="Images/Icons/Love.png" alt="">
+                                <img src="../Images/Icons/Love.png" alt="">
                             </button>
                             <button class="like-btn" type="button" name="button" style="display: none;"
                                 onclick="change2(this,'<%= prd._id%>')">
-                                <img src="Images/Icons/loved.png" alt="">
+                                <img src="../Images/Icons/loved.png" alt="">
                             </button>
                         </div>
 
@@ -65,7 +65,7 @@
                     <% }) %>
                     <% if(products.length!=0) {%>
                         <div class="item">
-                         <input type="submit" value="Continue to checkout" href = "checkout.html"class="btncart" onclick="toCheckout()">
+                         <input type="submit" value="Continue to checkout" href = "/checkout"class="btncart" onclick="toCheckout()">
                         </div>
                         <% }%>
                     

@@ -1,3 +1,9 @@
+let menuIcons = document.getElementsByClassName("menuIcon");
+let searchImg = document.getElementById("searchImg");
+let searchSpan = document.getElementsByClassName("searchSpan")[0];
+let searchBox = document.getElementsByClassName("searchBox")[0];
+let closeSearch = document.getElementById("closeSearch");
+
 function toggleMenu() {
   let x = document.getElementsByClassName("menuItem");
   for (let i = 0; i < x.length; i++) {
@@ -5,12 +11,6 @@ function toggleMenu() {
     else x[i].style.display = "block";
   }
 }
-
-let menuIcons = document.getElementsByClassName("menuIcon");
-let searchImg = document.getElementById("searchImg");
-let searchSpan = document.getElementsByClassName("searchSpan")[0];
-let searchBox = document.getElementsByClassName("searchBox")[0];
-let closeSearch = document.getElementById("closeSearch");
 
 searchBox.addEventListener('keydown', (event) => {
   if (event.keyCode === 13) 

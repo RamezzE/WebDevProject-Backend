@@ -179,10 +179,16 @@ input:focus {
     transition: all 0.3s ease;
 }
 
+.dark .total-price {
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
 .quantity input {
     border: none;
     text-align: center;
     width: 32px;
+    height:32px;
     font-size: 16px;
     color: #43484D;
     font-weight: 300;
@@ -216,30 +222,24 @@ input[type=number]::-webkit-inner-spin-button {
 
 
 @media (max-width: 800px) {
-    /* .shopping-cart {
-        width: 100%;
-        height: auto;
-    }
+   .item img {
+        height:50px;
+        margin:5px;
+   }
 
-    .item {
-        height: auto;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+   .buttons button {
+        margin:5px;
+         height:20px;
+         width:20px;
+   }
+   .buttons button img {
+        height:20px;
+        width:20px;
+   }
 
-    .image img {
-        width: 50%;
-    }
-
-    .image,
-    .quantity,
-    .description {
-        width: 100%;
-        text-align: center;
-        margin: 6px 0;
-    }
-
-    .buttons {
-        margin-right: 20px;
-    } */
+   input[type="number"] {
+        margin: 5px;
+        height:25px;
+        width:25px;
+   }
 }

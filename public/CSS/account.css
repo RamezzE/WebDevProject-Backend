@@ -137,14 +137,6 @@ body {
   width: 200px;
 }
 
-/* #sign-out {
-      position: absolute;
-      z-index: 1;
-      margin: auto;
-      width: 600px;
-      height: 50vh;
-  } */
-
 .signout-button {
   position: absolute;
   top: 50%;
@@ -273,7 +265,6 @@ body {
   background: whitec;
 }
 
-
 @media (max-width:600px) {
   #biggerContainer {
     margin-top: 9.8vh;
@@ -283,10 +274,6 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-
-  .accountFlex .nav-item span {
-    color: black !important;
   }
 
   .accountFlex .col {
@@ -318,3 +305,32 @@ body {
   top: 30%;
   right: 17%;
 }
+
+.dark .nav-item{
+  background-color: black;
+  color: white;
+}
+
+.dark .nav-item:not(#person):hover {
+  background-color: white;
+  cursor: pointer;
+  color: black;
+}
+
+.dark #initials {
+  background-color: white;
+  border: 2px solid white;
+  color: black;
+}
+
+.dark .account-only-one {
+  background-color: black;
+  color: white;
+}
+
+.dark .accountFlex input {
+  background-color: black;
+  color: white;
+}
+
+

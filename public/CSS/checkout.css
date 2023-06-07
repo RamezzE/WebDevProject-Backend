@@ -156,3 +156,23 @@ form > span {
         margin-bottom: 20px;
     }
 }
+
+.dark .rowcart input[type=text] {
+    background-color: #0c0c0c;
+    color: white;
+}
+
+.dark .rowcart .form {
+    background-color: #0c0c0c;
+    color: white;
+}
+
+.dark .rowcart .form label {
+
+    color: white;
+}
+
+.dark .col-75cart .containercart {
+    background-color: #0c0c0c;
+    color: white;
+}
