@@ -86,6 +86,10 @@
     padding-left: 10px;
  }
 
+ #bodyContainer .containerx:hover {
+    cursor: pointer;
+ }
+
  #bodyContainer .containerx:hover img {
     opacity: 0.7;
  }

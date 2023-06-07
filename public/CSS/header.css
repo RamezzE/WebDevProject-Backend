@@ -1,8 +1,12 @@
 :root {
-    --navBar-bg-color: #8f8f8f;
+    /* --navBar-bg-color: #8f8f8f; */
+    /* --navBar-bg-color: #232527; */
+    --offer-bg-color: #d3d5d7;
+    --navBar-bg-color: #868686;
     --menu-hover-color: #dbdbdb;
     --menu-font-size: calc(20px + 0.2vh);
     --menu-border-color: #4d4d4d;
+    --body-background-color: #f2f2f6;
 }
 
 /* #biggerContainer {
@@ -10,8 +14,11 @@
     overflow-y: scroll;
 } */
 
+body {
+    background-color: var(--body-background-color);
+}
+
 #topNav {
-    background-color: var(--navBar-bg-color);
     z-index: 2;
     width: 100vw;
     overflow-x: hidden;
@@ -23,13 +30,24 @@
 }
 
 #topNav header {
-    background-color: #fbfcfd;
+    background-color: var(--offer-bg-color);
     color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2px;
     font-size: 16px;
+}
+
+/* #topNav-line {
+    width: 40%;
+    border: 0;
+    border-top: 1px solid #222;
+    margin: 0px auto;
+} */
+
+#topNav div.row1 {
+    background-color: var(--navBar-bg-color);
 }
 
 #topNav div.row1,
@@ -47,7 +65,7 @@
 }
 
 #topNav .navImg {
-    height: calc(20px + 0.6vh);
+    height: calc(20px + 0.6vh)
 }
 
 #topNav img,
@@ -60,10 +78,9 @@ input[type="image"] {
     padding: 10px 15px;
 }
 
-
 #topNav .menuIcon:hover,
 #topNav .searchSpan:hover {
-    background-color: var(--menu-hover-color);
+    /* background-color: var(--menu-hover-color); */
     transition: 0.3s;
 }
 
@@ -107,7 +124,7 @@ input[type="image"] {
 }
 .change {
     cursor: pointer;
-    border: 1px solid #555;
+    /* border: 1px solid #555; */
     border-radius: 40%;
     /* width: 20px; */
     text-align: center;
@@ -115,14 +132,51 @@ input[type="image"] {
     /* margin-left: 8px; */
 }
 .dark{
-    background-color: #222;
-    color: #e6e6e6
+    background-color: #373737;
+    color: #e6e6e6;
 }
 
 .navbar-dark {
     background-color: #222 !important;
     color: #e6e6e6
 }
+
+.dark header {
+    background-color: #2f2f2f !important;
+    color: #e6e6e6
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height:15px;
+  }
+  
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    transition: all 0.3s ease;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #515151; 
+    transition: all 0.3s ease;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    transition: all 0.3s ease;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #525252;
+  }
+
+    .dark ::-webkit-scrollbar-thumb:hover {
+        background: #8b8b8b; 
+    }
 
 /* Smaller screens configurations: */
 
