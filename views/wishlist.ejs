@@ -25,7 +25,7 @@
                         <div class="item">
                             <h2>No items in your wishlist</h2>
                         </div>
-                        <a href="/products">Continue Shopping</a>
+                        <a href="/products" id="continue-shopping">Continue Shopping</a>
                         
                         <% }%>
                             <% products.forEach(prd=> { %>
@@ -40,7 +40,7 @@
                                     <img src="../Images/Products/<%= prd.images[0]%>" alt="">
 
                                     <div class="description">
-                                        <span>
+                                        <span class="item-found" onclick="window.location.href = 'products/<%= prd._id%>'">
                                             <%= prd.name %>
                                         </span>
                                         <span></span>

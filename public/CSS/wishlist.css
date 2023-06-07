@@ -73,9 +73,34 @@ body {
   min-width: fit-content;
 }
 
+.item-found {
+  transition: all 0.3s ease;
+}
+
+.item-found:hover {
+  /* background-color: #a5a4a4; */
+  box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
 .item:nth-child(3) {
   border-top: 1px solid #E1E8EE;
   border-bottom: 1px solid #E1E8EE;
+}
+
+#continue-shopping {
+  text-decoration: none;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+#continue-shopping:hover {
+  text-decoration: underline;
+}
+
+.dark #continue-shopping {
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .buttons>button>img {
