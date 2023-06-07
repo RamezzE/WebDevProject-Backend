@@ -154,6 +154,7 @@ input[type="image"] {
 
     #topNav .searchSpan .searchBox {
         display:none;
+        float:right;
     }
 
 

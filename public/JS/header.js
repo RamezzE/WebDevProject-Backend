@@ -17,10 +17,35 @@ searchBox.addEventListener('keydown', (event) => {
     toggleSearchBar(true);
 });
 
+function onLoad() {
+  if (window.innerWidth <= 600) 
+    searchBox.style.display = "none";
+  else 
+    searchBox.style.display = "inline";
+}
+window.onload = onLoad;
+
+window.onresize = function() {
+  if (window.innerWidth <= 600) 
+    searchBox.style.display = "none";
+  else 
+    searchBox.style.display = "inline";
+  
+}
+
 function toggleSearchBar(bool) {
   let value;
   if (bool) {
-    if (searchSpan.style.display == "inline") {
+    if (searchBox.style.display == "none") {
+      value = "none";
+      searchSpan.style.marginLeft = "0";
+      searchSpan.style.display = "inline";
+      searchImg.style.marginLeft = "0";
+      searchBox.style.width = "100%";
+      searchSpan.style.width = "70%";
+      searchBox.style.display = "inline";
+    } else {
+
         let form = document.createElement("form");
         form.action = "/products";
         form.method = "GET";
@@ -34,13 +59,7 @@ function toggleSearchBar(bool) {
         return;
     }
 
-    value = "none";
-    searchSpan.style.marginLeft = "0";
-    searchSpan.style.display = "inline";
-    searchImg.style.marginLeft = "0";
-    searchBox.style.width = "100%";
-    searchSpan.style.width = "70%";
-    searchBox.style.display = "inline";
+    
   } else {
     value = "";
     searchSpan.style.marginLeft = "auto";
