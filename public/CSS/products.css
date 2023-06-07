@@ -53,6 +53,10 @@ body {
     max-width: 100%;
 }
 
+#redirect-home:hover {
+    cursor: pointer;
+}
+
 .productsGrid {
     margin-top:10px;
     display: flex;
@@ -70,6 +74,7 @@ body {
     margin-top:5px;
     width: 20%;
     min-height: 10vh;
+    transition: ease all 300ms;
 }
 
 .productsGrid .product .price {
@@ -115,6 +120,11 @@ body {
     padding:10px;
     box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.5);
     transition: ease all 300ms;
+}
+
+.extraButton:hover {
+    cursor: pointer;
+    box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.8);
 }
 
 .pagination {

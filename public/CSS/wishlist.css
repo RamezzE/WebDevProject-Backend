@@ -45,6 +45,12 @@ body {
   color: #5E6977;
   font-size: 36px;
   font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.dark .title {
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .shopping-cart {
@@ -106,6 +112,7 @@ input:focus {
   font-size: 16px;
   color: #43484D;
   font-weight: 300;
+  transition: all 0.3s ease;
 }
 
 
@@ -118,6 +125,7 @@ input:focus {
   font-size: 14px;
   color: #43484D;
   font-weight: 400;
+  transition: all 0.3s ease;
 }
 
 .description span:first-child {
@@ -128,6 +136,16 @@ input:focus {
   font-weight: 300;
   margin-top: 8px;
   color: #86939E;
+}
+
+.dark .description span {
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.dark .total-price {
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
 
 .quantity input {
@@ -158,6 +176,7 @@ input[type=number]::-webkit-inner-spin-button {
 .btncart:hover {
   background-color: #45a049;
 }
+
 @media (max-width:600px) {
   #biggerContainer {
     margin-top: 9.8vh;

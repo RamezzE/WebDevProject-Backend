@@ -137,7 +137,6 @@ body {
   width: 200px;
 }
 
-
 /* #sign-out {
       position: absolute;
       z-index: 1;
@@ -286,10 +285,13 @@ body {
     width: 100%;
   }
 
+  .accountFlex .nav-item span {
+    color: black !important;
+  }
+
   .accountFlex .col {
     padding: 10px 30px;
     margin-bottom: 0px;
-    /* background-color: red; */
   }
 }
 
