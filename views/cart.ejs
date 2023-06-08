@@ -1,90 +1,114 @@
 <html lang="en">
-
-<head>
+  <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../JS/dark.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cart</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/footer.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/Cart.css">
-    <link rel="stylesheet" type="text/css" href="../CSS/header.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/Cart.css" />
+    <link rel="stylesheet" type="text/css" href="../CSS/header.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div id="container">
-        <div id="topNav">
-            <%- include('./partials/header.ejs') %>
-        </div>
-        <div id="biggerContainer" style = "margin-top: calc(70px);">
-            <div id="bodyContainer">
-                <div class="shopping-cart">
-                    <!-- Title -->
-                    <h1 class="title">Shopping Bag</h1>
-                    <% if(products.length==0) {%>
-                        <div class="item">
-                            <h2 id="no-items">No items in your Cart</h2>
-                        </div>
-                        <a id="continue-shopping" href="/products?page=0">Continue Shopping</a>                      
-                        <% }%>
-                    <% products.forEach(prd=> { %>
-                     <!-- Product #1 -->
-                     <div class="item">
-
-                        <div class="buttons">
-                            <button class="delete-btn" type="button" name="button" onclick="RemoveCart('<%= prd._id%>')">
-                                <img src="../Images/Icons/delete.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" onclick="change(this,'<%= prd._id%>')">
-                                <img src="../Images/Icons/Love.png" alt="">
-                            </button>
-                            <button class="like-btn" type="button" name="button" style="display: none;"
-                                onclick="change2(this,'<%= prd._id%>')">
-                                <img src="../Images/Icons/loved.png" alt="">
-                            </button>
-                        </div>
-
-
-                        <img src="../Images/Products/<%= prd.images[0]%>" alt="" />
-
-
-                        <div class="description">
-                            <span class="item-found" onclick="window.location.href = 'products/<%= prd._id%>'"><%= prd.name %>
-                            </span>
-                            <span></span>
-                            <span></span>
-                        </div>
-
-                        <div class="quantity">
-                            <input type="number" id="number" name="amount" value="1" min="1" max="10" />
-                        </div>
-                        <div class="total-price"><%= prd.price %></div>
-                     </div>
-                    <% }) %>
-                    <% if(products.length!=0) {%>
-                        <div class="item">
-                         <input type="submit" value="Continue to checkout" href = "/checkout"class="btncart" onclick="toCheckout()">
-                        </div>
-                        <% }%>
-                    
-                </div>
+      <div id="topNav"><%- include('./partials/header.ejs') %></div>
+      <div id="biggerContainer" style="margin-top: calc(70px)">
+        <div id="bodyContainer">
+          <div class="shopping-cart">
+            <!-- Title -->
+            <h1 class="title">Shopping Bag</h1>
+            <% if(products.length==0) {%>
+            <div class="item">
+              <h2 id="no-items">No items in your Cart</h2>
             </div>
+            <a id="continue-shopping" href="/products?page=0"
+              >Continue Shopping</a
+            >
+            <% }%> <% products.forEach(prd=> { %>
+            <!-- Product #1 -->
+            <div class="item">
+              <div class="buttons">
+                <button
+                  class="delete-btn"
+                  type="button"
+                  name="button"
+                  onclick="RemoveCart('<%= prd._id%>')"
+                >
+                  <img src="../Images/Icons/delete.png" alt="" />
+                </button>
+                <button
+                  class="like-btn"
+                  type="button"
+                  name="button"
+                  onclick="change(this,'<%= prd._id%>')"
+                >
+                  <img src="../Images/Icons/Love.png" alt="" />
+                </button>
+                <button
+                  class="like-btn"
+                  type="button"
+                  name="button"
+                  style="display: none"
+                  onclick="change2(this,'<%= prd._id%>')"
+                >
+                  <img src="../Images/Icons/loved.png" alt="" />
+                </button>
+              </div>
 
-            <footer class="footer">
-                <%- include('./partials/footer.ejs') %>
-            </footer>
+
+                <img class = "cart-image"
+                  src="../Images/Products/<%= prd.images[0]%>"
+                  alt=""
+                  onclick="window.location.href = '/products/<%= prd._id%>'"
+                />
+
+
+              <div class="description">
+                <span
+                  class="item-found"
+                  onclick="window.location.href = '/products/<%= prd._id%>'"
+                  ><%= prd.name %>
+                </span>
+              </div>
+
+              <div class="quantity">
+                <input
+                  type="number"
+                  id="number"
+                  name="amount"
+                  value="1"
+                  min="1"
+                  max="10"
+                />
+              </div>
+              <div class="total-price"><%= prd.price %></div>
+            </div>
+            <% }) %> <% if(products.length!=0) {%>
+            <div class="item">
+              <input
+                type="submit"
+                value="Continue to checkout"
+                href="/checkout"
+                class="btncart"
+                onclick="toCheckout()"
+              />
+            </div>
+            <% }%>
+          </div>
         </div>
-    </div>
-</body>
-<script src="../JS/likebutton.js"></script>
-<script src="../JS/header.js"></script>
-<script src="../JS/Removeproducts.js"></script>
-<script type = "text/javascript">
-    function toCheckout() {
-        location.href = "/checkout";
-    }
-</script>
 
+        <footer class="footer"><%- include('./partials/footer.ejs') %></footer>
+      </div>
+    </div>
+  </body>
+  <script src="../JS/likebutton.js"></script>
+  <script src="../JS/header.js"></script>
+  <script src="../JS/Removeproducts.js"></script>
+  <script type="text/javascript">
+    function toCheckout() {
+      location.href = "/checkout";
+    }
+  </script>
 </html>
