@@ -39,10 +39,10 @@
                                         </button>
                                     </div>
 
-                                    <img src="../Images/Products/<%= prd.images[0]%>" alt="">
+                                    <img src="../Images/Products/<%= prd.images[0]%>" alt="" onclick="window.location.href = '/products/<%= prd._id%>'">
 
                                     <div class="description">
-                                        <span class="item-found" onclick="window.location.href = 'products/<%= prd._id%>'">
+                                        <span class="item-found" onclick="window.location.href = '/products/<%= prd._id%>'">
                                             <%= prd.name %>
                                         </span>
                                         <span></span>
