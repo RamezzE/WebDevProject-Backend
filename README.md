@@ -10,7 +10,7 @@
 - [Usage](#usage)
 - [Technologies](#technologies)
 - [Contributing](#contributing)
-- [License](#license)
+- [License](https://opensource.org/license/mit/)
 
 ## Project Overview
 
