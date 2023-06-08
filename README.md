@@ -10,7 +10,7 @@
 - [Usage](#usage)
 - [Technologies](#technologies)
 - [Contributing](#contributing)
-- [License](https://opensource.org/license/mit/)
+- [License](#License)
 
 ## Project Overview
 
@@ -66,4 +66,4 @@ To contribute to this project, follow these steps:
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](https://opensource.org/license/mit/)
