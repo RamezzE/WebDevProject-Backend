@@ -6,7 +6,7 @@ let currentFilters = "";
 let searchQuery = urlParams.get("query") || "";
 
 if (searchQuery != "")
-    document.getElementsByClassName("search-box")[0].value = searchQuery;
+  document.getElementsByClassName("search-box")[0].value = searchQuery;
 
 let addForm = document.getElementById("addProductForm");
 
@@ -36,7 +36,7 @@ searchBox.addEventListener("keydown", (event) => {
 function onLoad() {
   if (searchQuery != "")
     document.getElementsByClassName("search-box")[0].value = searchQuery;
-  
+
   toggleDivs(false);
 
   updateCheckBoxes();
@@ -51,8 +51,6 @@ function onLoad() {
 
   let pageDivs = $(".pagination div");
   pageDivs[currentPage].classList.add("currentPage");
-
-  
 }
 
 $(document).ready(onLoad);
@@ -165,23 +163,33 @@ function ajaxAddProduct(form, URL) {
     success: function (response) {
       if (!response.errorMsg) {
         console.log("Success");
-        $("#product-form-overlay #success-span").html("Successfully Added Product");
+        $("#product-form-overlay #success-span").html(
+          "Successfully Added Product"
+        );
         //hide all divs
         let divs = form.querySelectorAll("#addProductForm > div");
-        for (let i = 0; i < divs.length; i++) 
-          divs[i].style.display = "none";
-        document.querySelectorAll("#product-form-overlay p")[1].style.display = "none";
-        document.querySelectorAll("#product-form-overlay a")[0].style.display = "none";
+        for (let i = 0; i < divs.length; i++) divs[i].style.display = "none";
+        document.querySelectorAll("#product-form-overlay p")[1].style.display =
+          "none";
+        document.querySelectorAll("#product-form-overlay a")[0].style.display =
+          "none";
         //refresh page from here
         setTimeout(function () {
           window.location.reload();
         }, 2000);
       } else {
-        $("#productNameError").html(response.errorMsg.productName);
-        $("#productPriceError").html(response.errorMsg.productPrice);
-        $("#productDescriptionError").html(response.errorMsg.productDescription);
-        $("#productStockError").html(response.errorMsg.productStock);
-        $("#productImageError").html(response.errorMsg.images);
+        $("#product-form-overlay #productNameError").html(response.errorMsg.productName);
+        $("#product-form-overlay #productPriceError").html(response.errorMsg.productPrice);
+        $("#product-form-overlay #productDescriptionError").html(
+          response.errorMsg.productDescription
+        );
+
+        $("#edit-product-overlay #targetAudienceError").html(response.errorMsg.targetAudience);
+
+        $("#edit-product-overlay #typeError").html(response.errorMsg.productType);
+
+        $("#product-form-overlay #productStockError").html(response.errorMsg.productStock);
+        $("#product-form-overlay #productImageError").html(response.errorMsg.images);
       }
     },
     error: function (err) {
@@ -288,6 +296,7 @@ function ajaxEditProduct(form, URL) {
     contentType: false,
     enctype: "multipart/form-data",
     success: function (response) {
+      console.log(response.errorMsg);
       if (!response.errorMsg) {
         $("#edit-p").css("display", "none");
         $("#save-button").css("display", "none");
@@ -299,13 +308,22 @@ function ajaxEditProduct(form, URL) {
         }, 2000);
       } else {
         console.log("In ajax returned error");
-        console.log(response.errorMsg.productID);
-        $("#productNameError").html(response.errorMsg.productName);
-        $("#productPriceError").html(response.errorMsg.productPrice);
-        $("#productDescriptionError").html(
+
+        $("#edit-product-overlay #productNameError").html(response.errorMsg.productName);
+
+        $("#edit-product-overlay #productPriceError").html(response.errorMsg.productPrice);
+
+        $("#edit-product-overlay #productDescriptionError").html(
           response.errorMsg.productDescription
         );
-        $("#productStockError").html(response.errorMsg.productStock);
+
+        $("#edit-product-overlay #targetAudienceError").html(response.errorMsg.targetAudience);
+          
+        $("#edit-product-overlay #typeError").html(response.errorMsg.productType);
+
+        $("#edit-product-overlay #productStockError").html(response.errorMsg.productStock);
+
+        $("#edit-product-overlay #productImageError").html(response.errorMsg.images);
       }
     },
     error: function (err) {
@@ -380,6 +398,12 @@ function ajaxProducts(URL) {
             src: "../../Images/Products/" + product.images[0],
           })
         );
+        imgCell.attr(
+          "onclick",
+          "window.location.href = '/products/" + product.objectID + "'"
+        );
+        imgCell.css("cursor", "pointer");
+          
         var nameCell = $("<td></td>").text(product.name);
         var priceCell = $("<td></td>").text(product.price);
         var stockCell = $("<td></td>").text(product.stock);

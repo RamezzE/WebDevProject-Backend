@@ -1,7 +1,7 @@
 <div id="products" class="only-one">
     <h1>Products</h1>
 
-    <div class="smallContainer" style="width:fit-content">
+    <div class="smallContainer buttons" style="width:fit-content">
         <button onclick="HideOverlay();ShowForm('product-form-overlay')">
             <h4>Add Product</h4>
         </button>
@@ -40,7 +40,7 @@
             <% products.forEach(product=> { %>
                 <tr>
                     <td>
-                        <img src="../../Images/Products/<%=product.images[0]%>">
+                        <img src="../../Images/Products/<%=product.images[0]%>" onclick = "window.location.href = '/products/<%= product.objectID%>'" style="cursor:pointer;">
                     </td>
                     <td>
                         <%= product.name %>

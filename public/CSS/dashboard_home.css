@@ -13,6 +13,7 @@
     border-radius: 10px;
     border: 1px solid black;
     transition: ease all 300ms;
+    max-width: 75vw;
 }
 
 #suggested {

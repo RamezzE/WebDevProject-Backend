@@ -86,3 +86,9 @@
         width:60px;
     }
 }
+
+@media (max-height:400px) {
+    #sidebar a img{
+        height:22px;
+    }
+}

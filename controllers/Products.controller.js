@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import Product from "../models/product.js";
 import algoliasearch from "algoliasearch";
+import mongoose from "mongoose";
 
 const client = new MongoClient(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -61,10 +62,29 @@ const productDetails = async (req, res) => {
   checkAdmin(req);
   console.log("Opening product");
   var query = { _id: req.params.id };
+  let product;
+  let id = "" + req.params.id + "";
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ID");
+      res.status(404).render(404, { admin: admin });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).render(404, { admin: admin });
+  }
 
-  const product = await Product.findOne(query);
+  try {
+    product = await Product.findOne(query);
+  } catch (error) {
+    console.log(error);
+    res.status(404).render(404, { admin: admin });
+  }
 
-  if (!product) console.log("Cannot find product");
+  if (!product) {
+    console.log("Cannot find product");
+    res.status(404).render(404, { admin: admin });
+  }
 
   res.render("ProductDetails", { prd: product, admin: admin });
 };
@@ -125,4 +145,4 @@ const searchProducts = async (req, res) => {
 export default {
   productDetails,
   searchProducts,
-}
+};

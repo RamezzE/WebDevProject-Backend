@@ -241,3 +241,9 @@ input[type="image"] {
     color: #e6e6e6;
   }
 }
+
+/* @media screen {
+  .searchBox {
+    display: block;
+  }
+} */

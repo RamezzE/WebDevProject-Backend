@@ -135,18 +135,33 @@ const addProduct = async (req, res) => {
     console.log("Name error");
   } else {
     const existingProduct = await Product.findOne({ name: productName });
-    if (existingProduct) 
-      errorMsg.productName = "Product already exists!";
+    if (existingProduct) errorMsg.productName = "Product already exists!";
   }
 
   if (productPrice.trim() == "")
     errorMsg.productPrice = "Product price is required";
+  else if (isNaN(productPrice))
+    errorMsg.productPrice = "Product price must be a number";
+  else if (productPrice < 0)
+    errorMsg.productPrice = "Product price cannot be negative";
 
   if (productDescription.trim() == "")
     errorMsg.productDescription = "Product description is required";
 
+  if (!productMen && !productWomen && !productKids) {
+    errorMsg.targetAudience = "Please select at least one target audience";
+  }
+
+  if (!shoes && !bags) {
+    errorMsg.productType = "Please select at least one product type";
+  }
+
   if (productStock.trim() == "")
     errorMsg.productStock = "Product stock is required";
+  else if (isNaN(productStock))
+    errorMsg.productStock = "Product stock must be a number";
+  else if (productStock < 0)
+    errorMsg.productStock = "Product stock cannot be negative";
 
   let imgNames = [];
 
@@ -160,15 +175,11 @@ const addProduct = async (req, res) => {
   }
 
   if (Object.keys(errorMsg).length > 0) {
-    for (let key in errorMsg) 
-      console.log(errorMsg[key]);
-    
+    for (let key in errorMsg) console.log(errorMsg[key]);
+
     //need to add errorMsg without ajax later
-    if (req.query.ajax) 
-      return res.json({ errorMsg });
-     else 
-      return res.redirect("/dashboard/products?page=0");
-    
+    if (req.query.ajax) return res.json({ errorMsg });
+    else return res.redirect("/dashboard/products?page=0");
   }
 
   let images = req.files.images;
@@ -326,22 +337,46 @@ const editProduct = async (req, res) => {
 
   if (productPrice.trim() == "")
     errorMsg.productPrice = "Product price is required";
+  else if (isNaN(productPrice))
+    errorMsg.productPrice = "Product price must be a number";
+  else if (productPrice < 0)
+    errorMsg.productPrice = "Product price cannot be negative";
 
   if (productDescription.trim() == "")
     errorMsg.productDescription = "Product description is required";
 
+  if (!productMen && !productWomen && !productKids) {
+    errorMsg.targetAudience = "Please select at least one target audience";
+  }
+
+  if (!shoes && !bags) {
+    errorMsg.productType = "Please select at least one product type";
+  }
+
   if (productStock.trim() == "")
     errorMsg.productStock = "Product stock is required";
+  else if (isNaN(productStock))
+    errorMsg.productStock = "Product stock must be a number";
+  else if (productStock < 0)
+    errorMsg.productStock = "Product stock cannot be negative";
 
-  if (Object.keys(errorMsg).length > 0) {
+  // try {
+  if (req.files) {
+    console.log("Images detected");
     if (req.files.images.length != IMAGE_LIMIT)
       errorMsg.images =
-        "Please upload either NO Images or exactly" + IMAGE_LIMIT + " images ";
+        "Please upload either NO Images or exactly " + IMAGE_LIMIT + " images ";
+  } else {
+    console.log("No images uploaded or error detecting them");
   }
+  // } catch (error) {
+  // console.log(error)
+  // console.log("No images uploaded or error detecting them");
+  // }
 
   if (Object.keys(errorMsg).length > 0) {
     if (req.query.ajax) {
-      console.log("Returning json using ajax");
+      console.log("Returning error in json using ajax");
       return res.json({ errorMsg });
     } else {
       return res.redirect("/dashboard/products?page=0");

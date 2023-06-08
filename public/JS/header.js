@@ -18,7 +18,7 @@ searchBox.addEventListener('keydown', (event) => {
 });
 
 function onLoad() {
-  if (window.innerWidth <= 600) 
+  if (window.innerWidth <= 600)
     searchBox.style.display = "none";
   else 
     searchBox.style.display = "inline";
@@ -26,8 +26,10 @@ function onLoad() {
 window.onload = onLoad;
 
 window.onresize = function() {
-  if (window.innerWidth <= 600) 
-    searchBox.style.display = "none";
+  if (window.innerWidth <= 600) { 
+    if (!isSearchBoxFocused())
+      searchBox.style.display = "none";
+  }
   else 
     searchBox.style.display = "inline";
   
@@ -63,6 +65,7 @@ function toggleSearchBar(bool) {
   } else {
     value = "";
     searchSpan.style.marginLeft = "auto";
+    searchBox.style.display = "none";
     searchSpan.style.display = "none";
     searchImg.style.marginLeft = "auto";
     searchBox.style.width = "unset";
@@ -77,5 +80,9 @@ function toggleSearchBar(bool) {
   else closeSearch.style.display = "none";
 
   searchImg.style.display = "";
+}
+
+function isSearchBoxFocused() {
+  return document.activeElement === document.getElementsByClassName("searchBox")[0];
 }
 

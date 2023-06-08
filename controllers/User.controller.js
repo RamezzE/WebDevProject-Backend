@@ -21,7 +21,6 @@ let admin = false;
 const login = async (req, res) => {
   //get data from form
   const { email, password } = req.body;
-  console.log(req.body);
   let errorMsg = {};
 
   //validate data
