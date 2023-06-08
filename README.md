@@ -10,7 +10,6 @@
 - [Usage](#usage)
 - [Technologies](#technologies)
 - [Contributing](#contributing)
-- [License](#License)
 
 ## Project Overview
 
@@ -63,7 +62,3 @@ To contribute to this project, follow these steps:
 3. Make your changes and commit them: `git commit -m 'Add some feature'`
 4. Push to the branch: `git push origin feature/your-feature-name`
 5. Open a pull request.
-
-## License
-
-[MIT License](https://opensource.org/license/mit/)
