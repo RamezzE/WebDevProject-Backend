@@ -8,11 +8,15 @@ router.get('/', function (req, res, next) {
 
   let admin = false;
   if (req.session.userType == 'admin')
-    {admin = true; 
-  res.render('checkout', { errorMsg: errorMsg, admin: admin })
-}
-    else {
+    {
+      admin = true; 
+      res.render('checkout', { errorMsg: errorMsg, admin: admin })
+    }
+    else if (req.session.userType == 'user') {
       admin = false;
+      res.render('checkout', { errorMsg: errorMsg, admin: admin })
+    }
+    else {
       res.render('err', { err: 'You must login to access this page',admin: admin })
     }
 });

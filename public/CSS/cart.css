@@ -133,6 +133,10 @@ body {
   /* margin-right: 10%; */
 }
 
+.cart-image:hover {
+  cursor: pointer;
+}
+
 button[class*="btn"] {
   width: 30px;
   height: 30px;

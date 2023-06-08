@@ -92,6 +92,10 @@ body {
   cursor: pointer;
 }
 
+#product-image:hover {
+  cursor: pointer;
+}
+
 #continue-shopping {
   text-decoration: none;
   color: black;
