@@ -14,7 +14,7 @@
 
 ## Project Overview
 
-This repository contains the source code and files for an e-commerce website built using the MERN stack (MongoDB, Express, React, and Node.js). The website provides a platform for users to browse and purchase products, with various functionalities implemented to enhance the overall shopping experience.
+This repository contains the source code and files for an e-commerce website built using the MERN stack (MongoDB, Express, React (still to be integrated), and Node.js). The website provides a platform for users to browse and purchase products, with various functionalities implemented to enhance the overall shopping experience.
 
 ## Features
 
@@ -31,13 +31,13 @@ This repository contains the source code and files for an e-commerce website bui
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/your-username/repository-name.git`
-2. Navigate to the project directory: `cd repository-name`
-3. Install the dependencies: `npm install`
+1. Clone the repository: `git clone https://github.com/your-username/WebDevProject-Backend.git`
+2. Navigate to the project directory: `cd WebDevProject-Backend`
+3. Install the dependencies: `npm install` / `npm i`
 
 ## Usage
 
-1. Start the development server: `npm start`
+1. Start the development server: `node bin/www` / `nodemon bin/www`
 2. Open your web browser and visit `http://localhost:8080` to access the website.
 
 Make sure to update the port in the URL accordingly if you're deploying the application to a different environment.
@@ -46,7 +46,6 @@ Make sure to update the port in the URL accordingly if you're deploying the appl
 
 - MongoDB: NoSQL database used to store product and user data.
 - Express: Web application framework for building the server-side of the application.
-- React: JavaScript library for building the user interface.
 - Node.js: JavaScript runtime environment for executing server-side code.
 - EJS: Templating engine used for rendering dynamic content.
 - AJAX: Asynchronous JavaScript and XML for making asynchronous requests to the server.
