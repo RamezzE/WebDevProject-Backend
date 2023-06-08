@@ -19,7 +19,6 @@ body {
     margin: 0px;
     padding: 0px;
     /* overflow: hidden; */
-    /* background-color: pink; */
 }
 
 #container {
@@ -27,7 +26,6 @@ body {
     flex-direction: column;
     height: 100%;
     margin: 0px;
-    /* background-color: blue; */
     padding: 0px;
 }
 
@@ -37,7 +35,6 @@ body {
     margin: 0px;
     margin-top: calc(70px);
     padding: 0px;
-    /* background-color: red; */
 }
 
 #bodyContainer {
