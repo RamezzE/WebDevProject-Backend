@@ -170,6 +170,20 @@ body {
     color:rgb(182, 187, 191);
 }
 
+.dark .pagination div:hover {
+    background-color: #c5c5c5;
+    box-shadow: 0 1rem 2rem rgba(186, 186, 186, 0.3);
+}
 
+.dark .pagination div {
+    background-color:rgb(95, 95, 95) ;
+}
 
+.dark .pagination .currentPage {
+    background-color: rgb(228, 228, 228);
+    box-shadow: none;
+}
 
+.dark .pagination .currentPage a {
+    color: black;
+}
