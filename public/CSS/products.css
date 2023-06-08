@@ -127,6 +127,11 @@ body {
     box-shadow: 0 1rem 2rem rgba(48, 49, 53, 0.8);
 }
 
+.dark .extraButton:hover {
+    cursor: pointer;
+    box-shadow: 0 1rem 2rem rgba(145, 147, 153, 0.8);
+}
+
 .pagination {
     display: flex;
     flex-direction: row;
