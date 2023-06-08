@@ -71,13 +71,6 @@
 }
 
 @media (max-width: 600px) {
-    
-    /* .pagination {
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        margin: 10px;
-    } */
 
     .buttons {
         display: flex;
